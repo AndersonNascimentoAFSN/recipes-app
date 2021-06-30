@@ -1,0 +1,12 @@
+.footerStyle {
+  width: 360px;
+  margin: 0% -180px;
+  background: #ccc;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  position: fixed;
+  left: 50%;
+  bottom: 0%;
+  padding: 20px;
+}
