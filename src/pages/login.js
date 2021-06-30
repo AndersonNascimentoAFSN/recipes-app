@@ -1,70 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [button, setButton] = useState(true);
 
-    this.state = {
-      email: '',
-      password: '',
-      button: true,
-    };
-    this.validarEmail = this.validarEmail.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-    this.validarEmail();
-  }
-
-  validarEmail() {
-    const { email, password } = this.state;
-    const passwordSize = 5;
+  function validarEmail(receivedEmail, receivedPassword) {
+    const passwordSize = 6;
     const re = /\S+@\S+\.\S+/;
-    if (re.test(email) && password.length >= passwordSize) {
-      this.setState({
-        button: false,
-      });
+    if (re.test(receivedEmail) && receivedPassword.length >= passwordSize) {
+      setButton(false);
     }
   }
-
-  render() {
-    const { email, password, button } = this.state;
-    return (
-      <div>
-        Login
-        <div>
-          <input
-            name="email"
-            type="text"
-            data-testid="email-input"
-            value={ email }
-            onChange={ this.handleChange }
-          />
-          <input
-            name="password"
-            type="password"
-            data-testid="password-input"
-            value={ password }
-            onChange={ this.handleChange }
-          />
-        </div>
-        <Link to="/comidas">
-          <button
-            data-testid="login-submit-btn"
-            disabled={ button }
-            type="button"
-          >
-            Entrar
-          </button>
-        </Link>
-      </div>
-    );
+  function handleChangeEmail({ target }) {
+    setEmail(target.value);
   }
+
+  function handleChangePassword({ target }) {
+    setPassword(target.value);
+    validarEmail(email, password);
+  }
+  function handleSubmit() {
+    const user = { email };
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  }
+
+  return (
+    <div>
+      <div>
+        <input
+          name="email"
+          type="text"
+          data-testid="email-input"
+          value={ email }
+          onChange={ handleChangeEmail }
+        />
+        <input
+          name="password"
+          type="password"
+          data-testid="password-input"
+          value={ password }
+          onChange={ handleChangePassword }
+        />
+      </div>
+      <Link to="/comidas">
+        <button
+          data-testid="login-submit-btn"
+          onClick={ handleSubmit }
+          disabled={ button }
+          type="button"
+        >
+          Entrar
+        </button>
+      </Link>
+    </div>
+  );
 }
+
 export default Login;
