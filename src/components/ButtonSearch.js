@@ -1,27 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBarContext from '../utils/context/SearchBarContext';
 
 export default function ButtonSearch() {
-  const [show, setShow] = useState(false);
-
-  const showHidenSearchBar = useCallback(() => {
-    const searchBar = document.getElementById('searchBar');
-    if (show === true) {
-      searchBar.classList.add('search__bar--show');
-      searchBar.classList.remove('search__bar--hiden');
-    } else {
-      searchBar.classList.add('search__bar--hiden');
-      searchBar.classList.remove('search__bar--show');
-    }
-  });
-
-  useEffect(() => {
-    showHidenSearchBar();
-  }, [showHidenSearchBar]);
+  const { setSearchBarShowHiden } = useContext(SearchBarContext);
 
   function handleHideShowSearchBar() {
-    setShow((o) => !o);
-    showHidenSearchBar();
+    setSearchBarShowHiden((o) => !o);
   }
 
   return (

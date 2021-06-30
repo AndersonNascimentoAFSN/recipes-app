@@ -1,7 +1,27 @@
+.search-bar {
+  align-items: center;
+  background: #ccc;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-top: 8px;
+  max-width: 360px;
+  padding: 20px;
+}
+
+.search__input {
+  width: 100%;
+}
+
 .search__bar--hiden {
   display: none;
 }
 
 .search__bar--show {
   display: block;
+}
+
+.searchBar__inputs {
+  display: flex;
+  justify-content: space-between;
 }
