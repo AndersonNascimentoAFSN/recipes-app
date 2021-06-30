@@ -22,7 +22,10 @@ function SearchBar() {
         radioGroup="search-radio"
         data-testid="first-letter-search-radio"
       />
-      <button data-testid="exec-search-btn">
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+      >
         Buscar
       </button>
     </section>
