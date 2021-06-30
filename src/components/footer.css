@@ -1,12 +1,12 @@
 .footerStyle {
   align-items: center;
   background: #ccc;
-  margin: 0% -180px;
-  width: 360px;
+  bottom: 0%;
   display: flex;
   justify-content: space-between;
-  bottom: 0%;
   left: 50%;
-  position: fixed;
+  margin: 0% -180px;
   padding: 20px;
+  position: fixed;
+  width: 360px;
 }
