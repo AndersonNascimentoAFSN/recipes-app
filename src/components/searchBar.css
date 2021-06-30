@@ -1,0 +1,7 @@
+.search__bar--hiden {
+  display: none;
+}
+
+.search__bar--show {
+  display: block;
+}
