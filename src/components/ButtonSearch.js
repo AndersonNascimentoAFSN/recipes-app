@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import searchIcon from '../images/searchIcon.svg';
-import SearchBarContext from '../utils/context/SearchBarContext';
+import useSearchBarShowHide from '../hooks/useSearchBarShowHide';
+import { searchBarShowHide } from '../utils/AppContext';
 
 export default function ButtonSearch() {
-  const { setSearchBarShowHiden } = useContext(SearchBarContext);
+  const { appDispatch } = useSearchBarShowHide();
 
   function handleHideShowSearchBar() {
-    setSearchBarShowHiden((o) => !o);
+    appDispatch(searchBarShowHide());
   }
 
   return (

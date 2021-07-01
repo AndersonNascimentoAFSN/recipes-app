@@ -1,14 +1,17 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom';
-import SearchBarProvider from './utils/context/SearchBarProvider';
+// import SearchBarProvider from './utils/context/SearchBarProvider';
+import { AppProvider } from './utils/AppContext';
 import App from './App';
 
 ReactDOM.render(
-  <SearchBarProvider>
+  // <SearchBarProvider>
+  <AppProvider>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </SearchBarProvider>,
+  </AppProvider>,
+  // </SearchBarProvider>,
   document.getElementById('root'),
 );
