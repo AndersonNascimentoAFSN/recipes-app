@@ -9,12 +9,13 @@ export default function RecipesFoods() {
   const { filters, fetchMeals, foodData } = useContext(RecipeContext);
 
   useEffect(() => {
+    console.log('atualizou os filtros')
     if (filters.parameter !== '') {
       fetchMeals();
     }
   }, [filters]);
 
-  if (foodData.length === 1) return <Redirect to={`/comidas/${foodData[0].idMeal}`}/>
+  if (foodData && foodData.length === 1) return <Redirect to={`/comidas/${foodData[0].idMeal}`}/>
 
   return (
     <div>

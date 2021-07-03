@@ -14,7 +14,10 @@ function RecipeProvider({ children }) {
   async function fetchMeals() {
     const { parameter, search } = filters;
     const { meals } = await getMeals(parameter, search);
-    console.log(meals);
+    if (meals === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      setFoodData([]);
+    }
     setFoodData(meals);
   }
 
@@ -31,6 +34,7 @@ function RecipeProvider({ children }) {
     setFilters,
     drinkData,
     foodData,
+    setFoodData,
   };
 
   return (

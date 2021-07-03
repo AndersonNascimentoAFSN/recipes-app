@@ -10,7 +10,7 @@ function SearchBar() {
 
   function handleSearch() {
     if (searchParameter === 'first-letter' && searchText.length > 1) {
-      alert('Pesquisa inválida, digite apenas uma letra');
+      alert('Sua busca deve conter somente 1 (um) caracter');
       return;
     }
 
