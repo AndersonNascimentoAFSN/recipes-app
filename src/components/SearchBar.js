@@ -13,7 +13,7 @@ function SearchBar() {
       alert('Pesquisa inválida, digite apenas uma letra');
       return;
     }
-    
+
     setFilters({
       search: searchText,
       parameter: searchParameter,
@@ -26,7 +26,7 @@ function SearchBar() {
         type="text"
         data-testid="search-input"
         value={ searchText }
-        onChange={ ({target}) => setSearchText(target.value) }
+        onChange={ ({ target }) => setSearchText(target.value) }
       />
       { inputsContent.map((input) => (
         <label htmlFor={ input.testid }>
@@ -37,7 +37,7 @@ function SearchBar() {
             name="search-radio"
             data-testid={ input.testid }
             value={ input.value }
-            onChange={ ({target}) => setSearchParameter(target.value) }
+            onChange={ ({ target }) => setSearchParameter(target.value) }
           />
         </label>
       )) }

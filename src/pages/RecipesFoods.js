@@ -12,7 +12,7 @@ export default function RecipesFoods() {
       fetchMeals();
     }
   }, [filters]);
-  
+
   return (
     <div>
       <Header title="Comidas">
@@ -22,7 +22,7 @@ export default function RecipesFoods() {
       {foodData && foodData.map((food) => (
         <h3>{ food.strMeal }</h3>
       ))}
-      
+
     </div>
   );
 }

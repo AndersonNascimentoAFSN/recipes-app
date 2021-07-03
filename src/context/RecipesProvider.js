@@ -6,10 +6,10 @@ function RecipeProvider({ children }) {
   const filtersInitialState = {
     parameter: '',
     search: '',
-  }
-  const [ filters, setFilters ] = useState(filtersInitialState);
-  const [ drinkData, setDrinkData ] = useState([]);
-  const [ foodData, setFoodData ] = useState([]);
+  };
+  const [filters, setFilters] = useState(filtersInitialState);
+  const [drinkData, setDrinkData] = useState([]);
+  const [foodData, setFoodData] = useState([]);
 
   async function fetchMeals() {
     const { parameter, search } = filters;
@@ -32,9 +32,9 @@ function RecipeProvider({ children }) {
     drinkData,
     foodData,
   };
-  
+
   return (
-    <RecipeContext.Provider value={{ ...consumer }}>
+    <RecipeContext.Provider value={ { ...consumer } }>
       { children }
     </RecipeContext.Provider>
   );

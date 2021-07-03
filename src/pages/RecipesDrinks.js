@@ -12,7 +12,7 @@ export default function RecipesDrinks() {
       fetchCocktails();
     }
   }, [filters]);
-  
+
   return (
     <div>
       <Header title="Bebidas">
