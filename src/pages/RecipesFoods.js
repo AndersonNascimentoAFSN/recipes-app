@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import ButtonSearch from '../components/ButtonSearch';
 import SearchBar from '../components/SearchBar';
@@ -12,6 +13,8 @@ export default function RecipesFoods() {
       fetchMeals();
     }
   }, [filters]);
+
+  if (foodData.length === 1) return <Redirect to={`/comidas/${foodData[0].idMeal}`}/>
 
   return (
     <div>
