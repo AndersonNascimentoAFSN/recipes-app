@@ -24,6 +24,10 @@ function RecipeProvider({ children }) {
   async function fetchCocktails() {
     const { parameter, search } = filters;
     const { drinks } = await getCocktails(parameter, search);
+    if (drinks === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      setDrinkData([]);
+    }
     setDrinkData(drinks);
   }
 
