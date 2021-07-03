@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import ButtonSearch from '../components/ButtonSearch';
 import SearchBar from '../components/SearchBar';
 import RecipeContext from '../context/RecipesContext';
+import { Redirect } from 'react-router-dom';
 
 export default function RecipesDrinks() {
   const { filters, fetchCocktails, drinkData } = useContext(RecipeContext);
@@ -12,6 +13,8 @@ export default function RecipesDrinks() {
       fetchCocktails();
     }
   }, [filters]);
+
+  if (drinkData && drinkData.length === 1) return <Redirect to={`/bebidas/${drinkData[0].idDrink}`}/>
 
   return (
     <div>
