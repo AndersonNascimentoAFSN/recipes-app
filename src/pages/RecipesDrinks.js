@@ -5,6 +5,7 @@ import ButtonSearch from '../components/ButtonSearch';
 import SearchBar from '../components/SearchBar';
 import RecipeContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
+import Footer from '../components/Footer';
 
 export default function RecipesDrinks() {
   const { filters, fetchCocktails, drinkData } = useContext(RecipeContext);
@@ -33,7 +34,7 @@ export default function RecipesDrinks() {
           thumbnail={ drink.strDrinkThumb }
         />
       ))}
-
+      <Footer />
     </div>
   );
 }
