@@ -21,7 +21,7 @@ export default function RecipesDrinks() {
   if (drinkData && drinkData.length === 1) {
     return <Redirect to={ `/bebidas/${drinkData[0].idDrink}` } />;
   }
-  
+
   return (
     <div>
       <Header title="Bebidas">
