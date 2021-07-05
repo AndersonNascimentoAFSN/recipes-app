@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { element } from 'prop-types';
 import RecipeContext from './RecipesContext';
 import { getMeals, getCocktails } from '../services/api';
 
@@ -10,6 +11,7 @@ function RecipeProvider({ children }) {
   const [filters, setFilters] = useState(filtersInitialState);
   const [drinkData, setDrinkData] = useState([]);
   const [foodData, setFoodData] = useState([]);
+  const maxObjRetrieve = 12;
 
   async function fetchMeals() {
     const { parameter, search } = filters;
@@ -17,6 +19,11 @@ function RecipeProvider({ children }) {
     if (meals === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       setFoodData([]);
+      return;
+    }
+    if (meals.length > maxObjRetrieve) {
+      setFoodData(meals.slice(0, maxObjRetrieve));
+      return;
     }
     setFoodData(meals);
   }
@@ -27,6 +34,11 @@ function RecipeProvider({ children }) {
     if (drinks === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       setDrinkData([]);
+      return;
+    }
+    if (drinks.length > maxObjRetrieve) {
+      setDrinkData(drinks.slice(0, maxObjRetrieve));
+      return;
     }
     setDrinkData(drinks);
   }
@@ -47,5 +59,9 @@ function RecipeProvider({ children }) {
     </RecipeContext.Provider>
   );
 }
+
+RecipeProvider.propTypes = {
+  children: element.isRequired,
+};
 
 export default RecipeProvider;

@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import ButtonSearch from '../components/ButtonSearch';
 import SearchBar from '../components/SearchBar';
 import RecipeContext from '../context/RecipesContext';
-import { Redirect } from 'react-router-dom';
+import RecipeCard from '../components/RecipeCard';
 
 export default function RecipesDrinks() {
   const { filters, fetchCocktails, drinkData } = useContext(RecipeContext);
@@ -14,7 +15,9 @@ export default function RecipesDrinks() {
     }
   }, [filters]);
 
-  if (drinkData && drinkData.length === 1) return <Redirect to={`/bebidas/${drinkData[0].idDrink}`}/>
+  if (drinkData && drinkData.length === 1) {
+    return <Redirect to={ `/bebidas/${drinkData[0].idDrink}` } />;
+  }
 
   return (
     <div>
@@ -22,8 +25,13 @@ export default function RecipesDrinks() {
         <ButtonSearch />
         <SearchBar />
       </Header>
-      {drinkData && drinkData.map((drink) => (
-        <h3>{ drink.strDrink }</h3>
+      {drinkData && drinkData.map((drink, index) => (
+        <RecipeCard
+          key={ index }
+          index={ index }
+          name={ drink.strDrink }
+          thumbnail={ drink.strDrinkThumb }
+        />
       ))}
 
     </div>

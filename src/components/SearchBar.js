@@ -28,8 +28,8 @@ function SearchBar() {
         value={ searchText }
         onChange={ ({ target }) => setSearchText(target.value) }
       />
-      { inputsContent.map((input) => (
-        <label htmlFor={ input.testid }>
+      { inputsContent.map((input, index) => (
+        <label key={ index } htmlFor={ input.testid }>
           { input.label }
           <input
             type="radio"
