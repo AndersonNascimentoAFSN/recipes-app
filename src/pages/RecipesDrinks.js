@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import ButtonSearch from '../components/ButtonSearch';
+import Footer from '../components/Footer';
 
 export default function RecipesDrinks() {
   return (
@@ -8,6 +9,7 @@ export default function RecipesDrinks() {
       <Header title="Bebidas">
         <ButtonSearch />
       </Header>
+      <Footer />
     </div>
   );
 }
