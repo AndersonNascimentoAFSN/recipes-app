@@ -1,4 +1,4 @@
-export async function getMeals(param, search) {
+export async function getMeals(param, search = '') {
   switch (param) {
   case 'name':
     return (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`)).json();
@@ -11,7 +11,7 @@ export async function getMeals(param, search) {
   }
 }
 
-export async function getCocktails(param, search) {
+export async function getCocktails(param, search = '') {
   switch (param) {
   case 'name':
     return (await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`)).json();

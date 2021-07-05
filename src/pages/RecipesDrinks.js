@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import ButtonSearch from '../components/ButtonSearch';
@@ -7,10 +7,13 @@ import useSearchBarShowHide from '../hooks/useSearchBarShowHide';
 import RecipeContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
+import { getCocktails } from '../services/api';
+import RecipesCards from '../components/RecipesCards';
 
 export default function RecipesDrinks() {
   const { filters, fetchCocktails, drinkData } = useContext(RecipeContext);
   const { appData: { showHide } } = useSearchBarShowHide();
+  const [recipesCocktails, setRecipesCocktails] = useState([]);
 
   useEffect(() => {
     if (filters.parameter !== '') {
@@ -18,10 +21,24 @@ export default function RecipesDrinks() {
     }
   }, [filters]);
 
+  useEffect(() => {
+    getCocktails('name')
+      .then((data) => {
+        const quantityRecipes = 12;
+        const arrayRecipes = data.drinks.map((drink) => ({
+          idRecipes: drink.idDrink,
+          strRecipes: drink.strDrink,
+          strRecipesThumb: drink.strDrinkThumb,
+        }));
+        const recipes = arrayRecipes.filter((_, index) => index < quantityRecipes);
+        setRecipesCocktails(recipes);
+      });
+  }, []);
+
   if (drinkData && drinkData.length === 1) {
     return <Redirect to={ `/bebidas/${drinkData[0].idDrink}` } />;
   }
-  
+
   return (
     <div>
       <Header title="Bebidas">
@@ -36,6 +53,8 @@ export default function RecipesDrinks() {
           thumbnail={ drink.strDrinkThumb }
         />
       ))}
+
+      <RecipesCards recipes={ recipesCocktails } />
       <Footer />
     </div>
   );
