@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import ButtonSearch from '../components/ButtonSearch';
 import SearchBar from '../components/SearchBar';
 import useSearchBarShowHide from '../hooks/useSearchBarShowHide';
+import Footer from '../components/Footer';
 
 export default function RecipesFoods() {
   const { appData: { showHide } } = useSearchBarShowHide();
@@ -12,6 +13,7 @@ export default function RecipesFoods() {
         <ButtonSearch />
       </Header>
       { showHide && <SearchBar /> }
+      <Footer />
     </div>
   );
 }
