@@ -1,52 +1,50 @@
-import React from 'react';
-import './searchBar.css';
+import React, { useContext, useState } from 'react';
+import RecipeContext from '../context/RecipesContext';
+import inputsContent from '../utils/searchBarInputsContent';
 
 function SearchBar() {
+  const [searchText, setSearchText] = useState('');
+  const [searchParameter, setSearchParameter] = useState('');
+
+  const { setFilters } = useContext(RecipeContext);
+
+  function handleSearch() {
+    if (searchParameter === 'first-letter' && searchText.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+      return;
+    }
+
+    setFilters({
+      search: searchText,
+      parameter: searchParameter,
+    });
+  }
+
   return (
-    <section className="search-bar" id="search-bar">
+    <section className="search-bar">
       <input
         type="text"
         data-testid="search-input"
-        id="search-input"
-        className="search__input"
+        value={ searchText }
+        onChange={ ({ target }) => setSearchText(target.value) }
       />
-      <div className="searchBar__inputs">
-        <label htmlFor="ingredient-search-radio">
-          Ingrediente
+      { inputsContent.map((input, index) => (
+        <label key={ index } htmlFor={ input.testid }>
+          { input.label }
           <input
             type="radio"
-            radioGroup="search-radio"
-            data-testid="ingredient-search-radio"
-            id="ingredient-search-radio"
+            id={ input.testid }
             name="search-radio"
+            data-testid={ input.testid }
+            value={ input.value }
+            onChange={ ({ target }) => setSearchParameter(target.value) }
           />
         </label>
-
-        <label htmlFor="name-search-radio">
-          Nome
-          <input
-            type="radio"
-            radioGroup="search-radio"
-            data-testid="name-search-radio"
-            id="name-search-radio"
-            name="search-radio"
-          />
-        </label>
-
-        <label htmlFor="first-letter-search-radio">
-          Primeira letra
-          <input
-            type="radio"
-            radioGroup="search-radio"
-            data-testid="first-letter-search-radio"
-            id="first-letter-search-radio"
-            name="search-radio"
-          />
-        </label>
-      </div>
+      )) }
       <button
         type="button"
         data-testid="exec-search-btn"
+        onClick={ () => handleSearch() }
       >
         Buscar
       </button>
