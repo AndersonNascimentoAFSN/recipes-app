@@ -3,12 +3,14 @@ import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import ButtonSearch from '../components/ButtonSearch';
 import SearchBar from '../components/SearchBar';
+import useSearchBarShowHide from '../hooks/useSearchBarShowHide';
 import RecipeContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
 
 export default function RecipesFoods() {
   const { filters, fetchMeals, foodData } = useContext(RecipeContext);
+  const { appData: { showHide } } = useSearchBarShowHide();
 
   useEffect(() => {
     console.log('atualizou os filtros');
@@ -25,7 +27,7 @@ export default function RecipesFoods() {
     <div>
       <Header title="Comidas">
         <ButtonSearch />
-        <SearchBar />
+        { showHide && <SearchBar /> }
       </Header>
       {foodData && foodData.map((food, index) => (
         <RecipeCard
