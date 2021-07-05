@@ -21,7 +21,7 @@ import RecipesFoodsInProgress from '../pages/RecipesFoodsInProgress';
 function Routes() {
   return (
     <Switch>
-      <Route exact path="/comida/:id" component={ RecipesFoodsDetails } />
+      <Route exact path="/comidas/:id" component={ RecipesFoodsDetails } />
       <Route exact path="/bebidas/:id" component={ RecipesDrinksDetails } />
       <Route exact path="/comidas" component={ RecipesFoods } />
       <Route exact path="/bebidas" component={ RecipesDrinks } />
