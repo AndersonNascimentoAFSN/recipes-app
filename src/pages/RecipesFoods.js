@@ -9,6 +9,8 @@ import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
 import { getMeals } from '../services/api';
 import RecipesCards from '../components/RecipesCards';
+import RecipesCategoryFilters from '../components/RecipesCategoryFilters';
+import './recipesFood.css';
 
 export default function RecipesFoods() {
   const { filters, fetchMeals, foodData } = useContext(RecipeContext);
@@ -41,7 +43,7 @@ export default function RecipesFoods() {
   }
   console.log(recipesMeals);
   return (
-    <div>
+    <div className="recipesFood__Container">
       <Header title="Comidas">
         <ButtonSearch />
         { showHide && <SearchBar /> }
@@ -55,6 +57,7 @@ export default function RecipesFoods() {
         />
       ))}
       <RecipesCards recipes={ recipesMeals } />
+      {/* <RecipesCategoryFilters typeRecipes="meals" /> */}
       <Footer />
     </div>
   );

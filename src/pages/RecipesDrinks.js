@@ -9,6 +9,7 @@ import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
 import { getCocktails } from '../services/api';
 import RecipesCards from '../components/RecipesCards';
+import RecipesCategoryFilters from '../components/RecipesCategoryFilters';
 
 export default function RecipesDrinks() {
   const { filters, fetchCocktails, drinkData } = useContext(RecipeContext);
@@ -55,6 +56,7 @@ export default function RecipesDrinks() {
       ))}
 
       <RecipesCards recipes={ recipesCocktails } />
+      <RecipesCategoryFilters typeRecipes="drinks" />
       <Footer />
     </div>
   );

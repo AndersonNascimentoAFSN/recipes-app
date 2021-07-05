@@ -23,3 +23,21 @@ export async function getCocktails(param, search = '') {
     return [];
   }
 }
+
+function getURLCategories(typeRecipes) {
+  switch (typeRecipes) {
+  case 'meals':
+    return 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  case 'drinks':
+    return 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  default:
+    return '';
+  }
+}
+
+export async function getCategories(typeRecipes) {
+  const url = getURLCategories(typeRecipes);
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+}
