@@ -3,10 +3,33 @@ import './mealsCards.css';
 import useSearchRecipes from '../hooks/useSearchRecipes';
 
 export default function MealsCard() {
-  const { recipesSearch } = useSearchRecipes();
+  const {
+    recipesSearch,
+    recipesSearcBycategory,
+    filterActiveButtons,
+    /* filterActiveButton0,
+    filterActiveButton1,
+    filterActiveButton2,
+    filterActiveButton3,
+    filterActiveButton4 */ } = useSearchRecipes();
+  /* const arrayButtonState = [
+    filterActiveButton0,
+    filterActiveButton1,
+    filterActiveButton2,
+    filterActiveButton3,
+    filterActiveButton4]; */
+  const arrayButtonState = Object.values(filterActiveButtons);
+  const filterActive = arrayButtonState.some((button) => button === true);
+  let arrayRender = [];
+  if (filterActive) {
+    arrayRender = recipesSearcBycategory;
+  } else {
+    arrayRender = recipesSearch;
+  }
+  console.log(arrayRender);
   return (
     <div className="mealsCards__container">
-      {recipesSearch.map(({ idRecipes, strRecipes, strRecipesThumb }, index) => (
+      {arrayRender.map(({ idRecipes, strRecipes, strRecipesThumb }, index) => (
         <div
           key={ idRecipes }
           data-testid={ `${index}-recipe-card` }

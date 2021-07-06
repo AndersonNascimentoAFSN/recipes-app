@@ -12,6 +12,14 @@ function RecipeProvider({ children }) {
   const [drinkData, setDrinkData] = useState([]);
   const [foodData, setFoodData] = useState([]);
   const [recipesSearch, setRecipesSearch] = useState([]);
+  const [recipesSearcBycategory, setRecipesSearcBycategory] = useState([]);
+  const [filterActiveButtons, setFilterActiveButtons] = useState({
+    button0: false,
+    button1: false,
+    button2: false,
+    button3: false,
+    button4: false,
+  });
   const maxObjRetrieve = 12;
 
   async function fetchMeals() {
@@ -54,6 +62,10 @@ function RecipeProvider({ children }) {
     setFoodData,
     recipesSearch,
     setRecipesSearch,
+    recipesSearcBycategory,
+    setRecipesSearcBycategory,
+    filterActiveButtons,
+    setFilterActiveButtons,
   };
 
   return (
