@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './mealsCards.css';
+import useSearchRecipes from '../hooks/useSearchRecipes';
 
-export default function MealsCard({ recipes }) {
+export default function MealsCard() {
+  const { recipesSearch } = useSearchRecipes();
   return (
     <div className="mealsCards__container">
-      {recipes.map(({ idRecipes, strRecipes, strRecipesThumb }, index) => (
+      {recipesSearch.map(({ idRecipes, strRecipes, strRecipesThumb }, index) => (
         <div
           key={ idRecipes }
           data-testid={ `${index}-recipe-card` }
@@ -28,7 +29,3 @@ export default function MealsCard({ recipes }) {
     </div>
   );
 }
-
-MealsCard.propTypes = {
-  recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
-};

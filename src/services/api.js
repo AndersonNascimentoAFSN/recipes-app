@@ -41,3 +41,19 @@ export async function getCategories(typeRecipes) {
   const data = await response.json();
   return data;
 }
+function getURLSearchByCategory(typeRecipes, category) {
+  switch (typeRecipes) {
+  case 'meals':
+    return `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+  case 'drinks':
+    return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+  default:
+    return '';
+  }
+}
+export async function getSearchByCategory(typeRecipes, category) {
+  const url = getURLSearchByCategory(typeRecipes, category);
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+}
