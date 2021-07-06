@@ -57,7 +57,7 @@ export default function RecipesFoods() {
         />
       ))}
       <RecipesCards recipes={ recipesMeals } />
-      {/* <RecipesCategoryFilters typeRecipes="meals" /> */}
+      <RecipesCategoryFilters typeRecipes="meals" />
       <Footer />
     </div>
   );
