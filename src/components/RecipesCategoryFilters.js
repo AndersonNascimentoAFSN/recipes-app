@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getCategories, getSearchByCategory } from '../services/api';
 import useSearchRecipes from '../hooks/useSearchRecipes';
+import './recipesCategoryFilters.css';
 
 export default function RecipesCategoryFilters({ typeRecipes }) {
   const [recipesCategories, setRecipesCategories] = useState([]);
@@ -44,13 +45,14 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
       });
   }
   return (
-    <div>
+    <div className="recipesCategoryFilters__containers">
       {recipesCategories.map(({ strCategory }, index) => (
         <button
           key={ index }
           type="button"
           data-testid={ `${strCategory}-category-filter` }
           onClick={ handleClick }
+          className="recipesCategoryFilters__button"
         >
           {strCategory}
         </button>

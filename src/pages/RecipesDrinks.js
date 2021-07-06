@@ -56,8 +56,8 @@ export default function RecipesDrinks() {
         />
       ))}
 
-      <RecipesCards />
       <RecipesCategoryFilters typeRecipes="drinks" />
+      <RecipesCards />
       <Footer />
     </div>
   );
