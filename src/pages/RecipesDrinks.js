@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import ButtonSearch from '../components/ButtonSearch';
@@ -10,11 +10,12 @@ import Footer from '../components/Footer';
 import { getCocktails } from '../services/api';
 import RecipesCards from '../components/RecipesCards';
 import RecipesCategoryFilters from '../components/RecipesCategoryFilters';
+import useSearchRecipes from '../hooks/useSearchRecipes';
 
 export default function RecipesDrinks() {
   const { filters, fetchCocktails, drinkData } = useContext(RecipeContext);
   const { appData: { showHide } } = useSearchBarShowHide();
-  const [recipesCocktails, setRecipesCocktails] = useState([]);
+  const { setRecipesSearch } = useSearchRecipes();
 
   useEffect(() => {
     if (filters.parameter !== '') {
@@ -32,7 +33,7 @@ export default function RecipesDrinks() {
           strRecipesThumb: drink.strDrinkThumb,
         }));
         const recipes = arrayRecipes.filter((_, index) => index < quantityRecipes);
-        setRecipesCocktails(recipes);
+        setRecipesSearch(recipes);
       });
   }, []);
 
@@ -55,7 +56,7 @@ export default function RecipesDrinks() {
         />
       ))}
 
-      <RecipesCards recipes={ recipesCocktails } />
+      <RecipesCards />
       <RecipesCategoryFilters typeRecipes="drinks" />
       <Footer />
     </div>

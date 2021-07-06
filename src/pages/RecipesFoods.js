@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import ButtonSearch from '../components/ButtonSearch';
@@ -11,11 +11,12 @@ import { getMeals } from '../services/api';
 import RecipesCards from '../components/RecipesCards';
 import RecipesCategoryFilters from '../components/RecipesCategoryFilters';
 import './recipesFood.css';
+import useSearchRecipes from '../hooks/useSearchRecipes';
 
 export default function RecipesFoods() {
   const { filters, fetchMeals, foodData } = useContext(RecipeContext);
   const { appData: { showHide } } = useSearchBarShowHide();
-  const [recipesMeals, setRecipesMeals] = useState([]);
+  const { setRecipesSearch, recipesSearch } = useSearchRecipes();
 
   useEffect(() => {
     getMeals('name')
@@ -27,7 +28,8 @@ export default function RecipesFoods() {
           strRecipesThumb: meal.strMealThumb,
         }));
         const recipes = arrayRecipes.filter((_, index) => index < quantityRecipes);
-        setRecipesMeals(recipes);
+        setRecipesSearch(recipes);
+        console.log(recipesSearch);
       });
   }, []);
 
@@ -41,7 +43,7 @@ export default function RecipesFoods() {
   if (foodData && foodData.length === 1) {
     return <Redirect to={ `/comidas/${foodData[0].idMeal}` } />;
   }
-  console.log(recipesMeals);
+
   return (
     <div className="recipesFood__Container">
       <Header title="Comidas">
@@ -56,7 +58,8 @@ export default function RecipesFoods() {
           thumbnail={ food.strMealThumb }
         />
       ))}
-      <RecipesCards recipes={ recipesMeals } />
+
+      <RecipesCards />
       <RecipesCategoryFilters typeRecipes="meals" />
       <Footer />
     </div>
