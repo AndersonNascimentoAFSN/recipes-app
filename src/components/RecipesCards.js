@@ -6,18 +6,7 @@ export default function MealsCard() {
   const {
     recipesSearch,
     recipesSearcBycategory,
-    filterActiveButtons,
-    /* filterActiveButton0,
-    filterActiveButton1,
-    filterActiveButton2,
-    filterActiveButton3,
-    filterActiveButton4 */ } = useSearchRecipes();
-  /* const arrayButtonState = [
-    filterActiveButton0,
-    filterActiveButton1,
-    filterActiveButton2,
-    filterActiveButton3,
-    filterActiveButton4]; */
+    filterActiveButtons } = useSearchRecipes();
   const arrayButtonState = Object.values(filterActiveButtons);
   const filterActive = arrayButtonState.some((button) => button === true);
   let arrayRender = [];
@@ -26,7 +15,6 @@ export default function MealsCard() {
   } else {
     arrayRender = recipesSearch;
   }
-  console.log(arrayRender);
   return (
     <div className="mealsCards__container">
       {arrayRender.map(({ idRecipes, strRecipes, strRecipesThumb }, index) => (
