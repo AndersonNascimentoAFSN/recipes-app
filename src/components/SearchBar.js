@@ -10,7 +10,7 @@ function SearchBar() {
 
   function handleSearch() {
     if (searchParameter === 'first-letter' && searchText.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      global.alert('Sua busca deve conter somente 1 (um) caracter');
       return;
     }
 

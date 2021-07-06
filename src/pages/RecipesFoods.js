@@ -16,7 +16,7 @@ import useSearchRecipes from '../hooks/useSearchRecipes';
 export default function RecipesFoods() {
   const { filters, fetchMeals, foodData } = useContext(RecipeContext);
   const { appData: { showHide } } = useSearchBarShowHide();
-  const { setRecipesSearch, recipesSearch } = useSearchRecipes();
+  const { setRecipesSearch } = useSearchRecipes();
 
   useEffect(() => {
     getMeals('name')
@@ -29,16 +29,15 @@ export default function RecipesFoods() {
         }));
         const recipes = arrayRecipes.filter((_, index) => index < quantityRecipes);
         setRecipesSearch(recipes);
-        console.log(recipesSearch);
       });
-  }, []);
+  }, [setRecipesSearch]);
 
   useEffect(() => {
     console.log('atualizou os filtros');
     if (filters.parameter !== '') {
       fetchMeals();
     }
-  }, [filters]);
+  }, [filters, fetchMeals]);
 
   if (foodData && foodData.length === 1) {
     return <Redirect to={ `/comidas/${foodData[0].idMeal}` } />;

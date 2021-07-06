@@ -18,7 +18,7 @@ function RecipeProvider({ children }) {
     const { parameter, search } = filters;
     const { meals } = await getMeals(parameter, search);
     if (meals === null) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       setFoodData([]);
       return;
     }
@@ -33,7 +33,7 @@ function RecipeProvider({ children }) {
     const { parameter, search } = filters;
     const { drinks } = await getCocktails(parameter, search);
     if (drinks === null) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       setDrinkData([]);
       return;
     }

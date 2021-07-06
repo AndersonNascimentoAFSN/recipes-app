@@ -21,7 +21,7 @@ export default function RecipesDrinks() {
     if (filters.parameter !== '') {
       fetchCocktails();
     }
-  }, [filters]);
+  }, [filters, fetchCocktails]);
 
   useEffect(() => {
     getCocktails('name')
@@ -35,7 +35,7 @@ export default function RecipesDrinks() {
         const recipes = arrayRecipes.filter((_, index) => index < quantityRecipes);
         setRecipesSearch(recipes);
       });
-  }, []);
+  }, [setRecipesSearch]);
 
   if (drinkData && drinkData.length === 1) {
     return <Redirect to={ `/bebidas/${drinkData[0].idDrink}` } />;
