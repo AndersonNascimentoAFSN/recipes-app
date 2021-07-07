@@ -29,3 +29,9 @@ export async function getMealByID(id) {
   const results = await fetch(`${endpoint}${id}`).then((response) => response.json());
   return results.meals[0];
 }
+
+export async function getDrinkByID(id) {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+  const results = await fetch(`${endpoint}${id}`).then((response) => response.json());
+  return results.drinks[0];
+}
