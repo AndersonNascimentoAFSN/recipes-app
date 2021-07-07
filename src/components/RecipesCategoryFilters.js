@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getCategories, getCocktails, getMeals } from '../services/api';
+import { getCategories } from '../services/api';
 import useRecipesContext from '../hooks/useRecipesContext';
 import './recipesCategoryFilters.css';
 
@@ -17,37 +17,12 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
     });
   }, [typeRecipes]);
 
-  // function arrayRecipesAllCategories(ApiResponseAllCategories) {
+  // function handleClickButtonAll() {
   //   if (typeRecipes === 'meals') {
-  //     return ApiResponseAllCategories[typeRecipes].map((recipe) => ({
-  //       idRecipes: recipe.idMeal,
-  //       strRecipes: recipe.strMeal,
-  //       strRecipesThumb: recipe.strMealThumb,
-  //     }));
   //   }
   //   if (typeRecipes === 'drinks') {
-  //     return ApiResponseAllCategories[typeRecipes].map((recipe) => ({
-  //       idRecipes: recipe.idDrink,
-  //       strRecipes: recipe.strDrink,
-  //       strRecipesThumb: recipe.strDrinkThumb,
-  //     }));
   //   }
   // }
-
-  function handleClickButtonAll() {
-    if (typeRecipes === 'meals') {
-      // getMeals('name').then((data) => {
-      //   const arrayRecipes = arrayRecipesAllCategories(data);
-      //   setRecipesSearcBycategory(arrayRecipes);
-      // });
-    }
-    if (typeRecipes === 'drinks') {
-      // getCocktails('name').then((data) => {
-      //   const arrayRecipes = arrayRecipesAllCategories(data);
-      //   setRecipesSearcBycategory(arrayRecipes);
-      // });
-    }
-  }
 
   function handleClick({ target }) {
     const { textContent } = target;
@@ -55,7 +30,6 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
       search: textContent,
       parameter: 'category',
     };
-    console.log(filter);
     switch (typeRecipes) {
     case 'meals':
       setFilters(filter);
