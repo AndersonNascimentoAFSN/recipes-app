@@ -14,18 +14,18 @@ export default function RecipesFoods() {
   const { setFilters, filters, fetchMeals, foodData } = useContext(RecipeContext);
   const { appData: { showHide } } = useSearchBarShowHide();
 
-  useEffect(() => {
-    setFilters(
-      { parameter: 'name',
-        search: '',
-      },
-    );
-  }, [setFilters]);
+  // useEffect(() => {
+  //   setFilters(
+  //     { parameter: 'name',
+  //       search: '',
+  //     },
+  //   );
+  // }, [setFilters]);
 
   useEffect(() => {
-    if (filters.parameter !== '') {
-      fetchMeals();
-    }
+    // if (filters.parameter !== '') {
+    fetchMeals();
+    // }
   }, [filters]);
 
   const { parameter } = filters;

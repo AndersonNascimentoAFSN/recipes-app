@@ -5,7 +5,7 @@ import { getMeals, getCocktails } from '../services/api';
 
 function RecipeProvider({ children }) {
   const filtersInitialState = {
-    parameter: '',
+    parameter: 'name',
     search: '',
   };
   const [filters, setFilters] = useState(filtersInitialState);
