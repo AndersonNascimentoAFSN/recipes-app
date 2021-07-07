@@ -56,7 +56,7 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
       ))}
       <button
         type="button"
-        onClick={ handleClickButtonAll }
+        // onClick={ handleClickButtonAll }
       >
         All
       </button>
