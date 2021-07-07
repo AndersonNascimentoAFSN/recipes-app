@@ -7,38 +7,29 @@ import useSearchBarShowHide from '../hooks/useSearchBarShowHide';
 import RecipeContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
-import { getMeals } from '../services/api';
-import RecipesCards from '../components/RecipesCards';
 import RecipesCategoryFilters from '../components/RecipesCategoryFilters';
 import './recipesFood.css';
-import useSearchRecipes from '../hooks/useSearchRecipes';
 
 export default function RecipesFoods() {
-  const { filters, fetchMeals, foodData } = useContext(RecipeContext);
+  const { setFilters, filters, fetchMeals, foodData } = useContext(RecipeContext);
   const { appData: { showHide } } = useSearchBarShowHide();
-  const { setRecipesSearch } = useSearchRecipes();
 
   useEffect(() => {
-    getMeals('name')
-      .then((data) => {
-        const quantityRecipes = 12;
-        const arrayRecipes = data.meals.map((meal) => ({
-          idRecipes: meal.idMeal,
-          strRecipes: meal.strMeal,
-          strRecipesThumb: meal.strMealThumb,
-        }));
-        const recipes = arrayRecipes.filter((_, index) => index < quantityRecipes);
-        setRecipesSearch(recipes);
-      });
-  }, [setRecipesSearch]);
+    setFilters(
+      { parameter: 'name',
+        search: '',
+      },
+    );
+  }, [setFilters]);
 
   useEffect(() => {
     if (filters.parameter !== '') {
       fetchMeals();
     }
-  }, [filters, fetchMeals]);
+  }, [filters]);
 
-  if (foodData && foodData.length === 1) {
+  const { parameter } = filters;
+  if (foodData && foodData.length === 1 && parameter !== 'category') {
     return <Redirect to={ `/comidas/${foodData[0].idMeal}` } />;
   }
 
@@ -48,17 +39,20 @@ export default function RecipesFoods() {
         <ButtonSearch />
         { showHide && <SearchBar /> }
       </Header>
-      {foodData && foodData.map((food, index) => (
-        <RecipeCard
-          key={ index }
-          index={ index }
-          name={ food.strMeal }
-          thumbnail={ food.strMealThumb }
-        />
-      ))}
 
       <RecipesCategoryFilters typeRecipes="meals" />
-      <RecipesCards />
+
+      <div className="recipeCards__container">
+        {foodData && foodData.map((food, index) => (
+          <RecipeCard
+            key={ index }
+            index={ index }
+            name={ food.strMeal }
+            thumbnail={ food.strMealThumb }
+          />
+        ))}
+      </div>
+
       <Footer />
     </div>
   );

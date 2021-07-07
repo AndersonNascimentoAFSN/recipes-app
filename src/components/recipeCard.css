@@ -1,4 +1,4 @@
-.mealsCards__container {
+/* .mealsCards__container {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
@@ -7,13 +7,13 @@
   max-height: calc(100vh - (52px + 60px + 25px + 32px));
   max-width: 360px;
   overflow-y: scroll;
-}
+} */
 
-.mealCard__img {
+.recipeCard__img {
   max-width: 162px;
 }
 
-.mealCard__title {
+.recipeCard__title {
   margin-bottom: 0;
   text-align: center;
 }

@@ -7,35 +7,25 @@ import useSearchBarShowHide from '../hooks/useSearchBarShowHide';
 import RecipeContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
-import { getCocktails } from '../services/api';
-import RecipesCards from '../components/RecipesCards';
 import RecipesCategoryFilters from '../components/RecipesCategoryFilters';
-import useSearchRecipes from '../hooks/useSearchRecipes';
 
 export default function RecipesDrinks() {
-  const { filters, fetchCocktails, drinkData } = useContext(RecipeContext);
+  const { filters, fetchCocktails, drinkData, setFilters } = useContext(RecipeContext);
   const { appData: { showHide } } = useSearchBarShowHide();
-  const { setRecipesSearch } = useSearchRecipes();
+
+  useEffect(() => {
+    setFilters(
+      { parameter: 'name',
+        search: '',
+      },
+    );
+  }, [setFilters]);
 
   useEffect(() => {
     if (filters.parameter !== '') {
       fetchCocktails();
     }
-  }, [filters, fetchCocktails]);
-
-  useEffect(() => {
-    getCocktails('name')
-      .then((data) => {
-        const quantityRecipes = 12;
-        const arrayRecipes = data.drinks.map((drink) => ({
-          idRecipes: drink.idDrink,
-          strRecipes: drink.strDrink,
-          strRecipesThumb: drink.strDrinkThumb,
-        }));
-        const recipes = arrayRecipes.filter((_, index) => index < quantityRecipes);
-        setRecipesSearch(recipes);
-      });
-  }, [setRecipesSearch]);
+  }, [filters]);
 
   if (drinkData && drinkData.length === 1) {
     return <Redirect to={ `/bebidas/${drinkData[0].idDrink}` } />;
@@ -47,17 +37,20 @@ export default function RecipesDrinks() {
         <ButtonSearch />
         { showHide && <SearchBar /> }
       </Header>
-      {drinkData && drinkData.map((drink, index) => (
-        <RecipeCard
-          key={ index }
-          index={ index }
-          name={ drink.strDrink }
-          thumbnail={ drink.strDrinkThumb }
-        />
-      ))}
 
       <RecipesCategoryFilters typeRecipes="drinks" />
-      <RecipesCards />
+
+      <div className="recipeCards__container">
+        {drinkData && drinkData.map((drink, index) => (
+          <RecipeCard
+            key={ index }
+            index={ index }
+            name={ drink.strDrink }
+            thumbnail={ drink.strDrinkThumb }
+          />
+        ))}
+      </div>
+
       <Footer />
     </div>
   );

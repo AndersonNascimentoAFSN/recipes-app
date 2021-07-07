@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getCategories, getSearchByCategory } from '../services/api';
-import useSearchRecipes from '../hooks/useSearchRecipes';
+import { getCategories, getCocktails, getMeals } from '../services/api';
+import useRecipesContext from '../hooks/useRecipesContext';
 import './recipesCategoryFilters.css';
-import switchChangeStateButton from '../utils/switchChangeStateButton';
 
 export default function RecipesCategoryFilters({ typeRecipes }) {
   const [recipesCategories, setRecipesCategories] = useState([]);
-  const {
-    setRecipesSearcBycategory,
-    setFilterActiveButtons,
-  } = useSearchRecipes();
+  const { setFilters } = useRecipesContext();
 
   useEffect(() => {
     getCategories(typeRecipes).then((data) => {
@@ -21,33 +17,55 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
     });
   }, [typeRecipes]);
 
+  // function arrayRecipesAllCategories(ApiResponseAllCategories) {
+  //   if (typeRecipes === 'meals') {
+  //     return ApiResponseAllCategories[typeRecipes].map((recipe) => ({
+  //       idRecipes: recipe.idMeal,
+  //       strRecipes: recipe.strMeal,
+  //       strRecipesThumb: recipe.strMealThumb,
+  //     }));
+  //   }
+  //   if (typeRecipes === 'drinks') {
+  //     return ApiResponseAllCategories[typeRecipes].map((recipe) => ({
+  //       idRecipes: recipe.idDrink,
+  //       strRecipes: recipe.strDrink,
+  //       strRecipesThumb: recipe.strDrinkThumb,
+  //     }));
+  //   }
+  // }
+
+  function handleClickButtonAll() {
+    if (typeRecipes === 'meals') {
+      // getMeals('name').then((data) => {
+      //   const arrayRecipes = arrayRecipesAllCategories(data);
+      //   setRecipesSearcBycategory(arrayRecipes);
+      // });
+    }
+    if (typeRecipes === 'drinks') {
+      // getCocktails('name').then((data) => {
+      //   const arrayRecipes = arrayRecipesAllCategories(data);
+      //   setRecipesSearcBycategory(arrayRecipes);
+      // });
+    }
+  }
+
   function handleClick({ target }) {
     const { textContent } = target;
-    switchChangeStateButton(textContent, setFilterActiveButtons, recipesCategories);
-    getSearchByCategory(typeRecipes, textContent)
-      .then((data) => {
-        if (typeRecipes === 'meals') {
-          const arrayRecipes = data[typeRecipes].map((recipe) => ({
-            idRecipes: recipe.idMeal,
-            strRecipes: recipe.strMeal,
-            strRecipesThumb: recipe.strMealThumb,
-          }));
-          const quantityCategories = 12;
-          const categorySearch = arrayRecipes
-            .filter((_, index) => index < quantityCategories);
-          setRecipesSearcBycategory(categorySearch);
-        } else {
-          const arrayRecipes = data[typeRecipes].map((recipe) => ({
-            idRecipes: recipe.idDrink,
-            strRecipes: recipe.strDrink,
-            strRecipesThumb: recipe.strDrinkThumb,
-          }));
-          const quantityCategories = 12;
-          const categorySearch = arrayRecipes
-            .filter((_, index) => index < quantityCategories);
-          setRecipesSearcBycategory(categorySearch);
-        }
-      });
+    const filter = {
+      search: textContent,
+      parameter: 'category',
+    };
+    console.log(filter);
+    switch (typeRecipes) {
+    case 'meals':
+      setFilters(filter);
+      break;
+    case 'drinks':
+      setFilters(filter);
+      break;
+    default:
+      return '';
+    }
   }
   return (
     <div className="recipesCategoryFilters__containers">
@@ -62,6 +80,12 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
           {strCategory}
         </button>
       ))}
+      <button
+        type="button"
+        onClick={ handleClickButtonAll }
+      >
+        All
+      </button>
     </div>
   );
 }
