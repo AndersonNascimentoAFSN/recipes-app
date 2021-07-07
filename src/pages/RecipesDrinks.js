@@ -7,16 +7,35 @@ import useSearchBarShowHide from '../hooks/useSearchBarShowHide';
 import RecipeContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
+import { getCocktails } from '../services/api';
+import RecipesCards from '../components/RecipesCards';
+import RecipesCategoryFilters from '../components/RecipesCategoryFilters';
+import useSearchRecipes from '../hooks/useSearchRecipes';
 
 export default function RecipesDrinks() {
   const { filters, fetchCocktails, drinkData } = useContext(RecipeContext);
   const { appData: { showHide } } = useSearchBarShowHide();
+  const { setRecipesSearch } = useSearchRecipes();
 
   useEffect(() => {
     if (filters.parameter !== '') {
       fetchCocktails();
     }
-  }, [filters]);
+  }, [filters, fetchCocktails]);
+
+  useEffect(() => {
+    getCocktails('name')
+      .then((data) => {
+        const quantityRecipes = 12;
+        const arrayRecipes = data.drinks.map((drink) => ({
+          idRecipes: drink.idDrink,
+          strRecipes: drink.strDrink,
+          strRecipesThumb: drink.strDrinkThumb,
+        }));
+        const recipes = arrayRecipes.filter((_, index) => index < quantityRecipes);
+        setRecipesSearch(recipes);
+      });
+  }, [setRecipesSearch]);
 
   if (drinkData && drinkData.length === 1) {
     return <Redirect to={ `/bebidas/${drinkData[0].idDrink}` } />;
@@ -36,6 +55,9 @@ export default function RecipesDrinks() {
           thumbnail={ drink.strDrinkThumb }
         />
       ))}
+
+      <RecipesCategoryFilters typeRecipes="drinks" />
+      <RecipesCards />
       <Footer />
     </div>
   );

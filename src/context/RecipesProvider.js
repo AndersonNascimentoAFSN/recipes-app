@@ -11,13 +11,22 @@ function RecipeProvider({ children }) {
   const [filters, setFilters] = useState(filtersInitialState);
   const [drinkData, setDrinkData] = useState([]);
   const [foodData, setFoodData] = useState([]);
+  const [recipesSearch, setRecipesSearch] = useState([]);
+  const [recipesSearcBycategory, setRecipesSearcBycategory] = useState([]);
+  const [filterActiveButtons, setFilterActiveButtons] = useState({
+    button0: false,
+    button1: false,
+    button2: false,
+    button3: false,
+    button4: false,
+  });
   const maxObjRetrieve = 12;
 
   async function fetchMeals() {
     const { parameter, search } = filters;
     const { meals } = await getMeals(parameter, search);
     if (meals === null) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       setFoodData([]);
       return;
     }
@@ -32,7 +41,7 @@ function RecipeProvider({ children }) {
     const { parameter, search } = filters;
     const { drinks } = await getCocktails(parameter, search);
     if (drinks === null) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       setDrinkData([]);
       return;
     }
@@ -51,6 +60,12 @@ function RecipeProvider({ children }) {
     drinkData,
     foodData,
     setFoodData,
+    recipesSearch,
+    setRecipesSearch,
+    recipesSearcBycategory,
+    setRecipesSearcBycategory,
+    filterActiveButtons,
+    setFilterActiveButtons,
   };
 
   return (
