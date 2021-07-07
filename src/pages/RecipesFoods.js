@@ -33,7 +33,6 @@ export default function RecipesFoods() {
   }, [setRecipesSearch]);
 
   useEffect(() => {
-    console.log('atualizou os filtros');
     if (filters.parameter !== '') {
       fetchMeals();
     }

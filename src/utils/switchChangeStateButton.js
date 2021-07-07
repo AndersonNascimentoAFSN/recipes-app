@@ -9,34 +9,31 @@ function changeButtonState(buttonState) {
   return buttonsState;
 }
 
-export default function switchChangeStateButton(textContent, setFilterActiveButtons) {
-  let state = '';
+function setFilterStateButtons(buttonNumber, setState) {
+  const state = changeButtonState(buttonNumber);
+  setState((prevState) => (
+    { [buttonNumber]: !prevState[buttonNumber], ...state,
+    }));
+}
+
+export default function switchChangeStateButton(
+  textContent, setFilterActiveButtons, recipesCategories,
+) {
   switch (textContent) {
-  case 'Beef':
-    state = changeButtonState('button0');
-    setFilterActiveButtons((prevState) => (
-      { button0: !prevState.button0, ...state,
-      }));
+  case recipesCategories[0].strCategory:
+    setFilterStateButtons('button0', setFilterActiveButtons);
     break;
-  case 'Breakfast':
-    state = changeButtonState('button1');
-    setFilterActiveButtons((prevState) => (
-      { button1: !prevState.button1, ...state }));
+  case recipesCategories[1].strCategory:
+    setFilterStateButtons('button1', setFilterActiveButtons);
     break;
-  case 'Chicken':
-    state = changeButtonState('button2');
-    setFilterActiveButtons((prevState) => (
-      { button2: !prevState.button2, ...state }));
+  case recipesCategories[2].strCategory:
+    setFilterStateButtons('button2', setFilterActiveButtons);
     break;
-  case 'Dessert':
-    state = changeButtonState('button3');
-    setFilterActiveButtons((prevState) => (
-      { button3: !prevState.button3, ...state }));
+  case recipesCategories[3].strCategory:
+    setFilterStateButtons('button3', setFilterActiveButtons);
     break;
-  case 'Goat':
-    state = changeButtonState('button4');
-    setFilterActiveButtons((prevState) => (
-      { button4: !prevState.button4, ...state }));
+  case recipesCategories[4].strCategory:
+    setFilterStateButtons('button4', setFilterActiveButtons);
     break;
   default:
     return '';

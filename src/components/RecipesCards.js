@@ -7,9 +7,11 @@ export default function MealsCard() {
     recipesSearch,
     recipesSearcBycategory,
     filterActiveButtons } = useSearchRecipes();
+
   const arrayButtonState = Object.values(filterActiveButtons);
   const filterActive = arrayButtonState.some((button) => button === true);
   let arrayRender = [];
+
   if (filterActive) {
     arrayRender = recipesSearcBycategory;
   } else {

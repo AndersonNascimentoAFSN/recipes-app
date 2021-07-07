@@ -23,7 +23,7 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
 
   function handleClick({ target }) {
     const { textContent } = target;
-    switchChangeStateButton(textContent, setFilterActiveButtons);
+    switchChangeStateButton(textContent, setFilterActiveButtons, recipesCategories);
     getSearchByCategory(typeRecipes, textContent)
       .then((data) => {
         if (typeRecipes === 'meals') {
