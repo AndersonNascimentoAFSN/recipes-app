@@ -1,0 +1,13 @@
+.recipesCategoryFilters__containers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+  margin: 15px auto;
+  max-width: 360px;
+}
+
+.recipesCategoryFilters__button {
+  max-width: 105px;
+  padding: 2px;
+}
