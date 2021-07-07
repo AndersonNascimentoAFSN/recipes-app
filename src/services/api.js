@@ -25,5 +25,7 @@ export async function getCocktails(param, search) {
 }
 
 export async function getMealByID(id) {
-  return (await fetch(`www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)).json();
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+  const results = await fetch(`${endpoint}${id}`).then((response) => response.json());
+  return results.meals[0];
 }
