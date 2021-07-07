@@ -23,3 +23,7 @@ export async function getCocktails(param, search) {
     return [];
   }
 }
+
+export async function getMealByID(id) {
+  return (await fetch(`www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)).json();
+}

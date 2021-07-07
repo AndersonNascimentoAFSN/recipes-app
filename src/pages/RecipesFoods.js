@@ -30,6 +30,7 @@ export default function RecipesFoods() {
         { showHide && <SearchBar /> }
       </Header>
       {foodData && foodData.map((food, index) => (
+        console.log(food),
         <RecipeCard
           key={ index }
           index={ index }
