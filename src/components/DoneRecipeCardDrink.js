@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ShareButton from './ShareButton';
 
 export default function DoneRecipeCardDrink(
-  { recipeImg, shareIcon, doneDate, recipeName, index, alcoholicOrNot },
+  { recipeImg, doneDate, recipeName, index, alcoholicOrNot },
 ) {
   return (
     <div className="doneRecipesCard__container">
@@ -17,15 +18,7 @@ export default function DoneRecipeCardDrink(
           <span data-testid={ `${index}-horizontal-top-text` }>
             {alcoholicOrNot}
           </span>
-          <button
-            type="button"
-          >
-            <img
-              src={ shareIcon }
-              alt="share recipes"
-              data-testid={ `${index}-horizontal-share-btn` }
-            />
-          </button>
+          <ShareButton index={ index } />
         </div>
         <h2
           data-testid={ `${index}-horizontal-name` }
@@ -45,7 +38,6 @@ export default function DoneRecipeCardDrink(
 DoneRecipeCardDrink.propTypes = {
   recipeImg: PropTypes.string.isRequired,
   alcoholicOrNot: PropTypes.string.isRequired,
-  shareIcon: PropTypes.string.isRequired,
   doneDate: PropTypes.string.isRequired,
   recipeName: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,

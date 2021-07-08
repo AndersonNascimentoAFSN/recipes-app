@@ -3,7 +3,6 @@ import Header from '../components/Header';
 import RecipesDoneFilters from '../components/RecipesDoneFilters';
 import DoneRecipeCardFood from '../components/DoneRecipeCardFood';
 import DoneRecipeCardDrink from '../components/DoneRecipeCardDrink';
-import shareIcon from '../images/shareIcon.svg';
 import './doneRecipes.css';
 
 export default function DoneRecipes() {
@@ -24,7 +23,6 @@ export default function DoneRecipes() {
               index={ index }
               area={ recipe.area }
               category={ recipe.category }
-              shareIcon={ shareIcon }
               recipeImg={ recipe.image }
               recipeName={ recipe.name }
               recipeTags={ recipe.tags }
@@ -36,7 +34,6 @@ export default function DoneRecipes() {
           <DoneRecipeCardDrink
             key={ index }
             index={ index }
-            shareIcon={ shareIcon }
             recipeImg={ recipe.image }
             recipeName={ recipe.name }
             doneDate={ recipe.doneDate }
