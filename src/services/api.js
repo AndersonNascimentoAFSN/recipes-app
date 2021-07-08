@@ -6,6 +6,8 @@ export async function getMeals(param, search = '') {
     return (await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`)).json();
   case 'ingredient':
     return (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`)).json();
+  case 'category':
+    return (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${search}`)).json();
   default:
     return [];
   }
@@ -19,6 +21,8 @@ export async function getCocktails(param, search = '') {
     return (await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search}`)).json();
   case 'ingredient':
     return (await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`)).json();
+  case 'category':
+    return (await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${search}`)).json();
   default:
     return [];
   }
@@ -43,7 +47,7 @@ export function getURLCategories(typeRecipes) {
   case 'drinks':
     return 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   default:
-    return '';
+    return [];
   }
 }
 
