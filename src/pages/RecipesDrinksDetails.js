@@ -29,7 +29,8 @@ export default function RecipesDrinksDetails(props) {
         data-testid="recipe-photo"
       />
       <p data-testid="recipe-title">{ drink.strDrink }</p>
-      <p data-testid="recipe-category">{ drink.strCategory }</p>
+      <p data-testid="recipe-category">{ drink.strAlcoholic }</p>
+      <p>{ drink.strCategory }</p>
       {ingredients.map((ingredient, index) => (
         <li
           key={ index }
