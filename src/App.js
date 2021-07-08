@@ -6,9 +6,7 @@ import Routes from './components/Routes';
 function App() {
   return (
     <RecipeProvider>
-      <div className="app">
-        <Routes />
-      </div>
+      <Routes />
     </RecipeProvider>
   );
 }
