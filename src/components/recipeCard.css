@@ -1,0 +1,17 @@
+.recipeCard__container {
+  max-height: 181px;
+  max-width: 162px;
+}
+
+.recipeCard__img {
+  width: 100%;
+}
+
+.recipeCard__title {
+  font-size: 1em;
+  margin-bottom: 0;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
