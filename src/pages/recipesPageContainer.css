@@ -1,5 +1,7 @@
-.recipesFood__Container {
+.recipesPage__Container {
   height: 100vh;
+  margin: 0 auto;
+  max-width: 360px;
 }
 
 .recipeCards__container {

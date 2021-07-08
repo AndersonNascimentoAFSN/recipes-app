@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
 import useRecipesContext from '../hooks/useRecipesContext';
 import './recipesCategoryFilters.css';
+import setStateButtonsFilters from '../utils/toggleButtonsFilters';
 
 export default function RecipesCategoryFilters({ typeRecipes }) {
   const [recipesCategories, setRecipesCategories] = useState([]);
-  const { setFilters } = useRecipesContext();
+  const {
+    setFilters, stateButtonsFilter,
+    setStateButtonsFilter,
+  } = useRecipesContext();
 
   useEffect(() => {
     getCategories(typeRecipes).then((data) => {
@@ -17,12 +21,26 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
     });
   }, [typeRecipes]);
 
-  // function handleClickButtonAll() {
-  //   if (typeRecipes === 'meals') {
-  //   }
-  //   if (typeRecipes === 'drinks') {
-  //   }
-  // }
+  function checkStateButtons() {
+    const stateButtons = Object.values(stateButtonsFilter);
+    return stateButtons.every((buttonState) => buttonState === false);
+  }
+
+  useEffect(() => {
+    const buttonState = checkStateButtons();
+    if (buttonState) {
+      setFilters({ search: '', parameter: 'name' });
+    }
+  }, [stateButtonsFilter]);
+
+  function handleClickButtonAll() {
+    setFilters({ search: '', parameter: 'name' });
+  }
+
+  function setFiltersStates(target, filter) {
+    setFilters(filter);
+    setStateButtonsFilters(target, setStateButtonsFilter, recipesCategories);
+  }
 
   function handleClick({ target }) {
     const { textContent } = target;
@@ -32,10 +50,10 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
     };
     switch (typeRecipes) {
     case 'meals':
-      setFilters(filter);
+      setFiltersStates(target, filter);
       break;
     case 'drinks':
-      setFilters(filter);
+      setFiltersStates(target, filter);
       break;
     default:
       return '';
@@ -56,7 +74,8 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
       ))}
       <button
         type="button"
-        // onClick={ handleClickButtonAll }
+        onClick={ handleClickButtonAll }
+        data-testid="All-category-filter"
       >
         All
       </button>

@@ -6,7 +6,7 @@ function RecipeCard({ index, thumbnail, name }) {
   return (
     <div
       data-testid={ `${index}-recipe-card` }
-      // className="recipeCard__container"
+      className="recipeCard__container"
     >
       <img
         data-testid={ `${index}-card-img` }
