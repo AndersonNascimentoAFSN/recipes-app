@@ -1,0 +1,65 @@
+/* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_snackbar */
+.snackbar {
+  background-color: #333;
+  border-radius: 2px;
+  color: white;
+  font-size: 17px;
+  left: 50%;
+  margin-left: -125px;
+  min-width: 250px;
+  padding: 16px;
+  position: fixed;
+  text-align: center;
+  top: 30px;
+  visibility: hidden;
+  z-index: 1;
+}
+
+.snackbar.show {
+  animation: fadein 0.5s , fadeout 0.5s 2.5s;
+  visibility: visible;
+}
+
+@keyframes fadein {
+
+  from {
+    opacity: 0;
+    top: 0;}
+
+  to {
+    opacity: 1;
+    top: 30px;}
+}
+
+@keyframes fadein {
+
+  from {
+    opacity: 0;
+    top: 0;}
+
+  to {
+    opacity: 1;
+    top: 30px;}
+}
+
+@keyframes fadeout {
+
+  from {
+    opacity: 1;
+    top: 30px;}
+
+  to {
+    opacity: 0;
+    top: 0;}
+}
+
+@keyframes fadeout {
+
+  from {
+    opacity: 1;
+    top: 30px;}
+
+  to {
+    opacity: 0;
+    top: 0;}
+}
