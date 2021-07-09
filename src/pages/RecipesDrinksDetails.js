@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getDrinkByID } from '../services/api';
+import { getDrinkByID, getMeals } from '../services/api';
 import ingredientsMesure from '../utils/ingredientsMesure';
+import './recipesPageContainer.css';
+
+const drinkPhoto = {
+  maxWidth: '150px',
+  maxHeight: '150px',
+  margin: 'auto',
+};
 
 export default function RecipesDrinksDetails(props) {
   const { match: { params: { id } } } = props;
   const [drink, setDrink] = useState([]);
+  const [mealAlternate, setMealAlternate] = useState([]);
 
   useEffect(() => {
     const getDrink = async () => {
       const results = await getDrinkByID(id);
       console.log(results);
+      const mealResults = await getMeals('name', '');
       setDrink(results);
+      const RECOMMENDED_MEALS = 6;
+      setMealAlternate(mealResults.meals.slice(0, RECOMMENDED_MEALS));
     };
 
     getDrink();
@@ -21,10 +32,11 @@ export default function RecipesDrinksDetails(props) {
   const ingredients = ingredientsMesure(drink, NUMBER_OF_INGREDIENTS);
 
   return (
-    <div>
+    <div className="recipesPage__Container">
       <h1>Detalhes das receitas de bebida</h1>
       <img
         src={ drink.strDrinkThumb }
+        style={ drinkPhoto }
         alt=""
         data-testid="recipe-photo"
       />
@@ -49,7 +61,21 @@ export default function RecipesDrinksDetails(props) {
       />
       <div data-testid="share-btn">Botão de compartilhar</div>
       <div data-testid="favorite-btn">Botão de favoritar</div>
-      <div data-testid="0-recomendation-card">Recomendação</div>
+      <div>
+        {mealAlternate.map((meal, index) => (
+          <div
+            key={ index }
+            data-testid={ `${index}-recomendation-card` }
+          >
+            <li
+              key={ index }
+              data-testid={ `${index}-recomendation-title` }
+            >
+              {meal.strMeal}
+            </li>
+          </div>
+        ))}
+      </div>
       <div data-testid="start-recipe-btn">Botão de iniciar receita</div>
     </div>
   );
