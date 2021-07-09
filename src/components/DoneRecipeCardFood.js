@@ -38,12 +38,12 @@ export default function DoneRecipeCardFood(
         </span>
         <div>
           {recipeTags && recipeTags.map((tag, indexTags) => (
-            <div
+            <span
               key={ indexTags }
               data-testid={ `${index}-${tag}-horizontal-tag` }
             >
               {tag}
-            </div>
+            </span>
           ))}
         </div>
       </div>
