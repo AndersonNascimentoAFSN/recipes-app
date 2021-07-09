@@ -6,6 +6,10 @@ export default function ShareButton({ index }) {
   return (
     <button
       type="button"
+      onClick={ () => {
+        navigator.clipboard.writeText(window.location.href);
+        global.alert('Link copiado!');
+      } }
     >
       <img
         src={ shareIcon }

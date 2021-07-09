@@ -1,18 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
 
 export default function DoneRecipeCardDrink(
-  { recipeImg, doneDate, recipeName, index, alcoholicOrNot },
+  { recipeImg, doneDate, recipeName, index, alcoholicOrNot, id },
 ) {
   return (
     <div className="doneRecipesCard__container">
-      <img
-        src={ recipeImg }
-        alt="recipe"
-        className="doneRecipesCard__img"
-        data-testid={ `${index}-horizontal-image` }
-      />
+      <Link to={ `/bebidas/${id}` }>
+        <img
+          src={ recipeImg }
+          alt="recipe"
+          className="doneRecipesCard__img"
+          data-testid={ `${index}-horizontal-image` }
+        />
+      </Link>
       <div>
         <div>
           <span data-testid={ `${index}-horizontal-top-text` }>
@@ -20,11 +23,13 @@ export default function DoneRecipeCardDrink(
           </span>
           <ShareButton index={ index } />
         </div>
-        <h2
-          data-testid={ `${index}-horizontal-name` }
-        >
-          {recipeName}
-        </h2>
+        <Link to={ `/bebidas/${id}` }>
+          <h2
+            data-testid={ `${index}-horizontal-name` }
+          >
+            {recipeName}
+          </h2>
+        </Link>
         <span
           data-testid={ `${index}-horizontal-done-date` }
         >
@@ -41,4 +46,5 @@ DoneRecipeCardDrink.propTypes = {
   doneDate: PropTypes.string.isRequired,
   recipeName: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
