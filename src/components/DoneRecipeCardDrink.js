@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
 
 export default function DoneRecipeCardDrink(
-  { recipeImg, doneDate, recipeName, index, alcoholicOrNot, id },
+  { recipeImg, doneDate, recipeName, index, alcoholicOrNot, id, type },
 ) {
   return (
     <div className="doneRecipesCard__container">
@@ -21,7 +21,7 @@ export default function DoneRecipeCardDrink(
           <span data-testid={ `${index}-horizontal-top-text` }>
             {alcoholicOrNot}
           </span>
-          <ShareButton index={ index } />
+          <ShareButton index={ index } id={ id } type={ type } />
         </div>
         <Link to={ `/bebidas/${id}` }>
           <h2
@@ -47,4 +47,5 @@ DoneRecipeCardDrink.propTypes = {
   recipeName: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };

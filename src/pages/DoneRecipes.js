@@ -24,6 +24,7 @@ export default function DoneRecipes() {
               key={ index }
               id={ recipe.id }
               index={ index }
+              type="comidas"
               area={ recipe.area }
               category={ recipe.category }
               recipeImg={ recipe.image }
@@ -38,6 +39,7 @@ export default function DoneRecipes() {
             key={ index }
             id={ recipe.id }
             index={ index }
+            type="bebidas"
             recipeImg={ recipe.image }
             recipeName={ recipe.name }
             doneDate={ recipe.doneDate }

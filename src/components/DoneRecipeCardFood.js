@@ -5,7 +5,7 @@ import ShareButton from './ShareButton';
 
 export default function DoneRecipeCardFood(
   { area, category, recipeImg,
-    doneDate, recipeTags, recipeName, index, id },
+    doneDate, recipeTags, recipeName, index, id, type },
 ) {
   return (
     <div className="doneRecipesCard__container">
@@ -22,7 +22,7 @@ export default function DoneRecipeCardFood(
           <span data-testid={ `${index}-horizontal-top-text` }>
             {`${area} - ${category}`}
           </span>
-          <ShareButton index={ index } />
+          <ShareButton index={ index } id={ id } type={ type } />
         </div>
         <Link to={ `/comidas/${id}` }>
           <h2
@@ -60,4 +60,5 @@ DoneRecipeCardFood.propTypes = {
   recipeName: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
