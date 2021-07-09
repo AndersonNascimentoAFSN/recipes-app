@@ -1,0 +1,19 @@
+.doneRecipes__container {
+  margin: 0 auto;
+  max-width: 360px;
+}
+
+.doneRecipes__filters {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.doneRecipesCard__container {
+  display: flex;
+}
+
+.doneRecipesCard__img {
+  max-width: 165px;
+}
