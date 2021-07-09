@@ -10,6 +10,11 @@ const mealPhoto = {
   margin: 'auto',
 };
 
+const startRecipe = {
+  position: 'fixed',
+  bottom: '0px',
+};
+
 export default function RecipesFoodsDetails(props) {
   const { match: { params: { id } } } = props;
   const [meal, setMeal] = useState([]);
@@ -76,7 +81,12 @@ export default function RecipesFoodsDetails(props) {
           </div>
         ))}
       </div>
-      <div data-testid="start-recipe-btn">Botão de iniciar receita</div>
+      <div
+        data-testid="start-recipe-btn"
+        style={ startRecipe }
+      >
+        Botão de iniciar receita
+      </div>
     </div>
   );
 }
