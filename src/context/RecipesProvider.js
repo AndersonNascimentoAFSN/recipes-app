@@ -3,8 +3,16 @@ import { element } from 'prop-types';
 import RecipeContext from './RecipesContext';
 import { getMeals, getCocktails } from '../services/api';
 
-function RecipeProvider({ children }) {
+function checkLocalStorage() {
   const doneRecipesArray = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (doneRecipesArray !== null) {
+    return doneRecipesArray;
+  }
+  return [];
+}
+
+function RecipeProvider({ children }) {
+  // const doneRecipesArray = JSON.parse(localStorage.getItem('doneRecipes'));
   const filtersInitialState = {
     parameter: 'name',
     search: '',
@@ -12,7 +20,7 @@ function RecipeProvider({ children }) {
   const [filters, setFilters] = useState(filtersInitialState);
   const [drinkData, setDrinkData] = useState([]);
   const [foodData, setFoodData] = useState([]);
-  const [doneRecipes, setDoneRecipes] = useState(doneRecipesArray);
+  const [doneRecipes, setDoneRecipes] = useState(checkLocalStorage());
 
   const buttonsInitialState = {
     buttonFilter0: false,
