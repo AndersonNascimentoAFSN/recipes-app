@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import RecipesContext from '../context/RecipesContext';
 
-export default function RecipesDoneFilters() {
+export default function RecipesDoneFilters({ recipes, setRecipes, recipesArray }) {
   const { setDoneRecipes, doneRecipes } = useContext(RecipesContext);
 
   function handleClickAll() {
-    const doneRecipesArray = JSON.parse(localStorage.getItem('doneRecipes'));
     setDoneRecipes(doneRecipesArray);
   }
   function handleClickFilterbyRecipeType({ target }) {
