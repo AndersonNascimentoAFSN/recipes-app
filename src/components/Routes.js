@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import CompletedRecipes from '../pages/CompletedRecipes';
 import Explore from '../pages/Explore';
 import ExploreAreaDrinks from '../pages/ExploreAreaDrinks';
