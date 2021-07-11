@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
-import { getMealById, get } from '../services/api';
 import copy from 'clipboard-copy';
+import RecipeContext from '../context/RecipesContext';
+import { getMealById } from '../services/api';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 export default function RecipesFoodsInProgress() {
   const { id } = useParams();
+  const { favorites, setFavorites } = useContext(RecipeContext);
   const [ meal, setMeal ] = useState();
   const [ usedIngredients, setUsedIngredients ] = useState([]);
   const [ shouldRedirect, setShouldRedirect ] = useState(false);
@@ -71,6 +75,35 @@ export default function RecipesFoodsInProgress() {
     return true;
   }
 
+  function favoriteMeal() {
+    if (isFavorite(meal.idMeal)) {
+      setFavorites(
+        favorites.filter(({id}) => id !== meal.idMeal)
+      );
+      return;
+    }
+    const newFavorite = {
+      id: meal.idMeal,
+      type: 'comida',
+      area: meal.strArea,
+      category: meal.strCategory,
+      alcoholicOrNot: '',
+      name: meal.strMeal,
+      image: meal.strMealThumb,
+    };
+    setFavorites([
+      ...favorites,
+      newFavorite,
+    ])
+  }
+
+  function isFavorite(mealId) {
+    const isFavorite = favorites
+      .find(({id, type})=> id === mealId && type === 'comida');
+    if (!isFavorite) return false;
+    return true;
+  }
+
   if(shouldRedirect) {
     return <Redirect to="/receitas-feitas"/>
   }
@@ -103,8 +136,15 @@ export default function RecipesFoodsInProgress() {
       </button>
       <button
         data-testid="favorite-btn"
+        onClick={ () => favoriteMeal() }
       >
-        Favoritar
+        <img
+          src={ isFavorite(meal.idMeal)
+            ? blackHeartIcon
+            : whiteHeartIcon
+          }
+          alt="Share"
+        />
       </button>
       <p
         data-testid="recipe-category"

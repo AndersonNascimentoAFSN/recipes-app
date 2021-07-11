@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { getDrinkById } from '../services/api';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import RecipeContext from '../context/RecipesContext';
 
 export default function RecipesDrinksInProgress() {
   const { id } = useParams();
+  const { favorites, setFavorites } = useContext(RecipeContext);
   const [ drink, setDrink ] = useState();
   const [ usedIngredients, setUsedIngredients ] = useState([]);
   const [ shouldRedirect, setShouldRedirect ] = useState(false);
@@ -22,7 +26,9 @@ export default function RecipesDrinksInProgress() {
   function mapDrinkIngredients(drink) {
     const ingredients = [];
     for(var i=1;i<=20;i++) {
-      if(drink[`strIngredient${i}`] === "") {
+      if(
+        drink[`strIngredient${i}`] === ""
+        || drink[`strIngredient${i}`] === null) {
         break;
       }
       ingredients.push(
@@ -64,6 +70,35 @@ export default function RecipesDrinksInProgress() {
     return true;
   }
 
+  function favoriteMeal() {
+    if (isFavorite(drink.idDrink)) {
+      setFavorites(
+        favorites.filter(({id}) => id !== drink.idDrink)
+      );
+      return;
+    }
+    const newFavorite = {
+      id: drink.idDrink,
+      type: 'bebida',
+      area: '',
+      category: drink.strCategory,
+      alcoholicOrNot: drink.strAlcoholic,
+      name: drink.strDrink,
+      image: drink.strDrinkThumb,
+    };
+    setFavorites([
+      ...favorites,
+      newFavorite,
+    ])
+  }
+
+  function isFavorite(drinkId) {
+    const isFavorite = favorites
+      .find(({id, type})=> id === drinkId && type === 'bebida');
+    if (!isFavorite) return false;
+    return true;
+  }
+
   if(shouldRedirect) {
     return <Redirect to="/receitas-feitas"/>
   }
@@ -96,8 +131,15 @@ export default function RecipesDrinksInProgress() {
       </button>
       <button
         data-testid="favorite-btn"
+        onClick={ () => favoriteMeal() }
       >
-        Favoritar
+        <img
+          src={ isFavorite(drink.idDrink)
+            ? blackHeartIcon
+            : whiteHeartIcon
+          }
+          alt="Share"
+        />
       </button>
       <p
         data-testid="recipe-category"
