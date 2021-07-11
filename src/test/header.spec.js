@@ -13,7 +13,7 @@ import ExploreIngredientsFood from '../pages/ExploreIngredientsFood';
 import ExploreIngredientsDrinks from '../pages/ExploreIngredientsDrinks';
 import ExploreAreaFood from '../pages/ExploreAreaFood';
 import ExploreAreaDrinks from '../pages/ExploreAreaDrinks';
-import CompletedRecipes from '../pages/CompletedRecipes';
+import DoneRecipes from '../pages/DoneRecipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
 import RecipesFoodsDetails from '../pages/RecipesFoodsDetails';
 import RecipesDrinksDetails from '../pages/RecipesDrinksDetails';
@@ -150,7 +150,7 @@ describe('Testa o componente header', () => {
   });
 
   it('Header tela de receitas feitas', () => {
-    hasHeader('receitas feitas', <CompletedRecipes />, false);
+    hasHeader('receitas feitas', <DoneRecipes />, false);
   });
 
   it('Header tela de receitas favoritas', () => {

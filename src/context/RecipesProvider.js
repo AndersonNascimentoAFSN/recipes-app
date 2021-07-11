@@ -3,23 +3,35 @@ import { element } from 'prop-types';
 import RecipeContext from './RecipesContext';
 import { getMeals, getCocktails } from '../services/api';
 
+function checkLocalStorage() {
+  const doneRecipesArray = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (doneRecipesArray !== null) {
+    return doneRecipesArray;
+  }
+  return [];
+}
+
 function RecipeProvider({ children }) {
+  // const doneRecipesArray = JSON.parse(localStorage.getItem('doneRecipes'));
   const filtersInitialState = {
-    parameter: '',
+    parameter: 'name',
     search: '',
   };
   const [filters, setFilters] = useState(filtersInitialState);
   const [drinkData, setDrinkData] = useState([]);
   const [foodData, setFoodData] = useState([]);
-  const [recipesSearch, setRecipesSearch] = useState([]);
-  const [recipesSearcBycategory, setRecipesSearcBycategory] = useState([]);
-  const [filterActiveButtons, setFilterActiveButtons] = useState({
-    button0: false,
-    button1: false,
-    button2: false,
-    button3: false,
-    button4: false,
-  });
+  const [doneRecipes, setDoneRecipes] = useState(checkLocalStorage());
+
+  const buttonsInitialState = {
+    buttonFilter0: false,
+    buttonFilter1: false,
+    buttonFilter2: false,
+    buttonFilter3: false,
+    buttonFilter4: false,
+  };
+
+  const [stateButtonsFilter, setStateButtonsFilter] = useState(buttonsInitialState);
+
   const maxObjRetrieve = 12;
 
   async function fetchMeals() {
@@ -60,12 +72,11 @@ function RecipeProvider({ children }) {
     drinkData,
     foodData,
     setFoodData,
-    recipesSearch,
-    setRecipesSearch,
-    recipesSearcBycategory,
-    setRecipesSearcBycategory,
-    filterActiveButtons,
-    setFilterActiveButtons,
+    setDrinkData,
+    stateButtonsFilter,
+    setStateButtonsFilter,
+    doneRecipes,
+    setDoneRecipes,
   };
 
   return (
