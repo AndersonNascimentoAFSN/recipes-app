@@ -1,13 +1,33 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import RecipesDoneFilters from '../components/RecipesDoneFilters';
+import RecipesFilters from '../components/RecipesFilters';
 import DoneRecipeCardFood from '../components/DoneRecipeCardFood';
 import DoneRecipeCardDrink from '../components/DoneRecipeCardDrink';
 import './doneRecipes.css';
-import RecipesContext from '../context/RecipesContext';
+import useRecipesContext from '../hooks/useRecipesContext';
 
 export default function DoneRecipes() {
-  const { doneRecipes } = useContext(RecipesContext);
+  const { filtersDone } = useRecipesContext();
+  const { setFiltersDone } = useRecipesContext();
+  const { doneRecipes } = useRecipesContext();
+  const [recipesFiltered, setRecipesFiltered] = useState([]);
+
+  useEffect(() => {
+    const { type } = filtersDone;
+    let filtered = [];
+    switch (type) {
+    case 'comida':
+      filtered = doneRecipes.filter((recipe) => recipe.type === 'comida');
+      setRecipesFiltered(filtered);
+      break;
+    case 'bebida':
+      filtered = doneRecipes.filter((recipe) => recipe.type === 'bebida');
+      setRecipesFiltered(filtered);
+      break;
+    default:
+      setRecipesFiltered(doneRecipes);
+    }
+  }, [setRecipesFiltered, filtersDone, doneRecipes]);
 
   return (
     <div className="doneRecipes__container">
@@ -15,9 +35,11 @@ export default function DoneRecipes() {
         <div />
       </Header>
 
-      <RecipesDoneFilters />
+      <RecipesFilters
+        setFilters={ setFiltersDone }
+      />
 
-      { doneRecipes.map((recipe, index) => {
+      { recipesFiltered.map((recipe, index) => {
         if (recipe.type === 'comida') {
           return (
             <DoneRecipeCardFood
