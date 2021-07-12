@@ -11,6 +11,14 @@ function checkLocalStorage() {
   return [];
 }
 
+function checkLocalStorage2() {
+  const inProgressRecipesArray = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (inProgressRecipesArray !== null) {
+    return inProgressRecipesArray;
+  }
+  return [];
+}
+
 function RecipeProvider({ children }) {
   // const doneRecipesArray = JSON.parse(localStorage.getItem('doneRecipes'));
   const filtersInitialState = {
@@ -21,6 +29,7 @@ function RecipeProvider({ children }) {
   const [drinkData, setDrinkData] = useState([]);
   const [foodData, setFoodData] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState(checkLocalStorage());
+  const [inProgressRecipes, setInProgressRecipes] = useState(checkLocalStorage2());
 
   const buttonsInitialState = {
     buttonFilter0: false,
@@ -77,6 +86,8 @@ function RecipeProvider({ children }) {
     setStateButtonsFilter,
     doneRecipes,
     setDoneRecipes,
+    inProgressRecipes,
+    setInProgressRecipes,
   };
 
   return (

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { getMealByID, getCocktails } from '../services/api';
 import ingredientsMesure from '../utils/ingredientsMesure';
+import RecipeContext from '../context/RecipesContext';
 import './recipesPageContainer.css';
 
 const mealPhoto = {
@@ -17,6 +18,7 @@ const startRecipe = {
 
 export default function RecipesFoodsDetails(props) {
   const { match: { params: { id } } } = props;
+  const { doneRecipes, inProgressRecipes } = useContext(RecipeContext);
   const [meal, setMeal] = useState([]);
   const [drinkAlternate, setDrinkAlternate] = useState([]);
 
@@ -36,6 +38,46 @@ export default function RecipesFoodsDetails(props) {
 
   const NUMBER_OF_INGREDIENTS = 15;
   const ingredients = ingredientsMesure(meal, NUMBER_OF_INGREDIENTS);
+
+  function alreadyDone() {
+    let doneFlag = false;
+    doneRecipes.forEach((recipe) => {
+      if (recipe.id === id) doneFlag = true;
+    });
+    return doneFlag;
+  }
+
+  function inProgress() {
+    let progressFlag = false;
+    if (inProgressRecipes.length !== 0) {
+      progressFlag = (inProgressRecipes.meals[id] !== null);
+    }
+    return progressFlag;
+  }
+
+  function renderProgress() {
+    if (alreadyDone()) {
+      return (<div>Receita já feita</div>);
+    }
+    if (inProgress()) {
+      return (
+        <div
+          data-testid="start-recipe-btn"
+          style={ startRecipe }
+        >
+          Continuar Receita
+        </div>
+      );
+    }
+    return (
+      <div
+        data-testid="start-recipe-btn"
+        style={ startRecipe }
+      >
+        Botão de iniciar receita
+      </div>
+    );
+  }
 
   return (
     <div className="recipesPage__Container">
@@ -81,12 +123,7 @@ export default function RecipesFoodsDetails(props) {
           </div>
         ))}
       </div>
-      <div
-        data-testid="start-recipe-btn"
-        style={ startRecipe }
-      >
-        Botão de iniciar receita
-      </div>
+      { renderProgress() }
     </div>
   );
 }
