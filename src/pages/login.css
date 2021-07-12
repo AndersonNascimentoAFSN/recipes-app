@@ -1,0 +1,46 @@
+@media only screen and ( max-width : 360px ) {
+
+  .loginPage__container {
+    align-items: center;
+    background-image: url('../images/backgroundPageLogin1x.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 360px;
+  }
+
+  .loginPage__banner {
+    width: 100%;
+  }
+
+  .loginPage__inputs {
+    padding: 20px;
+  }
+
+
+  .loginPage__inputs input {
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    width: 100%;
+  }
+
+  .loginPage__button button {
+    background-color: var(--background-primary-buttons);
+    border-radius: 10px;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+  }
+}

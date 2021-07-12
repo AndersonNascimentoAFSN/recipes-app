@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './login.css';
+// import loginPageBanner from '../images/loginPageImg.svg';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -29,14 +31,20 @@ function Login() {
   }
 
   return (
-    <div>
-      <div>
+    <div className="loginPage__container">
+      {/* <img
+        src={ loginPageBanner }
+        alt="login img"
+        className="loginPage__banner"
+      /> */}
+      <div className="loginPage__inputs">
         <input
           name="email"
           type="text"
           data-testid="email-input"
           value={ email }
           onChange={ handleChangeEmail }
+          placeholder="Email"
         />
         <input
           name="password"
@@ -44,18 +52,23 @@ function Login() {
           data-testid="password-input"
           value={ password }
           onChange={ handleChangePassword }
+          placeholder="Senha"
         />
-      </div>
-      <Link to="/comidas">
-        <button
-          data-testid="login-submit-btn"
-          onClick={ handleSubmit }
-          disabled={ button }
-          type="button"
+
+        <Link
+          to="/comidas"
+          className="loginPage__button"
         >
-          Entrar
-        </button>
-      </Link>
+          <button
+            data-testid="login-submit-btn"
+            onClick={ handleSubmit }
+            disabled={ button }
+            type="button"
+          >
+            Entrar
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
