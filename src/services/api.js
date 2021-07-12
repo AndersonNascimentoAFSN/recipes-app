@@ -8,6 +8,8 @@ export async function getMeals(param, search = '') {
     return (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`)).json();
   case 'category':
     return (await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${search}`)).json();
+  case 'surprise':
+    return (await fetch('https://www.themealdb.com/api/json/v1/1/random.php')).json();
   default:
     return [];
   }
@@ -23,6 +25,8 @@ export async function getCocktails(param, search = '') {
     return (await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`)).json();
   case 'category':
     return (await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${search}`)).json();
+  case 'surprise':
+    return (await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')).json();
   default:
     return [];
   }
