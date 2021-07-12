@@ -21,6 +21,8 @@ function RecipeProvider({ children }) {
   const [filtersFavorite, setFiltersFavorite] = useState({ type: 'all' });
   const [drinkData, setDrinkData] = useState([]);
   const [foodData, setFoodData] = useState([]);
+  const [inProgressRecipes,
+    setInProgressRecipes] = useState(checkLocalStorage('inProgressRecipes'));
   const [doneRecipes, setDoneRecipes] = useState(checkLocalStorage('doneRecipes'));
   const [favoriteRecipes,
     setFavoriteRecipes] = useState(checkLocalStorage('favoriteRecipes'));
@@ -84,6 +86,8 @@ function RecipeProvider({ children }) {
     setStateButtonsFilter,
     doneRecipes,
     setDoneRecipes,
+    inProgressRecipes,
+    setInProgressRecipes,
     favoriteRecipes,
     setFavoriteRecipes,
   };
