@@ -21,17 +21,13 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
     });
   }, [typeRecipes]);
 
-  function checkStateButtons() {
-    const stateButtons = Object.values(stateButtonsFilter);
-    return stateButtons.every((buttonState) => buttonState === false);
-  }
-
   useEffect(() => {
-    const buttonState = checkStateButtons();
-    if (buttonState) {
+    const buttonsState = Object.values(stateButtonsFilter)
+      .every((buttonState) => buttonState === false);
+    if (buttonsState) {
       setFilters({ search: '', parameter: 'name' });
     }
-  }, [stateButtonsFilter]);
+  }, [stateButtonsFilter, setFilters]);
 
   function handleClickButtonAll() {
     setFilters({ search: '', parameter: 'name' });
