@@ -25,7 +25,7 @@ export default function FavoriteRecipeCardFood(
         </div>
         <div>
           <ShareButton index={ index } id={ id } type={ type } />
-          <DisfavorButton index={ index } />
+          <DisfavorButton index={ index } id={ id } />
         </div>
         <Link to={ `/comidas/${id}` }>
           <h2
