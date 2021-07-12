@@ -3,6 +3,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { getDrinkById } from '../services/api';
 import checkIngredients from '../utils/checkIngredients';
+import mapDrinkIngredients from '../utils/mapDrinkIngredients';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -24,20 +25,8 @@ export default function RecipesDrinksInProgress() {
     fetchFood();
   }, []);
 
-  function mapDrinkIngredients(recipe) {
-    const ingredients = [];
-    const maxIngredientsNumber = 20;
-    for (let i = 1; i <= maxIngredientsNumber; i += 1) {
-      if (recipe[`strIngredient${i}`] === null) {
-        break;
-      }
-      ingredients.push(
-        `${recipe[`strIngredient${i}`]
-        } ${
-          recipe[`strMeasure${i}`]}`,
-      );
-    }
-    return ingredients;
+  function verifyDrinkIngredients(recipe) {
+    return mapDrinkIngredients(recipe);
   }
 
   function updateUsedIngredients(index, ingredient) {
@@ -139,9 +128,9 @@ export default function RecipesDrinksInProgress() {
       <p
         data-testid="recipe-category"
       >
-        { drink.strCategory }
+        { drink.strAlcoholic }
       </p>
-      { mapDrinkIngredients(drink).map((ingredient, index) => (
+      { verifyDrinkIngredients(drink).map((ingredient, index) => (
         <label
           data-testid={ `${index}-ingredient-step` }
           id={ `${index}-ingredient-step` }
