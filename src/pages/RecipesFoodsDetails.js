@@ -119,7 +119,6 @@ export default function RecipesFoodsDetails(props) {
         src={ meal.strYoutube }
         data-testid="video"
       />
-      <div data-testid="share-btn">Botão de compartilhar</div>
       { isFavorite() ? <img
         src={ blackHeartIcon }
         data-testid="favorite-btn"
@@ -132,7 +131,6 @@ export default function RecipesFoodsDetails(props) {
             alt="whiteHeartIcon"
           />)}
       <ShareButton id={ id } index={ 0 } type="comidas" />
-      <div data-testid="favorite-btn">Botão de favoritar</div>
       <div>
         {drinkAlternate.map((drink, index) => (
           <div
