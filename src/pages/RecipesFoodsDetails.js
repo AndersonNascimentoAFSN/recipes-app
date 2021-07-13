@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { getMealByID, getCocktails } from '../services/api';
 import ingredientsMesure from '../utils/ingredientsMesure';
 import RecipeContext from '../context/RecipesContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import ShareButton from '../components/ShareButton';
 import './recipesPageContainer.css';
 
 const mealPhoto = {
@@ -80,12 +82,13 @@ export default function RecipesFoodsDetails(props) {
       );
     }
     return (
-      <div
+      <Link
+        to={ `/comidas/${id}/in-progress` }
         data-testid="start-recipe-btn"
         style={ startRecipe }
       >
         Botão de iniciar receita
-      </div>
+      </Link>
     );
   }
 
@@ -128,6 +131,8 @@ export default function RecipesFoodsDetails(props) {
             data-testid="favorite-btn"
             alt="whiteHeartIcon"
           />)}
+      <ShareButton id={ id } index={ 0 } type="comidas" />
+      <div data-testid="favorite-btn">Botão de favoritar</div>
       <div>
         {drinkAlternate.map((drink, index) => (
           <div
