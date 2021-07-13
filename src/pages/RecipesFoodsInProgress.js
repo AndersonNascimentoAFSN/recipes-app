@@ -5,6 +5,7 @@ import RecipeContext from '../context/RecipesContext';
 import { getMealById } from '../services/api';
 import verifyIngredientsInLocalStorage from '../utils/verifyIngredientsInLocalStorage';
 import checkIngredients from '../utils/checkIngredients';
+import { mapMealIngredients } from '../utils/mapIngredients';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -15,6 +16,7 @@ export default function RecipesFoodsInProgress() {
   const [meal, setMeal] = useState();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
 
   useEffect(() => {
     async function fetchFood() {
@@ -24,22 +26,6 @@ export default function RecipesFoodsInProgress() {
     }
     fetchFood();
   }, []);
-
-  function mapMealIngredients(recipe) {
-    const ingredients = [];
-    const maxIngredientsNumber = 20;
-    for (let i = 1; i <= maxIngredientsNumber; i += 1) {
-      if (recipe[`strIngredient${i}`] === '') {
-        break;
-      }
-      ingredients.push(
-        `${recipe[`strIngredient${i}`]
-        } ${
-          recipe[`strMeasure${i}`]}`,
-      );
-    }
-    return ingredients;
-  }
 
   function updateUsedIngredients(index, ingredient) {
     const label = document.getElementById(`${index}-ingredient-step`);
@@ -93,6 +79,15 @@ export default function RecipesFoodsInProgress() {
     ]);
   }
 
+  function handleShare() {
+    copy(`http://localhost:3000/comidas/${meal.idMeal}`);
+    setIsLinkCopied(true);
+    const twoSecondsInMs = 2000;
+    setTimeout(() => {
+      setIsLinkCopied(false);
+    }, twoSecondsInMs);
+  }
+
   if (shouldRedirect) {
     return <Redirect to="/receitas-feitas" />;
   }
@@ -113,23 +108,21 @@ export default function RecipesFoodsInProgress() {
       </h1>
       <button
         data-testid="share-btn"
-        onClick={ () => {
-          copy(meal.strSource);
-          global.alert('Link copiado!');
-        } }
+        onClick={ () => handleShare() }
         type="button"
       >
         <img
           src={ shareIcon }
           alt="Share"
         />
+        { isLinkCopied && <p>Link copiado!</p> }
       </button>
       <button
-        data-testid="favorite-btn"
         onClick={ () => favoriteMeal() }
         type="button"
       >
         <img
+          data-testid="favorite-btn"
           src={ isFavorite(meal.idMeal)
             ? blackHeartIcon
             : whiteHeartIcon }
@@ -151,7 +144,7 @@ export default function RecipesFoodsInProgress() {
           { ingredient }
           <input
             type="checkbox"
-            checked={ verifyIngredientsInLocalStorage(meal, ingredient, index) }
+            checked={ verifyIngredientsInLocalStorage('meal', meal, ingredient, index) }
             onClick={ () => updateUsedIngredients(index, ingredient) }
             className="ingredient-check"
             id={ `${ingredient}-check` }

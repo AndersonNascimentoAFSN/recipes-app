@@ -3,7 +3,8 @@ import { Redirect, useParams } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { getDrinkById } from '../services/api';
 import checkIngredients from '../utils/checkIngredients';
-import mapDrinkIngredients from '../utils/mapDrinkIngredients';
+import verifyIngredientsInLocalStorage from '../utils/verifyIngredientsInLocalStorage';
+import { mapDrinkIngredients } from '../utils/mapIngredients';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -15,6 +16,7 @@ export default function RecipesDrinksInProgress() {
   const [drink, setDrink] = useState();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
 
   useEffect(() => {
     async function fetchFood() {
@@ -24,10 +26,6 @@ export default function RecipesDrinksInProgress() {
     }
     fetchFood();
   }, []);
-
-  function verifyDrinkIngredients(recipe) {
-    return mapDrinkIngredients(recipe);
-  }
 
   function updateUsedIngredients(index, ingredient) {
     const label = document.getElementById(`${index}-ingredient-step`);
@@ -45,20 +43,6 @@ export default function RecipesDrinksInProgress() {
       },
       meals: {},
     }));
-  }
-
-  function verifyIngredientUse(index, ingredient) {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!inProgressRecipes) return;
-    const drinkKey = inProgressRecipes.cocktails[drink.idDrink];
-    if (drinkKey && drinkKey.includes(ingredient) && drink) {
-      const oneSecondInMs = 1000;
-      setTimeout(() => {
-        const ingredientItem = document.getElementById(`${index}-ingredient-step`);
-        ingredientItem.style.textDecoration = 'line-through';
-      }, oneSecondInMs);
-      return true;
-    }
   }
 
   function verifyIngredientsCheck() {
@@ -96,6 +80,15 @@ export default function RecipesDrinksInProgress() {
     ]);
   }
 
+  function handleShare() {
+    copy(`http://localhost:3000/bebidas/${drink.idDrink}`);
+    setIsLinkCopied(true);
+    const twoSecondsInMs = 2000;
+    setTimeout(() => {
+      setIsLinkCopied(false);
+    }, twoSecondsInMs);
+  }
+
   if (shouldRedirect) {
     return <Redirect to="/receitas-feitas" />;
   }
@@ -116,23 +109,21 @@ export default function RecipesDrinksInProgress() {
       </h1>
       <button
         data-testid="share-btn"
-        onClick={ () => {
-          copy(drink.strSource);
-          global.alert('Link copiado!');
-        } }
+        onClick={ () => handleShare() }
         type="button"
       >
         <img
           src={ shareIcon }
           alt="Share"
         />
+        { isLinkCopied && <p>Link copiado!</p> }
       </button>
       <button
-        data-testid="favorite-btn"
         onClick={ () => favoriteMeal() }
         type="button"
       >
         <img
+          data-testid="favorite-btn"
           src={ isFavorite(drink.idDrink)
             ? blackHeartIcon
             : whiteHeartIcon }
@@ -144,7 +135,7 @@ export default function RecipesDrinksInProgress() {
       >
         { drink.strAlcoholic }
       </p>
-      { verifyDrinkIngredients(drink).map((ingredient, index) => (
+      { mapDrinkIngredients(drink).map((ingredient, index) => (
         <label
           data-testid={ `${index}-ingredient-step` }
           id={ `${index}-ingredient-step` }
@@ -156,7 +147,7 @@ export default function RecipesDrinksInProgress() {
             type="checkbox"
             onClick={ () => updateUsedIngredients(index, ingredient) }
             className="ingredient-check"
-            checked={ verifyIngredientUse(index, ingredient) }
+            checked={ verifyIngredientsInLocalStorage('drink', drink, ingredient, index) }
             id={ `${ingredient}-check` }
           />
         </label>
