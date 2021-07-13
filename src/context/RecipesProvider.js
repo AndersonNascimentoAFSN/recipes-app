@@ -23,6 +23,8 @@ function RecipeProvider({ children }) {
   const [drinkData, setDrinkData] = useState([]);
   const [foodData, setFoodData] = useState([]);
   const [favorites, setFavorites] = useState(checkFavorites());
+  const [inProgressRecipes,
+    setInProgressRecipes] = useState(checkLocalStorage('inProgressRecipes'));
   const [doneRecipes, setDoneRecipes] = useState(checkLocalStorage('doneRecipes'));
   const [favoriteRecipes,
     setFavoriteRecipes] = useState(checkLocalStorage('favoriteRecipes'));
@@ -92,6 +94,8 @@ function RecipeProvider({ children }) {
     setDoneRecipes,
     favorites,
     setFavorites,
+    inProgressRecipes,
+    setInProgressRecipes,
     favoriteRecipes,
     setFavoriteRecipes,
   };
