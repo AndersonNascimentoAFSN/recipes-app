@@ -35,16 +35,29 @@ export default function RecipesDrinksInProgress() {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     setUsedIngredients([...usedIngredients, ingredient]);
     if (inProgressRecipes !== null) {
-      inProgressRecipes.cocktails[drink.idDrink] = usedIngredients;
+      inProgressRecipes.cocktails[drink.idDrink].push(ingredient);
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
       return;
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify({
       cocktails: {
-        [drink.idDrink]: usedIngredients,
+        [drink.idDrink]: [ingredient],
       },
       meals: {},
     }));
+  }
+
+  function verifyIngredientUse(index, ingredient) {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if(!inProgressRecipes) return;
+    const drinkKey = inProgressRecipes.cocktails[drink.idDrink];
+    if (drinkKey && drinkKey.includes(ingredient) && drink) {
+      setTimeout(() => {
+        const ingredientItem = document.getElementById(`${index}-ingredient-step`);
+        ingredientItem.style.textDecoration = 'line-through';
+      }, 1000);
+      return true;
+    }
   }
 
   function verifyIngredientsCheck() {
@@ -142,6 +155,7 @@ export default function RecipesDrinksInProgress() {
             type="checkbox"
             onClick={ () => updateUsedIngredients(index, ingredient) }
             className="ingredient-check"
+            checked={ verifyIngredientUse(index, ingredient) }
             id={ `${ingredient}-check` }
           />
         </label>

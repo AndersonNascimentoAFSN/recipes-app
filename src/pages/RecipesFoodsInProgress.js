@@ -44,19 +44,16 @@ export default function RecipesFoodsInProgress() {
     const label = document.getElementById(`${index}-ingredient-step`);
     label.style.textDecoration = 'line-through';
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(inProgressRecipes);
     setUsedIngredients([...usedIngredients, ingredient]);
-    console.log(usedIngredients);
     if (inProgressRecipes !== null) {
-      inProgressRecipes.meals[meal.idMeal] = usedIngredients;
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(inProgressRecipes));
+      inProgressRecipes.meals[meal.idMeal].push(ingredient);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
       return;
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify({
       cocktails: {},
       meals: {
-        [meal.idMeal]: usedIngredients,
+        [meal.idMeal]: [ingredient],
       },
     }));
   }
@@ -71,6 +68,19 @@ export default function RecipesFoodsInProgress() {
       .find((fav) => fav.id === mealId && fav.type === 'comida');
     if (!foundFavorite) return false;
     return true;
+  }
+
+  function verifyIngredientUse(index, ingredient) {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if(!inProgressRecipes) return;
+    const mealKey = inProgressRecipes.meals[meal.idMeal];
+    if (mealKey && mealKey.includes(ingredient) && meal) {
+      setTimeout(() => {
+        const ingredientItem = document.getElementById(`${index}-ingredient-step`);
+        ingredientItem.style.textDecoration = 'line-through';
+      }, 1000);
+      return true;
+    }
   }
 
   function favoriteMeal() {
@@ -153,6 +163,7 @@ export default function RecipesFoodsInProgress() {
           { ingredient }
           <input
             type="checkbox"
+            checked={ verifyIngredientUse(index, ingredient) }
             onClick={ () => updateUsedIngredients(index, ingredient) }
             className="ingredient-check"
             id={ `${ingredient}-check` }
