@@ -15,6 +15,7 @@ export default function RecipesDrinksInProgress() {
   const [drink, setDrink] = useState();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
 
   useEffect(() => {
     async function fetchFood() {
@@ -96,6 +97,15 @@ export default function RecipesDrinksInProgress() {
     ]);
   }
 
+  function handleShare() {
+    copy(`http://localhost:3000/bebidas/${drink.idDrink}`);
+    setIsLinkCopied(true);
+    const twoSecondsInMs = 2000;
+    setTimeout(() => {
+      setIsLinkCopied(false);
+    }, twoSecondsInMs);
+  }
+
   if (shouldRedirect) {
     return <Redirect to="/receitas-feitas" />;
   }
@@ -116,23 +126,21 @@ export default function RecipesDrinksInProgress() {
       </h1>
       <button
         data-testid="share-btn"
-        onClick={ () => {
-          copy(drink.strSource);
-          global.alert('Link copiado!');
-        } }
+        onClick={ () => handleShare() }
         type="button"
       >
         <img
           src={ shareIcon }
           alt="Share"
         />
+        { isLinkCopied && <p>Link copiado!</p> }
       </button>
       <button
-        data-testid="favorite-btn"
         onClick={ () => favoriteMeal() }
         type="button"
       >
         <img
+          data-testid="favorite-btn"
           src={ isFavorite(drink.idDrink)
             ? blackHeartIcon
             : whiteHeartIcon }

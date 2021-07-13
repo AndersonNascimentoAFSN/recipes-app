@@ -42,7 +42,7 @@ function RecipeProvider({ children }) {
   const maxObjRetrieve = 12;
 
   useEffect(() => {
-    localStorage.setItem('favoritesRecipes', JSON.stringify(favorites));
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
   }, [favorites]);
 
   async function fetchMeals() {
