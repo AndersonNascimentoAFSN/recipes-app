@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { element } from 'prop-types';
 import RecipeContext from './RecipesContext';
 import { getMeals, getCocktails } from '../services/api';
+import checkFavorites from '../utils/checkFavoritesInLocalStorage';
 
 function checkLocalStorage(doneOrFavoriteRecipes) {
   const recipesArray = JSON.parse(localStorage.getItem(doneOrFavoriteRecipes));
@@ -21,6 +22,7 @@ function RecipeProvider({ children }) {
   const [filtersFavorite, setFiltersFavorite] = useState({ type: 'all' });
   const [drinkData, setDrinkData] = useState([]);
   const [foodData, setFoodData] = useState([]);
+  const [favorites, setFavorites] = useState(checkFavorites());
   const [inProgressRecipes,
     setInProgressRecipes] = useState(checkLocalStorage('inProgressRecipes'));
   const [doneRecipes, setDoneRecipes] = useState(checkLocalStorage('doneRecipes'));
@@ -38,6 +40,10 @@ function RecipeProvider({ children }) {
   const [stateButtonsFilter, setStateButtonsFilter] = useState(buttonsInitialState);
 
   const maxObjRetrieve = 12;
+
+  useEffect(() => {
+    localStorage.setItem('favoritesRecipes', JSON.stringify(favorites));
+  }, [favorites]);
 
   async function fetchMeals() {
     const { parameter, search } = filters;
@@ -86,6 +92,8 @@ function RecipeProvider({ children }) {
     setStateButtonsFilter,
     doneRecipes,
     setDoneRecipes,
+    favorites,
+    setFavorites,
     inProgressRecipes,
     setInProgressRecipes,
     favoriteRecipes,
