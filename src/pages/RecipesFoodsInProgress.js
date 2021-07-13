@@ -3,6 +3,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import RecipeContext from '../context/RecipesContext';
 import { getMealById } from '../services/api';
+import verifyIngredientsInLocalStorage from '../utils/verifyIngredientsInLocalStorage';
 import checkIngredients from '../utils/checkIngredients';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -68,19 +69,6 @@ export default function RecipesFoodsInProgress() {
       .find((fav) => fav.id === mealId && fav.type === 'comida');
     if (!foundFavorite) return false;
     return true;
-  }
-
-  function verifyIngredientUse(index, ingredient) {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if(!inProgressRecipes) return;
-    const mealKey = inProgressRecipes.meals[meal.idMeal];
-    if (mealKey && mealKey.includes(ingredient) && meal) {
-      setTimeout(() => {
-        const ingredientItem = document.getElementById(`${index}-ingredient-step`);
-        ingredientItem.style.textDecoration = 'line-through';
-      }, 1000);
-      return true;
-    }
   }
 
   function favoriteMeal() {
@@ -163,7 +151,7 @@ export default function RecipesFoodsInProgress() {
           { ingredient }
           <input
             type="checkbox"
-            checked={ verifyIngredientUse(index, ingredient) }
+            checked={ verifyIngredientsInLocalStorage(meal, ingredient, index) }
             onClick={ () => updateUsedIngredients(index, ingredient) }
             className="ingredient-check"
             id={ `${ingredient}-check` }

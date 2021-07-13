@@ -49,13 +49,14 @@ export default function RecipesDrinksInProgress() {
 
   function verifyIngredientUse(index, ingredient) {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if(!inProgressRecipes) return;
+    if (!inProgressRecipes) return;
     const drinkKey = inProgressRecipes.cocktails[drink.idDrink];
     if (drinkKey && drinkKey.includes(ingredient) && drink) {
+      const oneSecondInMs = 1000;
       setTimeout(() => {
         const ingredientItem = document.getElementById(`${index}-ingredient-step`);
         ingredientItem.style.textDecoration = 'line-through';
-      }, 1000);
+      }, oneSecondInMs);
       return true;
     }
   }

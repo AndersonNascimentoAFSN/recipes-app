@@ -1,18 +1,18 @@
 export default function mapDrinkIngredients(recipe) {
   const ingredients = [];
-    const maxIngredientsNumber = 20;
-    for (let i = 1; i <= maxIngredientsNumber; i += 1) {
-      if (
-        recipe[`strIngredient${i}`] === null
+  const maxIngredientsNumber = 20;
+  for (let i = 1; i <= maxIngredientsNumber; i += 1) {
+    if (
+      recipe[`strIngredient${i}`] === null
         || recipe[`strIngredient${i}`] === ''
-      ) {
-        break;
-      }
-      ingredients.push(
-        `${recipe[`strIngredient${i}`]
-        } ${
-          recipe[`strMeasure${i}`]}`,
-      );
+    ) {
+      break;
     }
-    return ingredients;
+    ingredients.push(
+      `${recipe[`strIngredient${i}`]
+      } ${
+        recipe[`strMeasure${i}`]}`,
+    );
+  }
+  return ingredients;
 }
