@@ -28,6 +28,7 @@ export default function ShareButton({ index, id, type }) {
     <>
       <button
         type="button"
+        data-testid="share-btn"
         onClick={ onClickClipboard }
       >
         <img

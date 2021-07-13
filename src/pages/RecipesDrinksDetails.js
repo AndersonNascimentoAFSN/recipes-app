@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getDrinkByID, getMeals } from '../services/api';
 import ingredientsMesure from '../utils/ingredientsMesure';
 import RecipeContext from '../context/RecipesContext';
 import './recipesPageContainer.css';
+import ShareButton from '../components/ShareButton';
 
 const drinkPhoto = {
   maxWidth: '150px',
@@ -66,12 +68,13 @@ export default function RecipesDrinksDetails(props) {
       );
     }
     return (
-      <div
+      <Link
+        to={ `/bebidas/${id}/in-progress` }
         data-testid="start-recipe-btn"
         style={ startRecipe }
       >
         Botão de iniciar receita
-      </div>
+      </Link>
     );
   }
 
@@ -106,7 +109,7 @@ export default function RecipesDrinksDetails(props) {
         src={ drink.strYoutube }
         data-testid="video"
       />
-      <div data-testid="share-btn">Botão de compartilhar</div>
+      <ShareButton id={ id } index={ 0 } type="bebidas" />
       <div data-testid="favorite-btn">Botão de favoritar</div>
       <div>
         {mealAlternate.map((meal, index) => (
