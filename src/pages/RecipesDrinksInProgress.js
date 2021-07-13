@@ -3,7 +3,8 @@ import { Redirect, useParams } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { getDrinkById } from '../services/api';
 import checkIngredients from '../utils/checkIngredients';
-import mapDrinkIngredients from '../utils/mapDrinkIngredients';
+import verifyIngredientsInLocalStorage from '../utils/verifyIngredientsInLocalStorage';
+import { mapDrinkIngredients } from '../utils/mapIngredients';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -26,10 +27,6 @@ export default function RecipesDrinksInProgress() {
     fetchFood();
   }, []);
 
-  function verifyDrinkIngredients(recipe) {
-    return mapDrinkIngredients(recipe);
-  }
-
   function updateUsedIngredients(index, ingredient) {
     const label = document.getElementById(`${index}-ingredient-step`);
     label.style.textDecoration = 'line-through';
@@ -46,20 +43,6 @@ export default function RecipesDrinksInProgress() {
       },
       meals: {},
     }));
-  }
-
-  function verifyIngredientUse(index, ingredient) {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!inProgressRecipes) return;
-    const drinkKey = inProgressRecipes.cocktails[drink.idDrink];
-    if (drinkKey && drinkKey.includes(ingredient) && drink) {
-      const oneSecondInMs = 1000;
-      setTimeout(() => {
-        const ingredientItem = document.getElementById(`${index}-ingredient-step`);
-        ingredientItem.style.textDecoration = 'line-through';
-      }, oneSecondInMs);
-      return true;
-    }
   }
 
   function verifyIngredientsCheck() {
@@ -152,7 +135,7 @@ export default function RecipesDrinksInProgress() {
       >
         { drink.strAlcoholic }
       </p>
-      { verifyDrinkIngredients(drink).map((ingredient, index) => (
+      { mapDrinkIngredients(drink).map((ingredient, index) => (
         <label
           data-testid={ `${index}-ingredient-step` }
           id={ `${index}-ingredient-step` }
@@ -164,7 +147,7 @@ export default function RecipesDrinksInProgress() {
             type="checkbox"
             onClick={ () => updateUsedIngredients(index, ingredient) }
             className="ingredient-check"
-            checked={ verifyIngredientUse(index, ingredient) }
+            checked={ verifyIngredientsInLocalStorage('drink', drink, ingredient, index) }
             id={ `${ingredient}-check` }
           />
         </label>
