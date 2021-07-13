@@ -3,6 +3,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { getMealByID, getCocktails } from '../services/api';
 import ingredientsMesure from '../utils/ingredientsMesure';
 import RecipeContext from '../context/RecipesContext';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './recipesPageContainer.css';
 
 const mealPhoto = {
@@ -18,7 +20,7 @@ const startRecipe = {
 
 export default function RecipesFoodsDetails(props) {
   const { match: { params: { id } } } = props;
-  const { doneRecipes, inProgressRecipes } = useContext(RecipeContext);
+  const { doneRecipes, inProgressRecipes, favoriteRecipes } = useContext(RecipeContext);
   const [meal, setMeal] = useState([]);
   const [drinkAlternate, setDrinkAlternate] = useState([]);
 
@@ -53,6 +55,14 @@ export default function RecipesFoodsDetails(props) {
       progressFlag = (inProgressRecipes.meals[id] !== null);
     }
     return progressFlag;
+  }
+
+  function isFavorite() {
+    let favoriteFlag = false;
+    favoriteRecipes.forEach((recipe) => {
+      if (recipe.id === id) favoriteFlag = true;
+    });
+    return favoriteFlag;
   }
 
   function renderProgress() {
@@ -107,7 +117,17 @@ export default function RecipesFoodsDetails(props) {
         data-testid="video"
       />
       <div data-testid="share-btn">Botão de compartilhar</div>
-      <div data-testid="favorite-btn">Botão de favoritar</div>
+      { isFavorite() ? <img
+        src={ blackHeartIcon }
+        data-testid="favorite-btn"
+        alt="blackHeartIcon"
+      />
+        : (
+          <img
+            src={ whiteHeartIcon }
+            data-testid="favorite-btn"
+            alt="whiteHeartIcon"
+          />)}
       <div>
         {drinkAlternate.map((drink, index) => (
           <div
