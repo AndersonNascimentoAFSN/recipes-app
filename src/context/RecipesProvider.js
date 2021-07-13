@@ -4,10 +4,10 @@ import RecipeContext from './RecipesContext';
 import { getMeals, getCocktails } from '../services/api';
 import checkFavorites from '../utils/checkFavoritesInLocalStorage';
 
-function checkLocalStorage() {
-  const doneRecipesArray = JSON.parse(localStorage.getItem('doneRecipes'));
-  if (doneRecipesArray !== null) {
-    return doneRecipesArray;
+function checkLocalStorage(doneOrFavoriteRecipes) {
+  const recipesArray = JSON.parse(localStorage.getItem(doneOrFavoriteRecipes));
+  if (recipesArray !== null) {
+    return recipesArray;
   }
   return [];
 }
@@ -18,10 +18,16 @@ function RecipeProvider({ children }) {
     search: '',
   };
   const [filters, setFilters] = useState(filtersInitialState);
+  const [filtersDone, setFiltersDone] = useState({ type: 'all' });
+  const [filtersFavorite, setFiltersFavorite] = useState({ type: 'all' });
   const [drinkData, setDrinkData] = useState([]);
   const [foodData, setFoodData] = useState([]);
-  const [doneRecipes, setDoneRecipes] = useState(checkLocalStorage());
   const [favorites, setFavorites] = useState(checkFavorites());
+  const [inProgressRecipes,
+    setInProgressRecipes] = useState(checkLocalStorage('inProgressRecipes'));
+  const [doneRecipes, setDoneRecipes] = useState(checkLocalStorage('doneRecipes'));
+  const [favoriteRecipes,
+    setFavoriteRecipes] = useState(checkLocalStorage('favoriteRecipes'));
 
   const buttonsInitialState = {
     buttonFilter0: false,
@@ -73,6 +79,10 @@ function RecipeProvider({ children }) {
     fetchMeals,
     fetchCocktails,
     filters,
+    filtersDone,
+    setFiltersDone,
+    filtersFavorite,
+    setFiltersFavorite,
     setFilters,
     drinkData,
     foodData,
@@ -84,6 +94,10 @@ function RecipeProvider({ children }) {
     setDoneRecipes,
     favorites,
     setFavorites,
+    inProgressRecipes,
+    setInProgressRecipes,
+    favoriteRecipes,
+    setFavoriteRecipes,
   };
 
   return (

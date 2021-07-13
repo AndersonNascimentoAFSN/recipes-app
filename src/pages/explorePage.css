@@ -1,0 +1,23 @@
+.explorePage__Container {
+  height: 100vh;
+  margin: 0 auto;
+  max-width: 360px;
+}
+
+.exploreLinks__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  margin: 80px auto;
+}
+
+.explore__links {
+  background-color: #333;
+  color: white;
+  font-size: 1rem;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}

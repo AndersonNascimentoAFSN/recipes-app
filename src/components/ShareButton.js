@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import Toast from './Toast';
 
 export default function ShareButton({ index, id, type }) {
+  const history = useLocation();
   const toastShow = () => {
     const timerShowToast = 1500;
     const toastElement = document.querySelector('.snackbar');
@@ -15,7 +17,7 @@ export default function ShareButton({ index, id, type }) {
 
   function onClickClipboard() {
     const url = `${window.location.href
-      .split('/receitas-feitas')[0]}/${type}/${id}`;
+      .split(history.pathname)[0]}/${type}/${id}`;
 
     navigator.clipboard.writeText(url);
 
