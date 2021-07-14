@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './login.css';
-// import loginPageBanner from '../images/loginPageImg.svg';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -32,11 +31,10 @@ function Login() {
 
   return (
     <div className="loginPage__container">
-      {/* <img
-        src={ loginPageBanner }
-        alt="login img"
-        className="loginPage__banner"
-      /> */}
+      <div className="loginPage__text__container">
+        <h1 className="loginPage__title">Cozinhe com a experiência de um Chef</h1>
+        <p>Faça pratos deliciosos com a melhor receita para a família</p>
+      </div>
       <div className="loginPage__inputs">
         <input
           name="email"
