@@ -1,14 +1,16 @@
 :root {
 
-  --text-primary: #0f0f0f;
+  --green: rgb(48, 80, 42);
 
-  --text-secondary: #ecfcf4;
+  --green-light-10: rgb(250, 255, 250);
 
-  --background-primary-buttons: #61c06e;
+  --green-light-20: rgb(233, 245, 231);
 
-  --background-primary-page: #fafcfe;
+  --orange: rgb(250, 119, 17);
 
-  --background-secondary-page: #bf674e;
+  --mustard: rgb(221, 154, 46);
+
+  --black: rgb(0, 4, 9);
 
   --white: white;
 
