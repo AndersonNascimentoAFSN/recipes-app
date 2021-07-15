@@ -1,19 +1,14 @@
 :root {
 
-  --green: rgb(48, 80, 42);
+  --spotlight: #61c06eff; /* --emerald */
 
-  --green-light-10: rgb(250, 255, 250);
+  --background: #f7faf7ff; /* baby-powder */
 
-  --green-light-20: rgb(233, 245, 231);
+  --contrast: #191d1aff;   /* dark-jungle-green; */
 
-  --orange: rgb(250, 119, 17);
-
-  --mustard: rgb(221, 154, 46);
-
-  --black: rgb(0, 4, 9);
+  --complementary: #fa7711ff;  /* safety-orange */
 
   --white: white;
-
 }
 
 
@@ -57,6 +52,9 @@ aside, footer, header, menu, nav, section {
 }
 
 body {
+  background: var(--green-light-10);
+
+  /* background: #1b1612; */
   line-height: 1;
 }
 

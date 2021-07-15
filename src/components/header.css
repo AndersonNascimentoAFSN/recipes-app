@@ -1,6 +1,9 @@
 .header {
   align-items: center;
-  background: #ccc;
+
+  /* background: var(--white); */
+  background: var(--background);
+  color: var(--contrast);
   display: flex;
   justify-content: space-between;
   margin: 0 auto;

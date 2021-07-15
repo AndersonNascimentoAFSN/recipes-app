@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import RecipeContext from '../context/RecipesContext';
 import inputsContent from '../utils/searchBarInputsContent';
+import './searchBar.css';
 
 function SearchBar() {
   const [searchText, setSearchText] = useState('');
@@ -21,30 +22,36 @@ function SearchBar() {
   }
 
   return (
-    <section className="search-bar">
+    <section className="searchBar">
       <input
         type="text"
         data-testid="search-input"
         value={ searchText }
         onChange={ ({ target }) => setSearchText(target.value) }
+        className="searchBar__input"
       />
-      { inputsContent.map((input, index) => (
-        <label key={ index } htmlFor={ input.testid }>
-          { input.label }
-          <input
-            type="radio"
-            id={ input.testid }
-            name="search-radio"
-            data-testid={ input.testid }
-            value={ input.value }
-            onChange={ ({ target }) => setSearchParameter(target.value) }
-          />
-        </label>
-      )) }
+
+      <fieldset className="searchBar__radios">
+        { inputsContent.map((input, index) => (
+          <label key={ index } htmlFor={ input.testid }>
+            <input
+              type="radio"
+              id={ input.testid }
+              name="search-radio"
+              data-testid={ input.testid }
+              value={ input.value }
+              onChange={ ({ target }) => setSearchParameter(target.value) }
+            />
+            { input.label }
+          </label>
+        )) }
+      </fieldset>
+
       <button
         type="button"
         data-testid="exec-search-btn"
         onClick={ () => handleSearch() }
+        className="searchBar__button"
       >
         Buscar
       </button>

@@ -13,11 +13,6 @@
     max-width: 360px;
   }
 
-  .loginPage__text__container {
-
-    /* padding: 20px; */
-  }
-
   .loginPage__text__container h1 {
     color: var(--white);
     font-size: 2.3rem;
@@ -52,13 +47,13 @@
   }
 
   .loginPage__button button {
-    background-color: var(--orange);
+    background-color: var(--complementary);
     border: none;
     border-radius: 10px;
     box-shadow: 0.3px 0.3px 10px 0.3px var(--black);
-    color: var(--green);
+    color: var(--contrast);
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 600;
     margin: 0 auto;
     margin-top: 40px;

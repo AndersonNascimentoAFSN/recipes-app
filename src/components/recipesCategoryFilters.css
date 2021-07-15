@@ -1,13 +1,26 @@
 .recipesCategoryFilters__containers {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  justify-content: space-between;
+  justify-content: center;
   margin: 15px auto;
   max-width: 360px;
 }
 
 .recipesCategoryFilters__button {
-  max-width: 105px;
-  padding: 2px;
+  background: var(--spotlight);
+
+  /* background: var(--white); */
+  border: none;
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px 1px #e1e6e1;
+  color: var(--contrast);
+  cursor: pointer;
+  overflow: hidden;
+  padding: 5px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100px;
 }

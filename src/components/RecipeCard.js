@@ -14,12 +14,14 @@ function RecipeCard({ index, thumbnail, name }) {
         alt={ `${name} recipe` }
         className="recipeCard__img"
       />
-      <h2
-        data-testid={ `${index}-card-name` }
-        className="recipeCard__title"
-      >
-        {name}
-      </h2>
+      <div className="recipeCard__title__container">
+        <h2
+          data-testid={ `${index}-card-name` }
+          className="recipeCard__title"
+        >
+          {name}
+        </h2>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,8 @@
 .footerStyle {
   align-items: center;
-  background: #ccc;
+  background: var(--background);
   bottom: 0%;
+  color: var(--contrast);
   display: flex;
   justify-content: space-between;
   left: 50%;
