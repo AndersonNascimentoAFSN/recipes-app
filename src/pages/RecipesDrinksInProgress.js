@@ -9,6 +9,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import RecipeContext from '../context/RecipesContext';
+import './recipesInProgress.css';
 
 export default function RecipesDrinksInProgress() {
   const { id } = useParams();
@@ -98,62 +99,81 @@ export default function RecipesDrinksInProgress() {
   }
 
   return (
-    <div>
+    <div className="recipes-in-progress-page">
       <img
         src={ drink.strDrinkThumb }
         alt={ `${drink.strDrink} recipe` }
         data-testid="recipe-photo"
       />
-      <h1 data-testid="recipe-title">
-        { drink.strDrink }
-      </h1>
-      <button
-        data-testid="share-btn"
-        onClick={ () => handleShare() }
-        type="button"
-      >
-        <img
-          src={ shareIcon }
-          alt="Share"
-        />
-        { isLinkCopied && <p>Link copiado!</p> }
-      </button>
-      <button
-        onClick={ () => favoriteMeal() }
-        type="button"
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ isFavorite(drink.idDrink)
-            ? blackHeartIcon
-            : whiteHeartIcon }
-          alt="Share"
-        />
-      </button>
-      <p
-        data-testid="recipe-category"
-      >
-        { drink.strAlcoholic }
-      </p>
-      { mapDrinkIngredients(drink).map((ingredient, index) => (
-        <label
-          data-testid={ `${index}-ingredient-step` }
-          id={ `${index}-ingredient-step` }
-          key={ index }
-          htmlFor={ `${ingredient}-check` }
-        >
-          { ingredient }
-          <input
-            type="checkbox"
-            onClick={ () => updateUsedIngredients(index, ingredient) }
-            className="ingredient-check"
-            checked={ verifyIngredientsInLocalStorage('drink', drink, ingredient, index) }
-            id={ `${ingredient}-check` }
-          />
-        </label>
-      ))}
+      <div className="overflow-card">
+        <div className="recipe-name-block">
+          <h1
+            data-testid="recipe-title"
+            className="recipe__title"
+          >
+            { drink.strDrink }
+          </h1>
+          <p
+            data-testid="recipe-category"
+            className="recipe-category"
+          >
+            { drink.strAlcoholic }
+          </p>
+        </div>
+        <div className="recipe-interact-buttons-block">
+          <button
+            data-testid="share-btn"
+            onClick={ () => handleShare() }
+            type="button"
+            className="interact__buttons"
+          >
+            <img
+              src={ shareIcon }
+              alt="Share"
+            />
+            { isLinkCopied && <p>Link copiado!</p> }
+          </button>
+          <button
+            onClick={ () => favoriteMeal() }
+            type="button"
+            className="interact__buttons"
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorite(drink.idDrink)
+                ? blackHeartIcon
+                : whiteHeartIcon }
+              alt="Share"
+            />
+          </button>
+        </div>
+      </div>
+      <h3> Ingredients </h3>
+      <div className="ingredient-items-list">
+        { mapDrinkIngredients(drink).map((ingredient, index) => (
+          <label
+            data-testid={ `${index}-ingredient-step` }
+            id={ `${index}-ingredient-step` }
+            key={ index }
+            htmlFor={ `${ingredient}-check` }
+          >
+            { ingredient }
+            <input
+              type="checkbox"
+              onClick={ () => updateUsedIngredients(index, ingredient) }
+              className="ingredient-check"
+              checked={ verifyIngredientsInLocalStorage(
+                'drink', drink, ingredient, index,
+              ) }
+              id={ `${ingredient}-check` }
+            />
+          </label>
+        ))}
+      </div>
+      <h3> Instructions </h3>
       <p
         data-testid="instructions"
+        className="recipe-instructions"
       >
         { drink.strInstructions }
       </p>
@@ -162,6 +182,7 @@ export default function RecipesDrinksInProgress() {
         disabled={ !verifyIngredientsCheck() }
         data-testid="finish-recipe-btn"
         type="button"
+        className="finish-recipe__button"
       >
         Finalizar receita
       </button>
