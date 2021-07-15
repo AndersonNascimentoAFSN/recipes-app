@@ -52,7 +52,7 @@ aside, footer, header, menu, nav, section {
 }
 
 body {
-  background: var(--green-light-10);
+  background: var(--background);
 
   /* background: #1b1612; */
   line-height: 1;

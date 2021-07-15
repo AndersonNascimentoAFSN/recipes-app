@@ -7,18 +7,18 @@ import RecipeContext from '../context/RecipesContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
-import './recipesPageContainer.css';
+import './recipesDetailsPage.css';
 
-const mealPhoto = {
-  maxWidth: '150px',
-  maxHeight: '150px',
-  margin: 'auto',
-};
+// const mealPhoto = {
+//     maxWidth: '150px',
+//     maxHeight: '150px',
+//     margin: 'auto',
+//   };
 
-const startRecipe = {
-  position: 'fixed',
-  bottom: '0px',
-};
+// const startRecipe = {
+//     position: 'fixed',
+//     bottom: '0px',
+//   };
 
 export default function RecipesFoodsDetails(props) {
   const { match: { params: { id } } } = props;
@@ -75,7 +75,7 @@ export default function RecipesFoodsDetails(props) {
       return (
         <div
           data-testid="start-recipe-btn"
-          style={ startRecipe }
+          // style={ startRecipe }
         >
           Continuar Receita
         </div>
@@ -85,7 +85,7 @@ export default function RecipesFoodsDetails(props) {
       <Link
         to={ `/comidas/${id}/in-progress` }
         data-testid="start-recipe-btn"
-        style={ startRecipe }
+        // style={ startRecipe }
       >
         Botão de iniciar receita
       </Link>
@@ -93,25 +93,57 @@ export default function RecipesFoodsDetails(props) {
   }
 
   return (
-    <div className="recipesPage__Container">
-      <h1>Detalhes das receitas de comida</h1>
-      <img
-        src={ meal.strMealThumb }
-        style={ mealPhoto }
-        alt=""
-        data-testid="recipe-photo"
-      />
-      <p data-testid="recipe-title">{ meal.strMeal }</p>
-      <p data-testid="recipe-category">{ meal.strCategory }</p>
-      {ingredients.map((ingredient, index) => (
-        <li
-          key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {ingredient}
-        </li>
-      ))}
-      <p data-testid="instructions">{ meal.strInstructions}</p>
+    <div className="recipesDetailsPage__Container">
+      {/* <h1>Detalhes das receitas de comida</h1> */}
+      <header className="recipesDetailsPage__header">
+        <img
+          src={ meal.strMealThumb }
+          // style={ mealPhoto }
+          alt="recipe"
+          data-testid="recipe-photo"
+          className="recipesDetailsPage__banner"
+        />
+
+        <div className="recipesDetailsPage__info">
+          <div>
+            <h1 data-testid="recipe-title">{ meal.strMeal }</h1>
+            <span data-testid="recipe-category">{ meal.strCategory }</span>
+          </div>
+
+          <div className="recipesDetailsPage__icons">
+            { isFavorite() ? <img
+              src={ blackHeartIcon }
+              data-testid="favorite-btn"
+              alt="blackHeartIcon"
+            />
+              : (
+                <img
+                  src={ whiteHeartIcon }
+                  data-testid="favorite-btn"
+                  alt="whiteHeartIcon"
+                />)}
+            <ShareButton id={ id } index={ 0 } type="comidas" />
+          </div>
+        </div>
+      </header>
+
+      <div>
+        <h2>Ingredients</h2>
+        {ingredients.map((ingredient, index) => (
+          <li
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {ingredient}
+          </li>
+        ))}
+      </div>
+
+      <div>
+        <h2>Instructions</h2>
+        <p data-testid="instructions">{ meal.strInstructions}</p>
+      </div>
+
       <iframe
         title="Youtube video"
         width="200"
@@ -119,18 +151,7 @@ export default function RecipesFoodsDetails(props) {
         src={ meal.strYoutube }
         data-testid="video"
       />
-      { isFavorite() ? <img
-        src={ blackHeartIcon }
-        data-testid="favorite-btn"
-        alt="blackHeartIcon"
-      />
-        : (
-          <img
-            src={ whiteHeartIcon }
-            data-testid="favorite-btn"
-            alt="whiteHeartIcon"
-          />)}
-      <ShareButton id={ id } index={ 0 } type="comidas" />
+
       <div>
         {drinkAlternate.map((drink, index) => (
           <div

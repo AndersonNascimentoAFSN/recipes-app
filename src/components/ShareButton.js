@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import Toast from './Toast';
+import './shareButton.css';
 
 export default function ShareButton({ index, id, type }) {
   const history = useLocation();
@@ -30,11 +31,13 @@ export default function ShareButton({ index, id, type }) {
         type="button"
         data-testid="share-btn"
         onClick={ onClickClipboard }
+        className="shareButton__button"
       >
         <img
           src={ shareIcon }
           alt="share recipes"
           data-testid={ `${index}-horizontal-share-btn` }
+          className="shareButton__img"
         />
       </button>
 
