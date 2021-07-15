@@ -28,8 +28,9 @@ export default function RecipesDrinks() {
     <div className="recipesPage__Container">
       <Header title="Bebidas">
         <ButtonSearch />
-        { showHide && <SearchBar /> }
       </Header>
+
+      { showHide && <SearchBar /> }
 
       <RecipesCategoryFilters typeRecipes="drinks" />
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -29,14 +30,19 @@ function Login() {
   }
 
   return (
-    <div>
-      <div>
+    <div className="loginPage__container">
+      <div className="loginPage__text__container">
+        <h1 className="loginPage__title">Cozinhe com a experiência de um Chef</h1>
+        <p>Faça pratos deliciosos com a melhor receita para a família</p>
+      </div>
+      <div className="loginPage__inputs">
         <input
           name="email"
           type="text"
           data-testid="email-input"
           value={ email }
           onChange={ handleChangeEmail }
+          placeholder="Email"
         />
         <input
           name="password"
@@ -44,18 +50,23 @@ function Login() {
           data-testid="password-input"
           value={ password }
           onChange={ handleChangePassword }
+          placeholder="Senha"
         />
-      </div>
-      <Link to="/comidas">
-        <button
-          data-testid="login-submit-btn"
-          onClick={ handleSubmit }
-          disabled={ button }
-          type="button"
+
+        <Link
+          to="/comidas"
+          className="loginPage__button"
         >
-          Entrar
-        </button>
-      </Link>
+          <button
+            data-testid="login-submit-btn"
+            onClick={ handleSubmit }
+            disabled={ button }
+            type="button"
+          >
+            Entrar
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }

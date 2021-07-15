@@ -28,8 +28,9 @@ export default function RecipesFoods() {
     <div className="recipesPage__Container">
       <Header title="Comidas">
         <ButtonSearch />
-        { showHide && <SearchBar /> }
       </Header>
+
+      { showHide && <SearchBar /> }
 
       <RecipesCategoryFilters typeRecipes="meals" />
 

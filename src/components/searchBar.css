@@ -1,27 +1,42 @@
-.search-bar {
+.searchBar {
   align-items: center;
-  background: #ccc;
+  background: var(--background);
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   margin: 0 auto;
   margin-top: 8px;
   max-width: 360px;
-  padding: 20px;
+  padding: 10px;
 }
 
-.search__input {
-  width: 100%;
+.searchBar__input {
+  padding: 10px;
+  width: 70%;
 }
 
-.search__bar--hiden {
-  display: none;
-}
-
-.search__bar--show {
-  display: block;
-}
-
-.searchBar__inputs {
+.searchBar__radios {
   display: flex;
-  justify-content: space-between;
+  gap: 5px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.searchBar__radios label {
+  display: flex;
+  gap: 5px;
+}
+
+.searchBar__radios input {
+  color: var(--contrast);
+  font-size: 1rem;
+}
+
+.searchBar__button {
+  background: var(--complementary);
+  color: var(--contrast);
+  font-size: 1.3em;
+  padding: 10px;
+  width: 100px;
 }

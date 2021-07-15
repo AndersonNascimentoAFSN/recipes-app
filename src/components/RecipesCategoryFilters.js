@@ -7,18 +7,23 @@ import setStateButtonsFilters from '../utils/toggleButtonsFilters';
 
 export default function RecipesCategoryFilters({ typeRecipes }) {
   const [recipesCategories, setRecipesCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
   const {
     setFilters, stateButtonsFilter,
     setStateButtonsFilter,
   } = useRecipesContext();
+
+  // console.log(filters);
 
   useEffect(() => {
     getCategories(typeRecipes).then((data) => {
       const quantityCategories = 5;
       const categoriesList = data[typeRecipes]
         .filter((_, index) => index < quantityCategories);
+      setLoading(true);
       setRecipesCategories(categoriesList);
     });
+    setLoading(false);
   }, [typeRecipes]);
 
   useEffect(() => {
@@ -55,9 +60,10 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
       return '';
     }
   }
+
   return (
     <div className="recipesCategoryFilters__containers">
-      {recipesCategories.map(({ strCategory }, index) => (
+      {recipesCategories && recipesCategories.map(({ strCategory }, index) => (
         <button
           key={ index }
           type="button"
@@ -68,13 +74,17 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
           {strCategory}
         </button>
       ))}
-      <button
-        type="button"
-        onClick={ handleClickButtonAll }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
+
+      {loading ? (
+        <button
+          type="button"
+          onClick={ handleClickButtonAll }
+          data-testid="All-category-filter"
+          className="recipesCategoryFilters__button"
+        >
+          All
+        </button>
+      ) : ''}
     </div>
   );
 }
