@@ -23,10 +23,9 @@ const startRecipe = {
 export default function RecipesFoodsDetails(props) {
   const { match: { params: { id } } } = props;
   const {
-    doneRecipes, inProgressRecipes, favoriteRecipes, setFavoriteRecipes,
+    doneRecipes, inProgressRecipes, favorites, setFavorites,
   } = useContext(RecipeContext);
   const [meal, setMeal] = useState([]);
-  const [favorite, setFavorite] = useState(false);
   const [drinkAlternate, setDrinkAlternate] = useState([]);
 
   useEffect(() => {
@@ -40,20 +39,19 @@ export default function RecipesFoodsDetails(props) {
       setDrinkAlternate(drinkResults.drinks.slice(0, RECOMMENDED_DRINKS));
     };
 
-    const isFavorite = () => {
-      let favoriteFlag = false;
-      favoriteRecipes.forEach((recipe) => {
-        if (recipe.id === id) favoriteFlag = true;
-      });
-      return favoriteFlag;
-    };
-
     getMeal();
-    setFavorite(isFavorite());
-  }, [id, setMeal, setFavorite]);
+  }, []);
 
   const NUMBER_OF_INGREDIENTS = 15;
   const ingredients = ingredientsMesure(meal, NUMBER_OF_INGREDIENTS);
+
+  function isFavorite() {
+    let favoriteFlag = false;
+    favorites.forEach((recipe) => {
+      if (recipe.id === id) favoriteFlag = true;
+    });
+    return favoriteFlag;
+  };
 
   function alreadyDone() {
     let doneFlag = false;
@@ -71,16 +69,26 @@ export default function RecipesFoodsDetails(props) {
     return progressFlag;
   }
 
-  function addFavorite() {
-    const newFavoriteRecipes = [...favoriteRecipes, meal];
-    setFavoriteRecipes(newFavoriteRecipes);
-    setFavorite(true);
-  }
-
-  function removeFavorite() {
-    const newFavoriteRecipes = favoriteRecipes.filter((recipe) => recipe.id !== id);
-    setFavoriteRecipes(newFavoriteRecipes);
-    setFavorite(false);
+  function favoriteMeal() {
+    if (isFavorite(meal.idMeal)) {
+      setFavorites(
+        favorites.filter((fav) => fav.id !== meal.idMeal),
+      );
+      return;
+    }
+    const newFavorite = {
+      id: meal.idMeal,
+      type: 'comida',
+      area: meal.strArea,
+      category: meal.strCategory,
+      alcoholicOrNot: '',
+      name: meal.strMeal,
+      image: meal.strMealThumb,
+    };
+    setFavorites([
+      ...favorites,
+      newFavorite,
+    ]);
   }
 
   function renderProgress() {
@@ -135,8 +143,8 @@ export default function RecipesFoodsDetails(props) {
         src={ meal.strYoutube }
         data-testid="video"
       />
-      { favorite ? (
-        <button type="button" onClick={ () => removeFavorite() }>
+      { isFavorite() ? (
+        <button type="button" onClick={ () => favoriteMeal() }>
           <img
             src={ blackHeartIcon }
             data-testid="favorite-btn"
@@ -144,7 +152,7 @@ export default function RecipesFoodsDetails(props) {
           />
         </button>)
         : (
-          <button type="button" onClick={ () => addFavorite() }>
+          <button type="button" onClick={ () => favoriteMeal() }>
             <img
               src={ whiteHeartIcon }
               data-testid="favorite-btn"
