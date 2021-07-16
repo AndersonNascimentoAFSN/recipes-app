@@ -6,6 +6,20 @@ import './profile.css';
 
 export default function Profile() {
   const { email } = JSON.parse(localStorage.getItem('user'));
+  const localStorageKeys = [
+    'user',
+    'mealsToken',
+    'cocktailsToken',
+    'doneRecipes',
+    'favoriteRecipes',
+    'inProgressRecipes',
+  ];
+
+  function handleResetStorage() {
+    localStorageKeys.forEach((key) => {
+      localStorage.removeItem(key);
+    });
+  }
 
   return (
     <div className="profile-page">
@@ -29,20 +43,28 @@ export default function Profile() {
           </h2>
           <button
             data-testid="profile-done-btn"
+            type="button"
           >
-            <Link to="receitas-feitas"/>
-            Receitas Feitas
+            <Link to="receitas-feitas">
+              Receitas Feitas
+            </Link>
           </button>
           <button
             data-testid="profile-favorite-btn"
+            type="button"
           >
-            <Link to="receitas-favoritas"/>
-            Receitas Favoritas
+            <Link to="receitas-favoritas">
+              Receitas Favoritas
+            </Link>
           </button>
           <button
             data-testid="profile-logout-btn"
+            type="button"
+            onClick={ () => handleResetStorage() }
           >
-            Sair
+            <Link to="/">
+              Sair
+            </Link>
           </button>
         </div>
       </div>
