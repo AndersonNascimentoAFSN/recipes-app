@@ -1,0 +1,47 @@
+.profile-page {
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+.profile-page > div {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.profile-page > div > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+}
+
+.user-login-info p {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.profile-page > div > div h3 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--spotlight);
+}
+
+.profile-page > div > div h2 {
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+
+.profile-page > div > div button {
+  border: none;
+  color: white;
+  background: var(--spotlight);
+  width: 50%;
+  height: 35px;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 10px;
+  border-radius: 5px;
+}
