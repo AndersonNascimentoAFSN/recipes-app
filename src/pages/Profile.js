@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import './profile.css';
 
 export default function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const { email } = JSON.parse(localStorage.getItem('user')) || '';
   const localStorageKeys = [
     'user',
     'mealsToken',
