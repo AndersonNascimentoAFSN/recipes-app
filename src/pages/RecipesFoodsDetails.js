@@ -9,17 +9,6 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
 import './recipesDetailsPage.css';
 
-// const mealPhoto = {
-//     maxWidth: '150px',
-//     maxHeight: '150px',
-//     margin: 'auto',
-//   };
-
-// const startRecipe = {
-//     position: 'fixed',
-//     bottom: '0px',
-//   };
-
 export default function RecipesFoodsDetails(props) {
   const { match: { params: { id } } } = props;
   const { doneRecipes, inProgressRecipes, favoriteRecipes } = useContext(RecipeContext);
@@ -28,12 +17,14 @@ export default function RecipesFoodsDetails(props) {
 
   useEffect(() => {
     const getMeal = async () => {
-      const results = await getMealByID(id);
-      console.log(results);
+      const result = await getMealByID(id);
       const drinkResults = await getCocktails('name', '');
-      setMeal(results);
+      const resultWithEmbedVideo = {
+        ...result,
+        strYoutube: `https://www.youtube.com/embed/${result.strYoutube.split('v=')[1]}`,
+      };
+      setMeal(resultWithEmbedVideo);
       const RECOMMENDED_DRINKS = 6;
-      console.log(drinkResults.drinks.slice(0, RECOMMENDED_DRINKS));
       setDrinkAlternate(drinkResults.drinks.slice(0, RECOMMENDED_DRINKS));
     };
 
@@ -69,48 +60,67 @@ export default function RecipesFoodsDetails(props) {
 
   function renderProgress() {
     if (alreadyDone()) {
-      return (<div>Receita já feita</div>);
+      return (
+        <span className="wrapper__buttons__realizedRecipe">
+          Receita já feita
+        </span>);
     }
     if (inProgress()) {
       return (
-        <div
+        <button
+          type="button"
           data-testid="start-recipe-btn"
-          // style={ startRecipe }
+          className="wrapper__buttons__continueRecipe"
         >
           Continuar Receita
-        </div>
+        </button>
       );
     }
     return (
       <Link
         to={ `/comidas/${id}/in-progress` }
         data-testid="start-recipe-btn"
-        // style={ startRecipe }
+        className="wrapper__buttons__startRecipe"
       >
-        Botão de iniciar receita
+        Iniciar receita
       </Link>
     );
   }
 
+  // function carousel() {
+  //   document.querySelector('.c-drinkAlternative__cards')
+  //     .addEventListener('wheel', (event) => {
+
+  //     });
+  // }
+
   return (
-    <div className="recipesDetailsPage__Container">
-      {/* <h1>Detalhes das receitas de comida</h1> */}
-      <header className="recipesDetailsPage__header">
+    <div className="c-recipesDetails">
+      <header className="c-header">
         <img
           src={ meal.strMealThumb }
-          // style={ mealPhoto }
           alt="recipe"
           data-testid="recipe-photo"
-          className="recipesDetailsPage__banner"
+          className="c-banner"
         />
 
-        <div className="recipesDetailsPage__info">
+        <div className="c-info">
           <div>
-            <h1 data-testid="recipe-title">{ meal.strMeal }</h1>
-            <span data-testid="recipe-category">{ meal.strCategory }</span>
+            <h1
+              className="c-info__title"
+              data-testid="recipe-title"
+            >
+              { meal.strMeal }
+            </h1>
+            <span
+              className="c-info__category"
+              data-testid="recipe-category"
+            >
+              { meal.strCategory }
+            </span>
           </div>
 
-          <div className="recipesDetailsPage__icons">
+          <div className="c-wrapper__icons">
             { isFavorite() ? <img
               src={ blackHeartIcon }
               data-testid="favorite-btn"
@@ -127,8 +137,8 @@ export default function RecipesFoodsDetails(props) {
         </div>
       </header>
 
-      <div>
-        <h2>Ingredients</h2>
+      <div className="c-ingredients">
+        <h2 className="c-ingredients__title">Ingredients</h2>
         {ingredients.map((ingredient, index) => (
           <li
             key={ index }
@@ -139,35 +149,51 @@ export default function RecipesFoodsDetails(props) {
         ))}
       </div>
 
-      <div>
-        <h2>Instructions</h2>
+      <div className="c-instructions">
+        <h2 className="c-instructions__title">Instructions</h2>
         <p data-testid="instructions">{ meal.strInstructions}</p>
       </div>
 
-      <iframe
-        title="Youtube video"
-        width="200"
-        height="150"
-        src={ meal.strYoutube }
-        data-testid="video"
-      />
-
-      <div>
-        {drinkAlternate.map((drink, index) => (
-          <div
-            key={ index }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <li
-              key={ index }
-              data-testid={ `${index}-recomendation-title` }
-            >
-              {drink.strDrink}
-            </li>
-          </div>
-        ))}
+      <div className="c-video">
+        <iframe
+          title="Youtube video"
+          width="340"
+          height="160"
+          src={ meal.strYoutube }
+          data-testid="video"
+        />
       </div>
-      { renderProgress() }
+
+      <div className="c-drinkAlternative__wrapper">
+        <div className="c-drinkAlternative__cards">
+          {drinkAlternate.map((drink, index) => (
+            <div
+              key={ index }
+              data-testid={ `${index}-recomendation-card` }
+              className="c-drinkAlternative__card"
+            >
+              <img
+                src={ drink.strDrinkThumb }
+                alt="drink"
+                className="c-drinkAlternative__img"
+              />
+              <div className="c-drinkAlternative__wrapper__title">
+                <span>{drink.strAlcoholic}</span>
+                <span
+                  key={ index }
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  {drink.strDrink}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="c-wrapper__buttons">
+        { renderProgress() }
+      </div>
     </div>
   );
 }
