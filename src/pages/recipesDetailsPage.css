@@ -49,6 +49,10 @@
     background: var(--complementary);
   }
 
+  .c-icons__blackHeartIcon, .c-icons__whiteHeartIcon {
+    border: none;
+  }
+
   .c-ingredients {
     padding: 20px;
   }

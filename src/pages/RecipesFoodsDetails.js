@@ -11,8 +11,10 @@ import './recipesDetailsPage.css';
 
 export default function RecipesFoodsDetails(props) {
   const { match: { params: { id } } } = props;
-  const { doneRecipes, inProgressRecipes, favoriteRecipes } = useContext(RecipeContext);
+  const { doneRecipes, inProgressRecipes,
+    favoriteRecipes, setFavoriteRecipes } = useContext(RecipeContext);
   const [meal, setMeal] = useState([]);
+  const [favorite, setFavorite] = useState(false);
   const [drinkAlternate, setDrinkAlternate] = useState([]);
 
   useEffect(() => {
@@ -28,8 +30,17 @@ export default function RecipesFoodsDetails(props) {
       setDrinkAlternate(drinkResults.drinks.slice(0, RECOMMENDED_DRINKS));
     };
 
+    const isFavorite = () => {
+      let favoriteFlag = false;
+      favoriteRecipes.forEach((recipe) => {
+        if (recipe.id === id) favoriteFlag = true;
+      });
+      return favoriteFlag;
+    };
+
     getMeal();
-  }, [id, setMeal]);
+    setFavorite(isFavorite());
+  }, [id, setMeal, setFavorite]);
 
   const NUMBER_OF_INGREDIENTS = 15;
   const ingredients = ingredientsMesure(meal, NUMBER_OF_INGREDIENTS);
@@ -50,12 +61,24 @@ export default function RecipesFoodsDetails(props) {
     return progressFlag;
   }
 
-  function isFavorite() {
-    let favoriteFlag = false;
-    favoriteRecipes.forEach((recipe) => {
-      if (recipe.id === id) favoriteFlag = true;
-    });
-    return favoriteFlag;
+  // function isFavorite() {
+  //   let favoriteFlag = false;
+  //   favoriteRecipes.forEach((recipe) => {
+  //     if (recipe.id === id) favoriteFlag = true;
+  //   });
+  //   return favoriteFlag;
+  // }
+
+  function addFavorite() {
+    const newFavoriteRecipes = [...favoriteRecipes, meal];
+    setFavoriteRecipes(newFavoriteRecipes);
+    setFavorite(true);
+  }
+
+  function removeFavorite() {
+    const newFavoriteRecipes = favoriteRecipes.filter((recipe) => recipe.id !== id);
+    setFavoriteRecipes(newFavoriteRecipes);
+    setFavorite(false);
   }
 
   function renderProgress() {
@@ -121,17 +144,31 @@ export default function RecipesFoodsDetails(props) {
           </div>
 
           <div className="c-wrapper__icons">
-            { isFavorite() ? <img
-              src={ blackHeartIcon }
-              data-testid="favorite-btn"
-              alt="blackHeartIcon"
-            />
-              : (
+            { favorite ? (
+              <button
+                type="button"
+                className="c-icons__blackHeartIcon"
+                onClick={ () => removeFavorite() }
+              >
                 <img
-                  src={ whiteHeartIcon }
+                  src={ blackHeartIcon }
                   data-testid="favorite-btn"
-                  alt="whiteHeartIcon"
-                />)}
+                  alt="blackHeartIcon"
+                />
+              </button>)
+              : (
+                <button
+                  type="button"
+                  className="c-icons__whiteHeartIcon"
+                  onClick={ () => addFavorite() }
+                >
+                  <img
+                    src={ whiteHeartIcon }
+                    data-testid="favorite-btn"
+                    alt="whiteHeartIcon"
+                  />
+                </button>)}
+
             <ShareButton id={ id } index={ 0 } type="comidas" />
           </div>
         </div>
