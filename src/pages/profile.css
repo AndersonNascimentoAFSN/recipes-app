@@ -1,32 +1,32 @@
 .profile-page {
-  height: 100vh;
   font-family: sans-serif;
+  height: 100vh;
 }
 
 .profile-page > div {
-  height: 80%;
   display: flex;
   flex-direction: column;
+  height: 80%;
   justify-content: space-evenly;
 }
 
 .profile-page > div > div {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   height: auto;
 }
 
 .user-login-info p {
-  font-weight: 700;
   font-size: 18px;
+  font-weight: 700;
   margin-bottom: 5px;
 }
 
 .profile-page > div > div h3 {
+  color: var(--spotlight);
   font-size: 28px;
   font-weight: 700;
-  color: var(--spotlight);
 }
 
 .profile-page > div > div h2 {
@@ -35,17 +35,17 @@
 }
 
 .profile-page > div > div button {
-  border: none;
-  color: white;
   background: var(--spotlight);
-  width: 50%;
-  height: 35px;
+  border: none;
+  border-radius: 5px;
+  color: white;
   font-size: 20px;
   font-weight: 700;
+  height: 35px;
   margin-top: 10px;
-  border-radius: 5px;
+  width: 50%;
 }
 
-.profile-page > div > div button a {
+.profile-page button a {
   color: inherit;
 }
