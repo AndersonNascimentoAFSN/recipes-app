@@ -162,7 +162,9 @@ export default function RecipesDrinksInProgress() {
               type="checkbox"
               onClick={ () => updateUsedIngredients(index, ingredient) }
               className="ingredient-check"
-              checked={ verifyIngredientsInLocalStorage('drink', drink, ingredient, index) }
+              checked={ verifyIngredientsInLocalStorage(
+                'drink', drink, ingredient, index,
+              ) }
               id={ `${ingredient}-check` }
             />
           </label>
