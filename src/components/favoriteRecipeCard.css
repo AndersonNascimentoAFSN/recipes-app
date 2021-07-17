@@ -1,0 +1,54 @@
+.favoriteRecipesCard {
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px 1px #e1e6e1;
+  color: var(--contrast);
+  display: flex;
+  margin: 0 auto;
+  max-width: 330px;
+}
+
+.favoriteRecipesCard__img__wrapper {
+  max-width: 165px;
+}
+
+.favoriteRecipesCard__img {
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.favoriteRecipesCard__info__wrapper {
+  width: 165px;
+}
+
+.favoriteRecipesCard__info {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 100%;
+}
+
+.favoriteRecipesCard__info__title {
+  background-color: var(--contrast);
+  border-radius: 5px;
+  color: var(--complementary);
+  font-size: 1.2rem;
+  margin: 5px auto;
+  padding: 5px;
+  text-align: center;
+}
+
+.favoriteRecipesCard__buttons {
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+}
+
+.favoriteRecipesCard__buttons button, img {
+  background: transparent;
+  border: none;
+}
