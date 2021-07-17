@@ -102,13 +102,6 @@ export default function RecipesFoodsDetails(props) {
     );
   }
 
-  // function carousel() {
-  //   document.querySelector('.c-drinkAlternative__cards')
-  //     .addEventListener('wheel', (event) => {
-
-  //     });
-  // }
-
   return (
     <div className="c-recipesDetails">
       <header className="c-header">

@@ -1,51 +1,61 @@
-.profile-page {
-  font-family: sans-serif;
-  height: 100vh;
-}
+@media only screen and ( max-width : 360px ) {
 
-.profile-page > div {
-  display: flex;
-  flex-direction: column;
-  height: 80%;
-  justify-content: space-evenly;
-}
+  .profile-page {
+    font-family: sans-serif;
+    height: 100vh;
+    margin: 0 auto;
+    max-width: 360px;
+  }
 
-.profile-page > div > div {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: auto;
-}
+  .profile-page > div {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    justify-content: space-evenly;
+  }
 
-.user-login-info p {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
+  .profile-page > div > div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
 
-.profile-page > div > div h3 {
-  color: var(--spotlight);
-  font-size: 28px;
-  font-weight: 700;
-}
+  .user-login-info p {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
 
-.profile-page > div > div h2 {
-  font-size: 30px;
-  margin-bottom: 25px;
-}
+  .user-login-info-email {
+    color: var(--contrast);
+    font-size: 1em;
+    font-weight: 700;
+    text-align: center;
+    width: 300px;
+    word-wrap: break-word;
+  }
 
-.profile-page > div > div button {
-  background: var(--spotlight);
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-size: 20px;
-  font-weight: 700;
-  height: 35px;
-  margin-top: 10px;
-  width: 50%;
-}
+  .profile-page > div > div h2 {
+    font-size: 1.5em;
+    margin-bottom: 25px;
+  }
 
-.profile-page button a {
-  color: inherit;
+  .profile-page > div > div button {
+    background: var(--spotlight);
+    border: none;
+    border-radius: 5px;
+    color: var(--contrast);
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 10px;
+    padding: 10px;
+    width: 60%;
+  }
+
+  .profile-page button a {
+    color: inherit;
+  }
+
 }
