@@ -11,7 +11,10 @@ export default function DoneRecipeCardFood(
   return (
     <div className="doneRecipesCard">
 
-      <Link to={ `/comidas/${id}` }>
+      <Link
+        to={ `/comidas/${id}` }
+        className="doneRecipesCard__img__wrapper"
+      >
         <img
           src={ recipeImg }
           alt="recipe"
@@ -20,17 +23,17 @@ export default function DoneRecipeCardFood(
         />
       </Link>
 
-      <div>
-        <div>
-          <span data-testid={ `${index}-horizontal-top-text` }>
-            {`${area} - ${category}`}
-          </span>
-          <ShareButton index={ index } id={ id } type={ type } />
-        </div>
-
+      <div className="doneRecipesCard__info">
+        <span
+          data-testid={ `${index}-horizontal-top-text` }
+          className="doneRecipesCard__info__subtitle"
+        >
+          {`${area} - ${category}`}
+        </span>
         <Link to={ `/comidas/${id}` }>
           <h2
             data-testid={ `${index}-horizontal-name` }
+            className="doneRecipesCard__info__title"
           >
             {recipeName}
           </h2>
@@ -38,11 +41,12 @@ export default function DoneRecipeCardFood(
 
         <span
           data-testid={ `${index}-horizontal-done-date` }
+          className="doneRecipesCard__info__dateDone"
         >
           {`Feita em: ${doneDate}`}
         </span>
 
-        <div>
+        <div className="doneRecipe__tags">
           {recipeTags && recipeTags.map((tag, indexTags) => (
             <span
               key={ indexTags }
@@ -51,6 +55,10 @@ export default function DoneRecipeCardFood(
               {tag}
             </span>
           ))}
+        </div>
+
+        <div className="doneRecipe__shareButton">
+          <ShareButton index={ index } id={ id } type={ type } />
         </div>
       </div>
 

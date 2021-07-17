@@ -9,7 +9,11 @@ export default function DoneRecipeCardDrink(
 ) {
   return (
     <div className="doneRecipesCard">
-      <Link to={ `/bebidas/${id}` }>
+
+      <Link
+        to={ `/bebidas/${id}` }
+        className="doneRecipesCard__img__wrapper"
+      >
         <img
           src={ recipeImg }
           alt="recipe"
@@ -17,25 +21,32 @@ export default function DoneRecipeCardDrink(
           data-testid={ `${index}-horizontal-image` }
         />
       </Link>
-      <div>
-        <div>
-          <span data-testid={ `${index}-horizontal-top-text` }>
-            {alcoholicOrNot}
-          </span>
-          <ShareButton index={ index } id={ id } type={ type } />
-        </div>
+
+      <div className="doneRecipesCard__info">
+        <span
+          data-testid={ `${index}-horizontal-top-text` }
+          className="doneRecipesCard__info__subtitle"
+        >
+          {alcoholicOrNot}
+        </span>
         <Link to={ `/bebidas/${id}` }>
           <h2
             data-testid={ `${index}-horizontal-name` }
+            className="doneRecipesCard__info__title"
           >
             {recipeName}
           </h2>
         </Link>
         <span
           data-testid={ `${index}-horizontal-done-date` }
+          className="doneRecipesCard__info__dateDone"
         >
           {`Feita em: ${doneDate}`}
         </span>
+
+        <div className="doneRecipe__shareButton">
+          <ShareButton index={ index } id={ id } type={ type } />
+        </div>
       </div>
     </div>
   );

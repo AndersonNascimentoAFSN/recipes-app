@@ -3,17 +3,11 @@
   max-width: 360px;
 }
 
-.doneRecipes__filters {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  padding: 20px;
-}
-
 .doneRecipesCard__wrapper {
   align-items: center;
   display: flex;
   flex-direction: column;
+  gap: 10px;
   justify-content: center;
   margin: 0 auto;
   width: 100%;
