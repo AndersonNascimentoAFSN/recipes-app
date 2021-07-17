@@ -43,6 +43,10 @@ function RecipeProvider({ children }) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
   }, [favorites]);
 
+  useEffect(() => {
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  }, [doneRecipes]);
+
   async function fetchMeals() {
     const { parameter, search } = filters;
     const { meals } = await getMeals(parameter, search);
