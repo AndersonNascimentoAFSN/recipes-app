@@ -174,14 +174,6 @@ export default function RecipesDrinksDetails(props) {
         <p data-testid="instructions">{ drink.strInstructions}</p>
       </div>
 
-      {/* <iframe
-        title="Youtube video"
-        width="200"
-        height="150"
-        src={ drink.strYoutube }
-        data-testid="video"
-      /> */}
-
       <div className="c-drinkAlternative__wrapper">
         <div className="c-drinkAlternative__cards">
           {mealAlternate.map((meal, index) => (

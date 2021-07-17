@@ -61,14 +61,6 @@ export default function RecipesFoodsDetails(props) {
     return progressFlag;
   }
 
-  // function isFavorite() {
-  //   let favoriteFlag = false;
-  //   favoriteRecipes.forEach((recipe) => {
-  //     if (recipe.id === id) favoriteFlag = true;
-  //   });
-  //   return favoriteFlag;
-  // }
-
   function addFavorite() {
     const newFavoriteRecipes = [...favoriteRecipes, meal];
     setFavoriteRecipes(newFavoriteRecipes);
