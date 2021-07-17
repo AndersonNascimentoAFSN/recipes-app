@@ -14,7 +14,9 @@ import './recipesInProgress.css';
 
 export default function RecipesDrinksInProgress() {
   const { id } = useParams();
-  const { favorites, setFavorites, doneRecipes, setDoneRecipes } = useContext(RecipeContext);
+  const {
+    favorites, setFavorites, doneRecipes, setDoneRecipes,
+  } = useContext(RecipeContext);
   const [drink, setDrink] = useState();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);

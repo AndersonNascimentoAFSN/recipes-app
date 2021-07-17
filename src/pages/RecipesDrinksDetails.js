@@ -46,7 +46,7 @@ export default function RecipesDrinksDetails(props) {
       if (recipe.id === id) favoriteFlag = true;
     });
     return favoriteFlag;
-  };
+  }
 
   function alreadyDone() {
     let doneFlag = false;
@@ -58,11 +58,11 @@ export default function RecipesDrinksDetails(props) {
 
   function inProgress() {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-    return (inProgressRecipes.cocktails[id]) ? true : false;
+    return !!(inProgressRecipes.cocktails[id]);
   }
 
   function favoriteMeal() {
-    if (isFavorite(drink.idDrink)) {
+    if (isFavorite()) {
       setFavorites(
         favorites.filter((fav) => fav.id !== drink.idDrink),
       );
@@ -95,8 +95,7 @@ export default function RecipesDrinksDetails(props) {
       >
         { inProgress()
           ? 'Continuar Receita'
-          : 'Iniciar Receita'
-        }
+          : 'Iniciar Receita'}
       </Link>
     );
   }

@@ -51,7 +51,7 @@ export default function RecipesFoodsDetails(props) {
       if (recipe.id === id) favoriteFlag = true;
     });
     return favoriteFlag;
-  };
+  }
 
   function alreadyDone() {
     let doneFlag = false;
@@ -63,11 +63,11 @@ export default function RecipesFoodsDetails(props) {
 
   function inProgress() {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-    return (inProgressRecipes.meals[id]) ? true : false;
+    return !!(inProgressRecipes.meals[id]);
   }
 
   function favoriteMeal() {
-    if (isFavorite(meal.idMeal)) {
+    if (isFavorite()) {
       setFavorites(
         favorites.filter((fav) => fav.id !== meal.idMeal),
       );
@@ -101,8 +101,7 @@ export default function RecipesFoodsDetails(props) {
       >
         { inProgress()
           ? 'Continuar Receita'
-          : 'Iniciar Receita'
-        }
+          : 'Iniciar Receita'}
       </Link>
     );
   }

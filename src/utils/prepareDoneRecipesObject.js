@@ -1,10 +1,9 @@
 export default function prepareDoneRecipesObject(recipe, type) {
-  function appendZero(number){
-    if (number <= 9) 
-        return "0" + number;
-    else
-        return number; 
-  } 
+  function appendZero(number) {
+    const lastSingleDigitNumber = 9;
+    if (number <= lastSingleDigitNumber) return `0${number}`;
+    return number;
+  }
   const date = new Date();
   const formatedDay = appendZero(date.getDate().toString());
   const formatedMonth = appendZero((date.getMonth() + 1).toString());
@@ -18,6 +17,6 @@ export default function prepareDoneRecipesObject(recipe, type) {
     name: recipe.strMeal || recipe.strDrink,
     image: recipe.strMealThumb || recipe.strDrinkThumb,
     doneDate: formatedDate,
-    tags: [recipe.strTags || '']
+    tags: [recipe.strTags || ''],
   };
 }
