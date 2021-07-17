@@ -4,6 +4,7 @@ import copy from 'clipboard-copy';
 import RecipeContext from '../context/RecipesContext';
 import { getMealById } from '../services/api';
 import verifyIngredientsInLocalStorage from '../utils/verifyIngredientsInLocalStorage';
+import prepareDoneRecipesObject from '../utils/prepareDoneRecipesObject';
 import checkIngredients from '../utils/checkIngredients';
 import { mapMealIngredients } from '../utils/mapIngredients';
 import shareIcon from '../images/shareIcon.svg';
@@ -13,7 +14,9 @@ import './recipesInProgress.css';
 
 export default function RecipesFoodsInProgress() {
   const { id } = useParams();
-  const { favorites, setFavorites } = useContext(RecipeContext);
+  const {
+    favorites, setFavorites, doneRecipes, setDoneRecipes,
+  } = useContext(RecipeContext);
   const [meal, setMeal] = useState();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -34,7 +37,8 @@ export default function RecipesFoodsInProgress() {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     setUsedIngredients([...usedIngredients, ingredient]);
     if (inProgressRecipes !== null) {
-      inProgressRecipes.meals[meal.idMeal].push(ingredient);
+      const prevState = inProgressRecipes.meals[meal.idMeal] || [];
+      inProgressRecipes.meals[meal.idMeal] = [...prevState, ingredient];
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
       return;
     }
@@ -87,6 +91,15 @@ export default function RecipesFoodsInProgress() {
     setTimeout(() => {
       setIsLinkCopied(false);
     }, twoSecondsInMs);
+  }
+
+  function finishRecipe() {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    delete inProgressRecipes.meals[meal.idMeal];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    const doneRecipeObject = prepareDoneRecipesObject(meal, 'comida');
+    setDoneRecipes([...doneRecipes, doneRecipeObject]);
+    setShouldRedirect(true);
   }
 
   if (shouldRedirect) {
@@ -175,7 +188,7 @@ export default function RecipesFoodsInProgress() {
         { meal.strInstructions }
       </p>
       <button
-        onClick={ () => setShouldRedirect(true) }
+        onClick={ () => finishRecipe() }
         disabled={ !verifyIngredientsCheck() }
         data-testid="finish-recipe-btn"
         type="button"
