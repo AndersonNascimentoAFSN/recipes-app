@@ -62,8 +62,9 @@ export default function RecipesFoodsDetails(props) {
   }
 
   function inProgress() {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-    return !!(inProgressRecipes.meals[id]);
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes) return inProgressRecipes.meals[id] !== undefined;
+    return false;
   }
 
   function favoriteMeal() {
