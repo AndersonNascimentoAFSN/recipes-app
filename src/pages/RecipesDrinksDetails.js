@@ -22,7 +22,7 @@ const startRecipe = {
 
 export default function RecipesDrinksDetails(props) {
   const { match: { params: { id } } } = props;
-  const { doneRecipes, inProgressRecipes, favorites, setFavorites,
+  const { doneRecipes, favorites, setFavorites,
   } = useContext(RecipeContext);
   const [drink, setDrink] = useState([]);
   const [mealAlternate, setMealAlternate] = useState([]);
@@ -57,11 +57,8 @@ export default function RecipesDrinksDetails(props) {
   }
 
   function inProgress() {
-    let progressFlag = false;
-    if (inProgressRecipes.length !== 0) {
-      progressFlag = (inProgressRecipes.cocktails[id] !== null);
-    }
-    return progressFlag;
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+    return (inProgressRecipes.cocktails[id]) ? true : false;
   }
 
   function favoriteMeal() {
@@ -90,23 +87,16 @@ export default function RecipesDrinksDetails(props) {
     if (alreadyDone()) {
       return (<div>Receita já feita</div>);
     }
-    if (inProgress()) {
-      return (
-        <div
-          data-testid="start-recipe-btn"
-          style={ startRecipe }
-        >
-          Continuar Receita
-        </div>
-      );
-    }
     return (
       <Link
         to={ `/bebidas/${id}/in-progress` }
         data-testid="start-recipe-btn"
         style={ startRecipe }
       >
-        Botão de iniciar receita
+        { inProgress()
+          ? 'Continuar Receita'
+          : 'Iniciar Receita'
+        }
       </Link>
     );
   }

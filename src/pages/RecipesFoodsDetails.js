@@ -23,7 +23,7 @@ const startRecipe = {
 export default function RecipesFoodsDetails(props) {
   const { match: { params: { id } } } = props;
   const {
-    doneRecipes, inProgressRecipes, favorites, setFavorites,
+    doneRecipes, favorites, setFavorites,
   } = useContext(RecipeContext);
   const [meal, setMeal] = useState([]);
   const [drinkAlternate, setDrinkAlternate] = useState([]);
@@ -62,11 +62,8 @@ export default function RecipesFoodsDetails(props) {
   }
 
   function inProgress() {
-    let progressFlag = false;
-    if (inProgressRecipes.length !== 0) {
-      progressFlag = (inProgressRecipes.meals[id] !== null);
-    }
-    return progressFlag;
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+    return (inProgressRecipes.meals[id]) ? true : false;
   }
 
   function favoriteMeal() {
@@ -95,23 +92,17 @@ export default function RecipesFoodsDetails(props) {
     if (alreadyDone()) {
       return (<div>Receita já feita</div>);
     }
-    if (inProgress()) {
-      return (
-        <div
-          data-testid="start-recipe-btn"
-          style={ startRecipe }
-        >
-          Continuar Receita
-        </div>
-      );
-    }
+
     return (
       <Link
         to={ `/comidas/${id}/in-progress` }
         data-testid="start-recipe-btn"
         style={ startRecipe }
       >
-        Botão de iniciar receita
+        { inProgress()
+          ? 'Continuar Receita'
+          : 'Iniciar Receita'
+        }
       </Link>
     );
   }
