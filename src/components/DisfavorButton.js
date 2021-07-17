@@ -4,14 +4,14 @@ import disfavorIcon from '../images/blackHeartIcon.svg';
 import useRecipesContext from '../hooks/useRecipesContext';
 
 export default function DisfavorButton({ index, id }) {
-  const { setFavoriteRecipes } = useRecipesContext();
+  const { setFavorites } = useRecipesContext();
   function handleDisfavor() {
     const favoriteRecipesFiltered = JSON.parse(localStorage.getItem('favoriteRecipes'))
       .filter((recipeFavorite) => recipeFavorite.id !== id);
 
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipesFiltered));
 
-    setFavoriteRecipes(favoriteRecipesFiltered);
+    setFavorites(favoriteRecipesFiltered);
   }
 
   return (
