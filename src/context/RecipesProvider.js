@@ -26,8 +26,6 @@ function RecipeProvider({ children }) {
   const [inProgressRecipes,
     setInProgressRecipes] = useState(checkLocalStorage('inProgressRecipes'));
   const [doneRecipes, setDoneRecipes] = useState(checkLocalStorage('doneRecipes'));
-  const [favoriteRecipes,
-    setFavoriteRecipes] = useState(checkLocalStorage('favoriteRecipes'));
 
   const buttonsInitialState = {
     buttonFilter0: false,
@@ -44,6 +42,10 @@ function RecipeProvider({ children }) {
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
   }, [favorites]);
+
+  useEffect(() => {
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  }, [doneRecipes]);
 
   async function fetchMeals() {
     const { parameter, search } = filters;
@@ -96,8 +98,6 @@ function RecipeProvider({ children }) {
     setFavorites,
     inProgressRecipes,
     setInProgressRecipes,
-    favoriteRecipes,
-    setFavoriteRecipes,
   };
 
   return (

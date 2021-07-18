@@ -4,6 +4,7 @@ import copy from 'clipboard-copy';
 import { getDrinkById } from '../services/api';
 import checkIngredients from '../utils/checkIngredients';
 import verifyIngredientsInLocalStorage from '../utils/verifyIngredientsInLocalStorage';
+import prepareDoneRecipesObject from '../utils/prepareDoneRecipesObject';
 import { mapDrinkIngredients } from '../utils/mapIngredients';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -13,7 +14,9 @@ import './recipesInProgress.css';
 
 export default function RecipesDrinksInProgress() {
   const { id } = useParams();
-  const { favorites, setFavorites } = useContext(RecipeContext);
+  const {
+    favorites, setFavorites, doneRecipes, setDoneRecipes,
+  } = useContext(RecipeContext);
   const [drink, setDrink] = useState();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -34,7 +37,8 @@ export default function RecipesDrinksInProgress() {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     setUsedIngredients([...usedIngredients, ingredient]);
     if (inProgressRecipes !== null) {
-      inProgressRecipes.cocktails[drink.idDrink].push(ingredient);
+      const prevState = inProgressRecipes.cocktails[drink.idDrink] || [];
+      inProgressRecipes.cocktails[drink.idDrink] = [...prevState, ingredient];
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
       return;
     }
@@ -88,6 +92,15 @@ export default function RecipesDrinksInProgress() {
     setTimeout(() => {
       setIsLinkCopied(false);
     }, twoSecondsInMs);
+  }
+
+  function finishRecipe() {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    delete inProgressRecipes.cocktails[drink.idDrink];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    const doneRecipeObject = prepareDoneRecipesObject(drink, 'bebida');
+    setDoneRecipes([...doneRecipes, doneRecipeObject]);
+    setShouldRedirect(true);
   }
 
   if (shouldRedirect) {
@@ -178,7 +191,7 @@ export default function RecipesDrinksInProgress() {
         { drink.strInstructions }
       </p>
       <button
-        onClick={ () => setShouldRedirect(true) }
+        onClick={ () => finishRecipe() }
         disabled={ !verifyIngredientsCheck() }
         data-testid="finish-recipe-btn"
         type="button"
