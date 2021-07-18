@@ -20,7 +20,7 @@ import RecipesDrinksDetails from '../pages/RecipesDrinksDetails';
 import RecipesFoodsInProgress from '../pages/RecipesFoodsInProgress';
 import RecipesDrinksInProgress from '../pages/RecipesDrinksInProgress';
 
-describe('Testa o componente header', () => {
+describe('Testa o componente headers', () => {
   beforeEach(() => {
     history.push('/');
     history.entries = [];
