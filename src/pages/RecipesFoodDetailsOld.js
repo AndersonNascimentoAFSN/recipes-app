@@ -1,41 +1,49 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { getDrinkByID, getMeals } from '../services/api';
+import { getMealByID, getCocktails } from '../services/api';
 import ingredientsMesure from '../utils/ingredientsMesure';
 import RecipeContext from '../context/RecipesContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import './recipesPageContainer.css';
 import ShareButton from '../components/ShareButton';
 import './recipesDetailsPage.css';
 
-export default function RecipesDrinksDetails(props) {
+export default function RecipesFoodsDetails(props) {
   const { match: { params: { id } } } = props;
-  const { doneRecipes, favorites, setFavorites,
-  } = useContext(RecipeContext);
-  const [drink, setDrink] = useState([]);
-  const [mealAlternate, setMealAlternate] = useState([]);
+  const { doneRecipes, inProgressRecipes,
+    favoriteRecipes, setFavoriteRecipes } = useContext(RecipeContext);
+  const [meal, setMeal] = useState([]);
+  const [favorite, setFavorite] = useState(false);
+  const [drinkAlternate, setDrinkAlternate] = useState([]);
 
   useEffect(() => {
-    const getDrink = async () => {
-      const result = await getDrinkByID(id);
-      const mealResults = await getMeals('name', '');
-      setDrink(result);
-      const RECOMMENDED_MEALS = 6;
-      setMealAlternate(mealResults.meals.slice(0, RECOMMENDED_MEALS));
+    const getMeal = async () => {
+      const result = await getMealByID(id);
+      const drinkResults = await getCocktails('name', '');
+      const resultWithEmbedVideo = {
+        ...result,
+        strYoutube: `https://www.youtube.com/embed/${result.strYoutube.split('v=')[1]}`,
+      };
+      setMeal(resultWithEmbedVideo);
+      const RECOMMENDED_DRINKS = 6;
+      setDrinkAlternate(drinkResults.drinks.slice(0, RECOMMENDED_DRINKS));
     };
 
-    getDrink();
-  }, []);
+    const isFavorite = () => {
+      let favoriteFlag = false;
+      favoriteRecipes.forEach((recipe) => {
+        if (recipe.id === id) favoriteFlag = true;
+      });
+      return favoriteFlag;
+    };
 
-  function isFavorite() {
-    let favoriteFlag = false;
-    favorites.forEach((recipe) => {
-      if (recipe.id === id) favoriteFlag = true;
-    });
-    return favoriteFlag;
-  }
+    getMeal();
+    setFavorite(isFavorite());
+  }, [id, setMeal, setFavorite]);
+
+  const NUMBER_OF_INGREDIENTS = 15;
+  const ingredients = ingredientsMesure(meal, NUMBER_OF_INGREDIENTS);
 
   function alreadyDone() {
     let doneFlag = false;
@@ -46,64 +54,60 @@ export default function RecipesDrinksDetails(props) {
   }
 
   function inProgress() {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (inProgressRecipes) return inProgressRecipes.cocktails[id] !== undefined;
-    return false;
+    let progressFlag = false;
+    if (inProgressRecipes.length !== 0) {
+      progressFlag = (inProgressRecipes.meals[id] !== null);
+    }
+    return progressFlag;
   }
 
-  function favoriteMeal() {
-    if (isFavorite()) {
-      setFavorites(
-        favorites.filter((fav) => fav.id !== drink.idDrink),
-      );
-      return;
-    }
-    const newFavorite = {
-      id: drink.idDrink,
-      type: 'bebida',
-      area: '',
-      category: drink.strCategory,
-      alcoholicOrNot: drink.strAlcoholic,
-      name: drink.strDrink,
-      image: drink.strDrinkThumb,
-    };
-    setFavorites([
-      ...favorites,
-      newFavorite,
-    ]);
+  function addFavorite() {
+    const newFavoriteRecipes = [...favoriteRecipes, meal];
+    setFavoriteRecipes(newFavoriteRecipes);
+    setFavorite(true);
+  }
+
+  function removeFavorite() {
+    const newFavoriteRecipes = favoriteRecipes.filter((recipe) => recipe.id !== id);
+    setFavoriteRecipes(newFavoriteRecipes);
+    setFavorite(false);
   }
 
   function renderProgress() {
     if (alreadyDone()) {
       return (
-        <div
-          className="wrapper__buttons__realizedRecipe"
-        >
+        <span className="wrapper__buttons__realizedRecipe">
           Receita já feita
-        </div>);
+        </span>);
+    }
+    if (inProgress()) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="wrapper__buttons__continueRecipe"
+        >
+          Continuar Receita
+        </button>
+      );
     }
     return (
       <Link
-        to={ `/bebidas/${id}/in-progress` }
+        to={ `/comidas/${id}/in-progress` }
         data-testid="start-recipe-btn"
         className="wrapper__buttons__startRecipe"
       >
-        { inProgress()
-          ? 'Continuar Receita'
-          : 'Iniciar Receita'}
+        Iniciar receita
       </Link>
     );
   }
-
-  const NUMBER_OF_INGREDIENTS = 15;
-  const ingredients = ingredientsMesure(drink, NUMBER_OF_INGREDIENTS);
 
   return (
     <div className="c-recipesDetails">
       <header className="c-header">
         <img
-          src={ drink.strDrinkThumb }
-          alt=""
+          src={ meal.strMealThumb }
+          alt="recipe"
           data-testid="recipe-photo"
           className="c-banner"
         />
@@ -111,25 +115,25 @@ export default function RecipesDrinksDetails(props) {
         <div className="c-info">
           <div>
             <h1
-              data-testid="recipe-title"
               className="c-info__title"
+              data-testid="recipe-title"
             >
-              { drink.strDrink }
+              { meal.strMeal }
             </h1>
             <span
-              data-testid="recipe-category"
               className="c-info__category"
+              data-testid="recipe-category"
             >
-              { drink.strAlcoholic }
+              { meal.strCategory }
             </span>
           </div>
 
           <div className="c-wrapper__icons">
-            { isFavorite() ? (
+            { favorite ? (
               <button
                 type="button"
                 className="c-icons__blackHeartIcon"
-                onClick={ () => favoriteMeal() }
+                onClick={ () => removeFavorite() }
               >
                 <img
                   src={ blackHeartIcon }
@@ -141,7 +145,7 @@ export default function RecipesDrinksDetails(props) {
                 <button
                   type="button"
                   className="c-icons__whiteHeartIcon"
-                  onClick={ () => favoriteMeal() }
+                  onClick={ () => addFavorite() }
                 >
                   <img
                     src={ whiteHeartIcon }
@@ -149,7 +153,8 @@ export default function RecipesDrinksDetails(props) {
                     alt="whiteHeartIcon"
                   />
                 </button>)}
-            <ShareButton id={ id } index={ 0 } type="bebidas" />
+
+            <ShareButton id={ id } index={ 0 } type="comidas" />
           </div>
         </div>
       </header>
@@ -168,45 +173,54 @@ export default function RecipesDrinksDetails(props) {
 
       <div className="c-instructions">
         <h2 className="c-instructions__title">Instructions</h2>
-        <p data-testid="instructions">{ drink.strInstructions}</p>
+        <p data-testid="instructions">{ meal.strInstructions}</p>
+      </div>
+
+      <div className="c-video">
+        <iframe
+          title="Youtube video"
+          width="340"
+          height="160"
+          src={ meal.strYoutube }
+          data-testid="video"
+        />
       </div>
 
       <div className="c-drinkAlternative__wrapper">
         <div className="c-drinkAlternative__cards">
-          {mealAlternate.map((meal, index) => (
+          {drinkAlternate.map((drink, index) => (
             <div
               key={ index }
               data-testid={ `${index}-recomendation-card` }
               className="c-drinkAlternative__card"
             >
               <img
-                src={ meal.strMealThumb }
-                alt="meal"
+                src={ drink.strDrinkThumb }
+                alt="drink"
                 className="c-drinkAlternative__img"
               />
               <div className="c-drinkAlternative__wrapper__title">
+                <span>{drink.strAlcoholic}</span>
                 <span
                   key={ index }
                   data-testid={ `${index}-recomendation-title` }
                 >
-                  {meal.strMeal}
+                  {drink.strDrink}
                 </span>
-                <span>{ drink.strCategory }</span>
               </div>
-
             </div>
           ))}
         </div>
       </div>
 
-      <div className="c-drinkAlternative__wrapper__title">
+      <div className="c-wrapper__buttons">
         { renderProgress() }
       </div>
     </div>
   );
 }
 
-RecipesDrinksDetails.propTypes = {
+RecipesFoodsDetails.propTypes = {
   match: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool,
