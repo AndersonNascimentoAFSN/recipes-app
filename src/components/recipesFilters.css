@@ -1,0 +1,17 @@
+.recipes__filters {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.recipes__filters__button {
+  background: var(--spotlight);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px 1px #e1e6e1;
+  color: var(--contrast);
+  cursor: pointer;
+  padding: 5px;
+  width: 100px;
+}

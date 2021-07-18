@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './recipesFilters.css';
 
 export default function RecipesFilters({ setFilters }) {
   function handleClickFilterByRecipeType({ target }) {
@@ -17,11 +18,12 @@ export default function RecipesFilters({ setFilters }) {
   }
 
   return (
-    <div className="doneRecipes__filters">
+    <div className="recipes__filters">
       <button
         type="button"
         data-testid="filter-by-all-btn"
         onClick={ handleClickFilterByRecipeType }
+        className="recipes__filters__button"
       >
         All
       </button>
@@ -29,6 +31,7 @@ export default function RecipesFilters({ setFilters }) {
         type="button"
         data-testid="filter-by-food-btn"
         onClick={ handleClickFilterByRecipeType }
+        className="recipes__filters__button"
       >
         Food
       </button>
@@ -36,6 +39,7 @@ export default function RecipesFilters({ setFilters }) {
         type="button"
         data-testid="filter-by-drink-btn"
         onClick={ handleClickFilterByRecipeType }
+        className="recipes__filters__button"
       >
         Drinks
       </button>
