@@ -38,33 +38,36 @@ export default function FavoriteRecipes() {
         setFilters={ setFiltersFavorite }
       />
 
-      { recipesFiltered.map((favorite, index) => {
-        if (favorite.type === 'comida') {
+      <div className="favoriteRecipesCard__wrapper">
+        { recipesFiltered.map((favorite, index) => {
+          if (favorite.type === 'comida') {
+            return (
+              <FavoriteRecipeCardFood
+                key={ index }
+                id={ favorite.id }
+                index={ index }
+                type="comidas"
+                area={ favorite.area }
+                category={ favorite.category }
+                favoriteImg={ favorite.image }
+                favoriteName={ favorite.name }
+              />
+            );
+          }
           return (
-            <FavoriteRecipeCardFood
+            <FavoriteRecipeCardDrink
               key={ index }
               id={ favorite.id }
               index={ index }
-              type="comidas"
-              area={ favorite.area }
-              category={ favorite.category }
+              type="bebidas"
               favoriteImg={ favorite.image }
               favoriteName={ favorite.name }
+              alcoholicOrNot={ favorite.alcoholicOrNot }
             />
           );
-        }
-        return (
-          <FavoriteRecipeCardDrink
-            key={ index }
-            id={ favorite.id }
-            index={ index }
-            type="bebidas"
-            favoriteImg={ favorite.image }
-            favoriteName={ favorite.name }
-            alcoholicOrNot={ favorite.alcoholicOrNot }
-          />
-        );
-      })}
+        })}
+      </div>
+
     </div>
   );
 }

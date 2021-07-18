@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
 import DisfavorButton from './DisfavorButton';
+import './favoriteRecipeCard.css';
 
 export default function FavoriteRecipeCardFood(
   { area, category, favoriteImg, favoriteName, index, id, type },
 ) {
   return (
-    <div className="favoriteRecipesCard__container">
-      <Link to={ `/comidas/${id}` }>
+    <div className="favoriteRecipesCard">
+      <Link
+        to={ `/comidas/${id}` }
+        classname="favoriteRecipesCard__img__wrapper"
+      >
         <img
           src={ favoriteImg }
           alt="recipe"
@@ -17,23 +21,30 @@ export default function FavoriteRecipeCardFood(
           data-testid={ `${index}-horizontal-image` }
         />
       </Link>
-      <div>
-        <div>
-          <span data-testid={ `${index}-horizontal-top-text` }>
+
+      <div className="favoriteRecipesCard__info__wrapper">
+        <div className="favoriteRecipesCard__info">
+          <span
+            data-testid={ `${index}-horizontal-top-text` }
+            className="favoriteRecipesCard__info__subtitle"
+          >
             {`${area} - ${category}`}
           </span>
+          <Link to={ `/comidas/${id}` }>
+            <h2
+              data-testid={ `${index}-horizontal-name` }
+              className="favoriteRecipesCard__info__title"
+            >
+              {favoriteName}
+
+            </h2>
+          </Link>
+          <div className="favoriteRecipesCard__buttons">
+            <ShareButton index={ index } id={ id } type={ type } />
+            <DisfavorButton index={ index } id={ id } />
+          </div>
         </div>
-        <div>
-          <ShareButton index={ index } id={ id } type={ type } />
-          <DisfavorButton index={ index } id={ id } />
-        </div>
-        <Link to={ `/comidas/${id}` }>
-          <h2
-            data-testid={ `${index}-horizontal-name` }
-          >
-            {favoriteName}
-          </h2>
-        </Link>
+
       </div>
     </div>
   );
