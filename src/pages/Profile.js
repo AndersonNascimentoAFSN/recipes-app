@@ -26,16 +26,17 @@ export default function Profile() {
       <Header title="Perfil">
         <div />
       </Header>
-      <div>
+      <div className="profile-container">
         <div className="user-login-info">
-          <p>
+          <h2>
             Logged as:
-          </p>
-          <h3
+          </h2>
+          <span
             data-testid="profile-email"
+            className="user-login-info-email"
           >
             { email }
-          </h3>
+          </span>
         </div>
         <div>
           <h2>

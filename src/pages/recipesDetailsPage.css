@@ -1,0 +1,159 @@
+@media only screen and ( max-width : 360px ) {
+
+  .c-recipesDetails {
+    margin-top: calc(170px + 96px);
+    max-width: 360px;
+  }
+
+  .c-header {
+    background: var(--complementary);
+    color: var(--contrast);
+    max-width: 100%;
+    position: fixed;
+    top: 0;
+  }
+
+  .c-banner {
+    max-height: 155px;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .c-info {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+  .c-info__title {
+    font-size: 2rem;
+  }
+
+  .c-info__category {
+    font-size: 1.5rem;
+  }
+
+  .c-wrapper__icons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .c-wrapper__icons img {
+    background: var(--complementary);
+    border: none;
+    max-width: 26px;
+  }
+
+  .c-wrapper__icons > button {
+    background: var(--complementary);
+  }
+
+  .c-icons__blackHeartIcon, .c-icons__whiteHeartIcon {
+    border: none;
+  }
+
+  .c-ingredients {
+    padding: 20px;
+  }
+
+  .c-ingredients__title, .c-instructions__title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
+
+  .c-instructions {
+    padding: 20px;
+  }
+
+  .c-video {
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .c-video iframe {
+    width: 100%;
+  }
+
+  .c-drinkAlternative__wrapper {
+    padding: 20px;
+    width: 100%;
+  }
+
+
+  .c-drinkAlternative__cards {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+
+    --webkit-overflow-scrolling: touch;
+  }
+
+  .c-drinkAlternative__card {
+    background: var(--white);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px 1px #e1e6e1;
+    color: var(--contrast);
+    flex: none;
+    scroll-snap-align: start;
+    width: calc(50% - 10px);
+  }
+
+  .c-drinkAlternative__card img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .c-drinkAlternative__wrapper__title {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+    text-align: center;
+  }
+
+  .c-wrapper__buttons {
+    display: flex;
+    max-width: 360px;
+    padding: 20px;
+  }
+
+  .wrapper__buttons__continueRecipe {
+    background: var(--spotlight);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px 1px #e1e6e1;
+    color: var(--contrast);
+    cursor: pointer;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 10px;
+    text-align: center;
+    width: 200px;
+  }
+
+  .wrapper__buttons__startRecipe {
+    background: var(--spotlight);
+    border: none;
+    border-radius: 10px;
+    bottom: 0;
+    box-shadow: 1px 1px 4px 1px #e1e6e1;
+    color: var(--contrast);
+    cursor: pointer;
+    left: calc(50% - 100px);
+    padding: 10px;
+    position: fixed;
+    text-align: center;
+    width: 200px;
+  }
+
+  .wrapper__buttons__realizedRecipe {
+    color: var(--contrast);
+    text-align: center;
+    width: 100%;
+  }
+}

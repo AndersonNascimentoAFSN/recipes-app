@@ -1,0 +1,8 @@
+.doneRecipesCard {
+  display: flex;
+  margin: 0 auto;
+}
+
+.doneRecipesCard__img {
+  max-width: 165px;
+}

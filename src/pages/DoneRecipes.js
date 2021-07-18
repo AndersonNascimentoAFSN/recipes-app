@@ -39,36 +39,38 @@ export default function DoneRecipes() {
         setFilters={ setFiltersDone }
       />
 
-      { recipesFiltered.map((recipe, index) => {
-        if (recipe.type === 'comida') {
+      <div className="doneRecipesCard__wrapper">
+        { recipesFiltered.map((recipe, index) => {
+          if (recipe.type === 'comida') {
+            return (
+              <DoneRecipeCardFood
+                key={ index }
+                id={ recipe.id }
+                index={ index }
+                type="comidas"
+                area={ recipe.area }
+                category={ recipe.category }
+                recipeImg={ recipe.image }
+                recipeName={ recipe.name }
+                recipeTags={ recipe.tags }
+                doneDate={ recipe.doneDate }
+              />
+            );
+          }
           return (
-            <DoneRecipeCardFood
+            <DoneRecipeCardDrink
               key={ index }
               id={ recipe.id }
               index={ index }
-              type="comidas"
-              area={ recipe.area }
-              category={ recipe.category }
+              type="bebidas"
               recipeImg={ recipe.image }
               recipeName={ recipe.name }
-              recipeTags={ recipe.tags }
               doneDate={ recipe.doneDate }
+              alcoholicOrNot={ recipe.alcoholicOrNot }
             />
           );
-        }
-        return (
-          <DoneRecipeCardDrink
-            key={ index }
-            id={ recipe.id }
-            index={ index }
-            type="bebidas"
-            recipeImg={ recipe.image }
-            recipeName={ recipe.name }
-            doneDate={ recipe.doneDate }
-            alcoholicOrNot={ recipe.alcoholicOrNot }
-          />
-        );
-      })}
+        })}
+      </div>
     </div>
   );
 }

@@ -5,9 +5,9 @@
   color: var(--contrast);
   display: flex;
   justify-content: space-between;
-  left: 50%;
-  margin: 0% -180px;
+  left: calc(50% - 180px);
+  margin: 0 auto;
   padding: 10px;
   position: fixed;
-  width: 360px;
+  width: 100%;
 }

@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
+import './doneRecipeCard.css';
 
 export default function DoneRecipeCardDrink(
   { recipeImg, doneDate, recipeName, index, alcoholicOrNot, id, type },
 ) {
   return (
-    <div className="doneRecipesCard__container">
+    <div className="doneRecipesCard">
       <Link to={ `/bebidas/${id}` }>
         <img
           src={ recipeImg }

@@ -7,18 +7,7 @@ import RecipeContext from '../context/RecipesContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
-import './recipesPageContainer.css';
-
-const mealPhoto = {
-  maxWidth: '150px',
-  maxHeight: '150px',
-  margin: 'auto',
-};
-
-const startRecipe = {
-  position: 'fixed',
-  bottom: '0px',
-};
+import './recipesDetailsPage.css';
 
 export default function RecipesFoodsDetails(props) {
   const { match: { params: { id } } } = props;
@@ -30,12 +19,14 @@ export default function RecipesFoodsDetails(props) {
 
   useEffect(() => {
     const getMeal = async () => {
-      const results = await getMealByID(id);
-      console.log(results);
+      const result = await getMealByID(id);
       const drinkResults = await getCocktails('name', '');
-      setMeal(results);
+      const resultWithEmbedVideo = {
+        ...result,
+        strYoutube: `https://www.youtube.com/embed/${result.strYoutube.split('v=')[1]}`,
+      };
+      setMeal(resultWithEmbedVideo);
       const RECOMMENDED_DRINKS = 6;
-      console.log(drinkResults.drinks.slice(0, RECOMMENDED_DRINKS));
       setDrinkAlternate(drinkResults.drinks.slice(0, RECOMMENDED_DRINKS));
     };
 
@@ -91,14 +82,16 @@ export default function RecipesFoodsDetails(props) {
 
   function renderProgress() {
     if (alreadyDone()) {
-      return (<div>Receita já feita</div>);
+      return (
+        <span className="wrapper__buttons__realizedRecipe">
+          Receita já feita
+        </span>);
     }
-
     return (
       <Link
         to={ `/comidas/${id}/in-progress` }
         data-testid="start-recipe-btn"
-        style={ startRecipe }
+        className="wrapper__buttons__startRecipe"
       >
         { inProgress()
           ? 'Continuar Receita'
@@ -108,65 +101,119 @@ export default function RecipesFoodsDetails(props) {
   }
 
   return (
-    <div className="recipesPage__Container">
-      <h1>Detalhes das receitas de comida</h1>
-      <img
-        src={ meal.strMealThumb }
-        style={ mealPhoto }
-        alt=""
-        data-testid="recipe-photo"
-      />
-      <p data-testid="recipe-title">{ meal.strMeal }</p>
-      <p data-testid="recipe-category">{ meal.strCategory }</p>
-      {ingredients.map((ingredient, index) => (
-        <li
-          key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {ingredient}
-        </li>
-      ))}
-      <p data-testid="instructions">{ meal.strInstructions}</p>
-      <iframe
-        title="Youtube video"
-        width="200"
-        height="150"
-        src={ meal.strYoutube }
-        data-testid="video"
-      />
-      { isFavorite() ? (
-        <button type="button" onClick={ () => favoriteMeal() }>
-          <img
-            src={ blackHeartIcon }
-            data-testid="favorite-btn"
-            alt="blackHeartIcon"
-          />
-        </button>)
-        : (
-          <button type="button" onClick={ () => favoriteMeal() }>
-            <img
-              src={ whiteHeartIcon }
-              data-testid="favorite-btn"
-              alt="whiteHeartIcon"
-            />
-          </button>)}
-      <ShareButton id={ id } index={ 0 } type="comidas" />
-      <div>
-        {drinkAlternate.map((drink, index) => (
-          <div
-            key={ index }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <li
-              key={ index }
-              data-testid={ `${index}-recomendation-title` }
+    <div className="c-recipesDetails">
+      <header className="c-header">
+        <img
+          src={ meal.strMealThumb }
+          alt="recipe"
+          data-testid="recipe-photo"
+          className="c-banner"
+        />
+
+        <div className="c-info">
+          <div>
+            <h1
+              className="c-info__title"
+              data-testid="recipe-title"
             >
-              {drink.strDrink}
-            </li>
+              { meal.strMeal }
+            </h1>
+            <span
+              className="c-info__category"
+              data-testid="recipe-category"
+            >
+              { meal.strCategory }
+            </span>
           </div>
+
+          <div className="c-wrapper__icons">
+            { isFavorite() ? (
+              <button
+                type="button"
+                className="c-icons__blackHeartIcon"
+                onClick={ () => favoriteMeal() }
+              >
+                <img
+                  src={ blackHeartIcon }
+                  data-testid="favorite-btn"
+                  alt="blackHeartIcon"
+                />
+              </button>)
+              : (
+                <button
+                  type="button"
+                  className="c-icons__whiteHeartIcon"
+                  onClick={ () => favoriteMeal() }
+                >
+                  <img
+                    src={ whiteHeartIcon }
+                    data-testid="favorite-btn"
+                    alt="whiteHeartIcon"
+                  />
+                </button>)}
+
+            <ShareButton id={ id } index={ 0 } type="comidas" />
+          </div>
+        </div>
+      </header>
+
+      <div className="c-ingredients">
+        <h2 className="c-ingredients__title">Ingredients</h2>
+        {ingredients.map((ingredient, index) => (
+          <li
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {ingredient}
+          </li>
         ))}
       </div>
-      { renderProgress() }
+
+      <div className="c-instructions">
+        <h2 className="c-instructions__title">Instructions</h2>
+        <p data-testid="instructions">{ meal.strInstructions}</p>
+      </div>
+
+      <div className="c-video">
+        <iframe
+          title="Youtube video"
+          width="340"
+          height="160"
+          src={ meal.strYoutube }
+          data-testid="video"
+        />
+      </div>
+
+      <div className="c-drinkAlternative__wrapper">
+        <div className="c-drinkAlternative__cards">
+          {drinkAlternate.map((drink, index) => (
+            <div
+              key={ index }
+              data-testid={ `${index}-recomendation-card` }
+              className="c-drinkAlternative__card"
+            >
+              <img
+                src={ drink.strDrinkThumb }
+                alt="drink"
+                className="c-drinkAlternative__img"
+              />
+              <div className="c-drinkAlternative__wrapper__title">
+                <span>{drink.strAlcoholic}</span>
+                <span
+                  key={ index }
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  {drink.strDrink}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="c-wrapper__buttons">
+        { renderProgress() }
+      </div>
     </div>
   );
 }

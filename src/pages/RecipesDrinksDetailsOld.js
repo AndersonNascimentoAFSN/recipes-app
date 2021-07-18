@@ -12,9 +12,10 @@ import './recipesDetailsPage.css';
 
 export default function RecipesDrinksDetails(props) {
   const { match: { params: { id } } } = props;
-  const { doneRecipes, favorites, setFavorites,
-  } = useContext(RecipeContext);
+  const { doneRecipes, inProgressRecipes,
+    favoriteRecipes, setFavoriteRecipes } = useContext(RecipeContext);
   const [drink, setDrink] = useState([]);
+  const [favorite, setFavorite] = useState(false);
   const [mealAlternate, setMealAlternate] = useState([]);
 
   useEffect(() => {
@@ -26,16 +27,17 @@ export default function RecipesDrinksDetails(props) {
       setMealAlternate(mealResults.meals.slice(0, RECOMMENDED_MEALS));
     };
 
-    getDrink();
-  }, []);
+    const isFavorite = () => {
+      let favoriteFlag = false;
+      favoriteRecipes.forEach((recipe) => {
+        if (recipe.id === id) favoriteFlag = true;
+      });
+      return favoriteFlag;
+    };
 
-  function isFavorite() {
-    let favoriteFlag = false;
-    favorites.forEach((recipe) => {
-      if (recipe.id === id) favoriteFlag = true;
-    });
-    return favoriteFlag;
-  }
+    getDrink();
+    setFavorite(isFavorite());
+  }, [id, setDrink, setFavorite]);
 
   function alreadyDone() {
     let doneFlag = false;
@@ -45,32 +47,24 @@ export default function RecipesDrinksDetails(props) {
     return doneFlag;
   }
 
-  function inProgress() {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (inProgressRecipes) return inProgressRecipes.cocktails[id] !== undefined;
-    return false;
+  function addFavorite() {
+    const newFavoriteRecipes = [...favoriteRecipes, drink];
+    setFavoriteRecipes(newFavoriteRecipes);
+    setFavorite(true);
   }
 
-  function favoriteMeal() {
-    if (isFavorite()) {
-      setFavorites(
-        favorites.filter((fav) => fav.id !== drink.idDrink),
-      );
-      return;
+  function removeFavorite() {
+    const newFavoriteRecipes = favoriteRecipes.filter((recipe) => recipe.id !== id);
+    setFavoriteRecipes(newFavoriteRecipes);
+    setFavorite(false);
+  }
+
+  function inProgress() {
+    let progressFlag = false;
+    if (inProgressRecipes.length !== 0) {
+      progressFlag = (inProgressRecipes.cocktails[id] !== null);
     }
-    const newFavorite = {
-      id: drink.idDrink,
-      type: 'bebida',
-      area: '',
-      category: drink.strCategory,
-      alcoholicOrNot: drink.strAlcoholic,
-      name: drink.strDrink,
-      image: drink.strDrinkThumb,
-    };
-    setFavorites([
-      ...favorites,
-      newFavorite,
-    ]);
+    return progressFlag;
   }
 
   function renderProgress() {
@@ -82,22 +76,31 @@ export default function RecipesDrinksDetails(props) {
           Receita já feita
         </div>);
     }
+    if (inProgress()) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="wrapper__buttons__continueRecipe"
+        >
+          Continuar Receita
+        </button>
+      );
+    }
     return (
       <Link
         to={ `/bebidas/${id}/in-progress` }
         data-testid="start-recipe-btn"
         className="wrapper__buttons__startRecipe"
       >
-        { inProgress()
-          ? 'Continuar Receita'
-          : 'Iniciar Receita'}
+        Iniciar receita
       </Link>
     );
   }
 
   const NUMBER_OF_INGREDIENTS = 15;
   const ingredients = ingredientsMesure(drink, NUMBER_OF_INGREDIENTS);
-
+  console.log(favorite);
   return (
     <div className="c-recipesDetails">
       <header className="c-header">
@@ -125,11 +128,11 @@ export default function RecipesDrinksDetails(props) {
           </div>
 
           <div className="c-wrapper__icons">
-            { isFavorite() ? (
+            { favorite ? (
               <button
                 type="button"
                 className="c-icons__blackHeartIcon"
-                onClick={ () => favoriteMeal() }
+                onClick={ () => removeFavorite() }
               >
                 <img
                   src={ blackHeartIcon }
@@ -141,7 +144,7 @@ export default function RecipesDrinksDetails(props) {
                 <button
                   type="button"
                   className="c-icons__whiteHeartIcon"
-                  onClick={ () => favoriteMeal() }
+                  onClick={ () => addFavorite() }
                 >
                   <img
                     src={ whiteHeartIcon }
