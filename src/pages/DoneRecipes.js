@@ -27,7 +27,7 @@ export default function DoneRecipes() {
     default:
       setRecipesFiltered(doneRecipes);
     }
-  }, [setRecipesFiltered, filtersDone, doneRecipes]);
+  }, [filtersDone]);
 
   return (
     <div className="doneRecipes__container">

@@ -7,7 +7,7 @@ import useRecipesContext from '../hooks/useRecipesContext';
 import './favoritePagesContainer.css';
 
 export default function FavoriteRecipes() {
-  const { favoriteRecipes } = useRecipesContext();
+  const { favorites } = useRecipesContext();
   const { setFiltersFavorite, filtersFavorite } = useRecipesContext();
   const [recipesFiltered, setRecipesFiltered] = useState([]);
 
@@ -16,17 +16,17 @@ export default function FavoriteRecipes() {
     let filtered = [];
     switch (type) {
     case 'comida':
-      filtered = favoriteRecipes.filter((recipe) => recipe.type === 'comida');
+      filtered = favorites.filter((recipe) => recipe.type === 'comida');
       setRecipesFiltered(filtered);
       break;
     case 'bebida':
-      filtered = favoriteRecipes.filter((recipe) => recipe.type === 'bebida');
+      filtered = favorites.filter((recipe) => recipe.type === 'bebida');
       setRecipesFiltered(filtered);
       break;
     default:
-      setRecipesFiltered(favoriteRecipes);
+      setRecipesFiltered(favorites);
     }
-  }, [setRecipesFiltered, filtersFavorite, favoriteRecipes]);
+  }, [filtersFavorite, favorites]);
 
   const doneRecipesArray = [
     {
