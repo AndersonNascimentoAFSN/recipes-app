@@ -12,7 +12,7 @@ export default function FavoriteRecipeCardDrink(
     <div className="favoriteRecipesCard">
       <Link
         to={ `/bebidas/${id}` }
-        classname="favoriteRecipesCard__img__wrapper"
+        className="favoriteRecipesCard__img__wrapper"
       >
         <img
           src={ favoriteImg }

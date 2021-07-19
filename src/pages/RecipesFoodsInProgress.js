@@ -24,12 +24,11 @@ export default function RecipesFoodsInProgress() {
 
   useEffect(() => {
     async function fetchFood() {
-      console.log('ID:', id);
       const { meals } = await getMealById(id);
       setMeal(meals[0]);
     }
     fetchFood();
-  }, []);
+  }, [id]);
 
   function updateUsedIngredients(index, ingredient) {
     const label = document.getElementById(`${index}-ingredient-step`);

@@ -27,6 +27,9 @@ function RecipeProvider({ children }) {
     setInProgressRecipes] = useState(checkLocalStorage('inProgressRecipes'));
   const [doneRecipes, setDoneRecipes] = useState(checkLocalStorage('doneRecipes'));
 
+  const [loadingMeals, setLoadingMeals] = useState(false);
+  const [loadingDrinks, setLoadingDrinks] = useState(false);
+
   const buttonsInitialState = {
     buttonFilter0: false,
     buttonFilter1: false,
@@ -48,33 +51,41 @@ function RecipeProvider({ children }) {
   }, [doneRecipes]);
 
   async function fetchMeals() {
+    setLoadingMeals(true);
     const { parameter, search } = filters;
     const { meals } = await getMeals(parameter, search);
     if (meals === null) {
       global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       setFoodData([]);
+      setLoadingMeals(false);
       return;
     }
     if (meals.length > maxObjRetrieve) {
       setFoodData(meals.slice(0, maxObjRetrieve));
+      setLoadingMeals(false);
       return;
     }
     setFoodData(meals);
+    setLoadingMeals(false);
   }
 
   async function fetchCocktails() {
+    setLoadingDrinks(true);
     const { parameter, search } = filters;
     const { drinks } = await getCocktails(parameter, search);
     if (drinks === null) {
       global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       setDrinkData([]);
+      setLoadingDrinks(false);
       return;
     }
     if (drinks.length > maxObjRetrieve) {
       setDrinkData(drinks.slice(0, maxObjRetrieve));
+      setLoadingDrinks(false);
       return;
     }
     setDrinkData(drinks);
+    setLoadingDrinks(false);
   }
 
   const consumer = {
@@ -98,6 +109,8 @@ function RecipeProvider({ children }) {
     setFavorites,
     inProgressRecipes,
     setInProgressRecipes,
+    loadingMeals,
+    loadingDrinks,
   };
 
   return (

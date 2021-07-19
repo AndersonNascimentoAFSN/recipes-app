@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getCocktails, getMeals } from '../services/api';
+import './exploreButtons.css';
 
 export default function ExploreButtons({ type }) {
   const history = useHistory();
@@ -25,10 +26,11 @@ export default function ExploreButtons({ type }) {
   }
 
   return (
-    <div>
+    <div className="exploreButtons__container">
       <Link
         to={ `/explorar/${type}/ingredientes` }
         data-testid="explore-by-ingredient"
+        className="exploreButtons__button"
       >
         Por Ingredientes
       </Link>
@@ -37,6 +39,7 @@ export default function ExploreButtons({ type }) {
           <Link
             to={ `/explorar/${type}/area` }
             data-testid="explore-by-area"
+            className="exploreButtons__button"
           >
             Por Local de Origem
           </Link>
@@ -46,6 +49,7 @@ export default function ExploreButtons({ type }) {
         type="button"
         data-testid="explore-surprise"
         onClick={ handleSurprise }
+        className="exploreButtons__button"
       >
         Me Surpreenda!
       </button>

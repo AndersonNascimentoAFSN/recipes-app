@@ -8,20 +8,21 @@ import RecipeContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
 import RecipesCategoryFilters from '../components/RecipesCategoryFilters';
+import Loading from '../components/Loading';
 import './recipesPageContainer.css';
 
 export default function RecipesDrinks() {
-  const { filters, fetchCocktails, drinkData } = useContext(RecipeContext);
+  const { filters, fetchCocktails, drinkData, loadingDrinks } = useContext(RecipeContext);
   const { appData: { showHide } } = useSearchBarShowHide();
 
   useEffect(() => {
-    console.log(showHide);
-    if (showHide) {
-      document.querySelector('.recipeCards__container')
-        .classList.add('searchBarOpen');
-    } else {
-      document.querySelector('.recipeCards__container')
-        .classList.remove('searchBarOpen');
+    const recipesCardContainer = document.querySelector('.recipeCards__container');
+    if (recipesCardContainer) {
+      if (showHide) {
+        recipesCardContainer.classList.add('searchBarOpen');
+      } else {
+        recipesCardContainer.classList.remove('searchBarOpen');
+      }
     }
   }, [showHide]);
 
@@ -45,20 +46,24 @@ export default function RecipesDrinks() {
 
       <RecipesCategoryFilters typeRecipes="drinks" />
 
-      <div className="recipeCards__container">
-        {drinkData && drinkData.map((drink, index) => (
-          <Link
-            to={ `/bebidas/${drink.idDrink}` }
-            key={ index }
-          >
-            <RecipeCard
-              index={ index }
-              name={ drink.strDrink }
-              thumbnail={ drink.strDrinkThumb }
-            />
-          </Link>
-        ))}
-      </div>
+      {
+        loadingDrinks ? <Loading /> : (
+          <div className="recipeCards__container">
+            {drinkData && drinkData.map((drink, index) => (
+              <Link
+                to={ `/bebidas/${drink.idDrink}` }
+                key={ index }
+              >
+                <RecipeCard
+                  index={ index }
+                  name={ drink.strDrink }
+                  thumbnail={ drink.strDrinkThumb }
+                />
+              </Link>
+            ))}
+          </div>
+        )
+      }
 
       <Footer />
     </div>
