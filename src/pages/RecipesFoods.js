@@ -16,12 +16,11 @@ export default function RecipesFoods() {
   const { appData: { showHide } } = useSearchBarShowHide();
 
   useEffect(() => {
-    if (showHide) {
-      document.querySelector('.recipeCards__container')
-        .classList.add('searchBarOpen');
+    const recipesCardContainer = document.querySelector('.recipeCards__container');
+    if (showHide && recipesCardContainer) {
+      recipesCardContainer.classList.add('searchBarOpen');
     } else {
-      document.querySelector('.recipeCards__container')
-        .classList.remove('searchBarOpen');
+      recipesCardContainer.classList.remove('searchBarOpen');
     }
   }, [showHide]);
 
