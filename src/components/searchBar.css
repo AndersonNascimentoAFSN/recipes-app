@@ -35,8 +35,11 @@
 
 .searchBar__button {
   background: var(--complementary);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px 1px #e1e6e1;
   color: var(--contrast);
   font-size: 1.3em;
-  padding: 10px;
+  padding: 5px;
   width: 100px;
 }

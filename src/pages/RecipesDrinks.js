@@ -15,6 +15,17 @@ export default function RecipesDrinks() {
   const { appData: { showHide } } = useSearchBarShowHide();
 
   useEffect(() => {
+    console.log(showHide);
+    if (showHide) {
+      document.querySelector('.recipeCards__container')
+        .classList.add('searchBarOpen');
+    } else {
+      document.querySelector('.recipeCards__container')
+        .classList.remove('searchBarOpen');
+    }
+  }, [showHide]);
+
+  useEffect(() => {
     fetchCocktails();
   }, [filters]);
 
