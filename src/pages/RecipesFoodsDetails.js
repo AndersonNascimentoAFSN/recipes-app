@@ -7,6 +7,7 @@ import RecipeContext from '../context/RecipesContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
+import Loading from '../components/Loading';
 import './recipesDetailsPage.css';
 
 export default function RecipesFoodsDetails(props) {
@@ -14,11 +15,14 @@ export default function RecipesFoodsDetails(props) {
   const {
     doneRecipes, favorites, setFavorites,
   } = useContext(RecipeContext);
+
   const [meal, setMeal] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [drinkAlternate, setDrinkAlternate] = useState([]);
 
   useEffect(() => {
     const getMeal = async () => {
+      setLoading(true);
       const result = await getMealByID(id);
       const drinkResults = await getCocktails('name', '');
       const resultWithEmbedVideo = {
@@ -28,6 +32,7 @@ export default function RecipesFoodsDetails(props) {
       setMeal(resultWithEmbedVideo);
       const RECOMMENDED_DRINKS = 6;
       setDrinkAlternate(drinkResults.drinks.slice(0, RECOMMENDED_DRINKS));
+      setLoading(false);
     };
 
     getMeal();
@@ -101,120 +106,122 @@ export default function RecipesFoodsDetails(props) {
   }
 
   return (
-    <div className="c-recipesDetails">
-      <header className="c-header">
-        <img
-          src={ meal.strMealThumb }
-          alt="recipe"
-          data-testid="recipe-photo"
-          className="c-banner"
-        />
+    loading ? <Loading /> : (
+      <div className="c-recipesDetails">
+        <header className="c-header">
+          <img
+            src={ meal.strMealThumb }
+            alt="recipe"
+            data-testid="recipe-photo"
+            className="c-banner"
+          />
 
-        <div className="c-info">
-          <div>
-            <h1
-              className="c-info__title"
-              data-testid="recipe-title"
-            >
-              { meal.strMeal }
-            </h1>
-            <span
-              className="c-info__category"
-              data-testid="recipe-category"
-            >
-              { meal.strCategory }
-            </span>
-          </div>
-
-          <div className="c-wrapper__icons">
-            { isFavorite() ? (
-              <button
-                type="button"
-                className="c-icons__blackHeartIcon"
-                onClick={ () => favoriteMeal() }
+          <div className="c-info">
+            <div>
+              <h1
+                className="c-info__title"
+                data-testid="recipe-title"
               >
-                <img
-                  src={ blackHeartIcon }
-                  data-testid="favorite-btn"
-                  alt="blackHeartIcon"
-                />
-              </button>)
-              : (
+                { meal.strMeal }
+              </h1>
+              <span
+                className="c-info__category"
+                data-testid="recipe-category"
+              >
+                { meal.strCategory }
+              </span>
+            </div>
+
+            <div className="c-wrapper__icons">
+              { isFavorite() ? (
                 <button
                   type="button"
-                  className="c-icons__whiteHeartIcon"
+                  className="c-icons__blackHeartIcon"
                   onClick={ () => favoriteMeal() }
                 >
                   <img
-                    src={ whiteHeartIcon }
+                    src={ blackHeartIcon }
                     data-testid="favorite-btn"
-                    alt="whiteHeartIcon"
+                    alt="blackHeartIcon"
                   />
-                </button>)}
+                </button>)
+                : (
+                  <button
+                    type="button"
+                    className="c-icons__whiteHeartIcon"
+                    onClick={ () => favoriteMeal() }
+                  >
+                    <img
+                      src={ whiteHeartIcon }
+                      data-testid="favorite-btn"
+                      alt="whiteHeartIcon"
+                    />
+                  </button>)}
 
-            <ShareButton id={ id } index={ 0 } type="comidas" />
-          </div>
-        </div>
-      </header>
-
-      <div className="c-ingredients">
-        <h2 className="c-ingredients__title">Ingredients</h2>
-        {ingredients.map((ingredient, index) => (
-          <li
-            key={ index }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {ingredient}
-          </li>
-        ))}
-      </div>
-
-      <div className="c-instructions">
-        <h2 className="c-instructions__title">Instructions</h2>
-        <p data-testid="instructions">{ meal.strInstructions}</p>
-      </div>
-
-      <div className="c-video">
-        <iframe
-          title="Youtube video"
-          width="340"
-          height="160"
-          src={ meal.strYoutube }
-          data-testid="video"
-        />
-      </div>
-
-      <div className="c-drinkAlternative__wrapper">
-        <div className="c-drinkAlternative__cards">
-          {drinkAlternate.map((drink, index) => (
-            <div
-              key={ index }
-              data-testid={ `${index}-recomendation-card` }
-              className="c-drinkAlternative__card"
-            >
-              <img
-                src={ drink.strDrinkThumb }
-                alt="drink"
-                className="c-drinkAlternative__img"
-              />
-              <div className="c-drinkAlternative__wrapper__title">
-                <span>{drink.strAlcoholic}</span>
-                <span
-                  key={ index }
-                  data-testid={ `${index}-recomendation-title` }
-                >
-                  {drink.strDrink}
-                </span>
-              </div>
+              <ShareButton id={ id } index={ 0 } type="comidas" />
             </div>
+          </div>
+        </header>
+
+        <div className="c-ingredients">
+          <h2 className="c-ingredients__title">Ingredients</h2>
+          {ingredients.map((ingredient, index) => (
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {ingredient}
+            </li>
           ))}
         </div>
-      </div>
 
-      <div className="c-wrapper__buttons">
-        { renderProgress() }
+        <div className="c-instructions">
+          <h2 className="c-instructions__title">Instructions</h2>
+          <p data-testid="instructions">{ meal.strInstructions}</p>
+        </div>
+
+        <div className="c-video">
+          <iframe
+            title="Youtube video"
+            width="340"
+            height="160"
+            src={ meal.strYoutube }
+            data-testid="video"
+          />
+        </div>
+
+        <div className="c-drinkAlternative__wrapper">
+          <div className="c-drinkAlternative__cards">
+            {drinkAlternate.map((drink, index) => (
+              <div
+                key={ index }
+                data-testid={ `${index}-recomendation-card` }
+                className="c-drinkAlternative__card"
+              >
+                <img
+                  src={ drink.strDrinkThumb }
+                  alt="drink"
+                  className="c-drinkAlternative__img"
+                />
+                <div className="c-drinkAlternative__wrapper__title">
+                  <span>{drink.strAlcoholic}</span>
+                  <span
+                    key={ index }
+                    data-testid={ `${index}-recomendation-title` }
+                  >
+                    {drink.strDrink}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="c-wrapper__buttons">
+          { renderProgress() }
+        </div>
       </div>
-    </div>
+    )
   );
 }
 
