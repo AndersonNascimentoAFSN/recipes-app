@@ -17,7 +17,7 @@ export default function RecipesDrinks() {
 
   useEffect(() => {
     const recipesCardContainer = document.querySelector('.recipeCards__container');
-    if (recipesCardContainer && loadingDrinks) {
+    if (recipesCardContainer) {
       if (showHide) {
         recipesCardContainer.classList.add('searchBarOpen');
       } else {
