@@ -1,4 +1,4 @@
-.explorePage__Container {
+.explore__Container {
   height: 100vh;
   margin: 0 auto;
   max-width: 360px;
@@ -14,10 +14,10 @@
 }
 
 .explore__links {
-  background-color: #333;
-  color: white;
-  font-size: 1rem;
+  background-color: var(--contrast);
+  color: var(--complementary);
+  font-size: 1.25rem;
   padding: 20px;
   text-align: center;
-  width: 100%;
+  width: 80%;
 }

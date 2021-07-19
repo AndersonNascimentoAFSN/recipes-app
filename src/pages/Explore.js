@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import './explorePage.css';
+import './explore.css';
 
 export default function Explore() {
   return (
-    <div className="explorePage__Container">
+    <div className="explore__Container">
 
       <Header title="Explorar">
         <div />
