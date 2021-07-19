@@ -99,6 +99,7 @@
     box-shadow: 1px 1px 4px 1px #e1e6e1;
     color: var(--contrast);
     flex: none;
+    margin-bottom: 20px;
     scroll-snap-align: start;
     width: calc(50% - 10px);
   }
