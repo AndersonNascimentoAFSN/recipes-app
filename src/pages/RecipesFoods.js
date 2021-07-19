@@ -17,10 +17,12 @@ export default function RecipesFoods() {
 
   useEffect(() => {
     const recipesCardContainer = document.querySelector('.recipeCards__container');
-    if (showHide && recipesCardContainer) {
-      recipesCardContainer.classList.add('searchBarOpen');
-    } else {
-      recipesCardContainer.classList.remove('searchBarOpen');
+    if (recipesCardContainer && loadingMeals) {
+      if (showHide) {
+        recipesCardContainer.classList.add('searchBarOpen');
+      } else {
+        recipesCardContainer.classList.remove('searchBarOpen');
+      }
     }
   }, [showHide]);
 
