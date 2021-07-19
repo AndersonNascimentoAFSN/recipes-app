@@ -1,0 +1,17 @@
+.exploreButtons__container {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin: 40px auto;
+}
+
+.exploreButtons__button {
+  background: var(--spotlight);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px 1px #e1e6e1;
+  color: var(--contrast);
+  max-width: 100px;
+  padding: 5px;
+  text-align: center;
+}
