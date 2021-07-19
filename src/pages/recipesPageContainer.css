@@ -14,3 +14,11 @@
   max-width: 360px;
   overflow-y: scroll;
 }
+
+.searchBarOpen {
+  max-height: calc(100vh - (50px + 60px + 60px + 32px + 128px));
+}
+
+/* .recipeCards__container  {
+
+} */
