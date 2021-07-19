@@ -8,6 +8,8 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from '../components/ShareButton';
 import Loading from '../components/Loading';
+import { alreadyDone, inProgress,
+  favoriteMeal, isFavorite } from '../utils/recipesDetailsPageFunctions';
 import './recipesDetailsPage.css';
 
 export default function RecipesFoodsDetails(props) {
@@ -36,57 +38,13 @@ export default function RecipesFoodsDetails(props) {
     };
 
     getMeal();
-  }, []);
+  }, [id]);
 
   const NUMBER_OF_INGREDIENTS = 15;
   const ingredients = ingredientsMesure(meal, NUMBER_OF_INGREDIENTS);
 
-  function isFavorite() {
-    let favoriteFlag = false;
-    favorites.forEach((recipe) => {
-      if (recipe.id === id) favoriteFlag = true;
-    });
-    return favoriteFlag;
-  }
-
-  function alreadyDone() {
-    let doneFlag = false;
-    doneRecipes.forEach((recipe) => {
-      if (recipe.id === id) doneFlag = true;
-    });
-    return doneFlag;
-  }
-
-  function inProgress() {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (inProgressRecipes) return inProgressRecipes.meals[id] !== undefined;
-    return false;
-  }
-
-  function favoriteMeal() {
-    if (isFavorite()) {
-      setFavorites(
-        favorites.filter((fav) => fav.id !== meal.idMeal),
-      );
-      return;
-    }
-    const newFavorite = {
-      id: meal.idMeal,
-      type: 'comida',
-      area: meal.strArea,
-      category: meal.strCategory,
-      alcoholicOrNot: '',
-      name: meal.strMeal,
-      image: meal.strMealThumb,
-    };
-    setFavorites([
-      ...favorites,
-      newFavorite,
-    ]);
-  }
-
   function renderProgress() {
-    if (alreadyDone()) {
+    if (alreadyDone(doneRecipes, id)) {
       return (
         <span className="wrapper__buttons__realizedRecipe">
           Receita já feita
@@ -98,7 +56,7 @@ export default function RecipesFoodsDetails(props) {
         data-testid="start-recipe-btn"
         className="wrapper__buttons__startRecipe"
       >
-        { inProgress()
+        { inProgress(id, 'food')
           ? 'Continuar Receita'
           : 'Iniciar Receita'}
       </Link>
@@ -133,11 +91,11 @@ export default function RecipesFoodsDetails(props) {
             </div>
 
             <div className="c-wrapper__icons">
-              { isFavorite() ? (
+              { isFavorite(favorites, id) ? (
                 <button
                   type="button"
                   className="c-icons__blackHeartIcon"
-                  onClick={ () => favoriteMeal() }
+                  onClick={ () => favoriteMeal(favorites, id, setFavorites, meal) }
                 >
                   <img
                     src={ blackHeartIcon }
@@ -149,7 +107,7 @@ export default function RecipesFoodsDetails(props) {
                   <button
                     type="button"
                     className="c-icons__whiteHeartIcon"
-                    onClick={ () => favoriteMeal() }
+                    onClick={ () => favoriteMeal(favorites, id, setFavorites, meal) }
                   >
                     <img
                       src={ whiteHeartIcon }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import ButtonSearch from '../components/ButtonSearch';
