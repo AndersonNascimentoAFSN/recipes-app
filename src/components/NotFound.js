@@ -1,9 +1,15 @@
 import React from 'react';
+import notFound from '../images/notFound.png';
+
+import './notFound.css';
 
 function NotFound() {
   return (
-    <div className="notFound-page">
-      <h1>ERROR 404</h1>
+    <div className="notFound_page">
+      <img
+        src={ notFound }
+        alt="Not found"
+      />
       <p>Not Found</p>
     </div>
   );
