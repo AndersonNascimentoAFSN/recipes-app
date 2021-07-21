@@ -7,9 +7,9 @@
 }
 
 .notFound_page img {
-  width: 240px;
-  object-fit: contain;
   margin-bottom: 25px;
+  object-fit: contain;
+  width: 240px;
 }
 
 .notFound_page p {
