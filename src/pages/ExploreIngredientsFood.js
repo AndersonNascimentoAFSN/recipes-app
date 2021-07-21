@@ -19,7 +19,7 @@ export default function ExploreIngredientsFood() {
     }
     fetchIngredients();
   }, []);
-  
+
   function handleNavigateToRecipesPage(ingredientName) {
     setFilters({
       parameter: 'ingredient',
@@ -29,17 +29,17 @@ export default function ExploreIngredientsFood() {
   }
 
   if (shouldRedirect) {
-    return <Redirect to="/comidas"/>;
+    return <Redirect to="/comidas" />;
   }
-  
+
   return (
     <div>
       <Header title="Explorar Ingredientes">
         <div />
       </Header>
-      { ingredients && ingredients.map(({strIngredient}, index) => (
+      { ingredients && ingredients.map(({ strIngredient }, index) => (
         <IngredientCard
-          key={ index }  
+          key={ index }
           index={ index }
           name={ strIngredient }
           thumbnail={

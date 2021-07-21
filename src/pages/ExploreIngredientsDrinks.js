@@ -19,7 +19,7 @@ export default function ExploreIngredientsDrinks() {
     }
     fetchIngredients();
   }, []);
-  
+
   function handleNavigateToRecipesPage(ingredientName) {
     setFilters({
       parameter: 'ingredient',
@@ -29,24 +29,28 @@ export default function ExploreIngredientsDrinks() {
   }
 
   if (shouldRedirect) {
-    return <Redirect to="/bebidas"/>;
+    return <Redirect to="/bebidas" />;
   }
-  
+
   return (
     <div>
       <Header title="Explorar Ingredientes">
         <div />
       </Header>
-      { ingredients && ingredients.map(({strIngredient1}, index) => (
-        <IngredientCard
-          key={ index }  
-          index={ index }
-          name={ strIngredient1 }
-          thumbnail={
-            `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png`
-          }
+      { ingredients && ingredients.map(({ strIngredient1 }, index) => (
+        <button
+          key={ index }
           onClick={ () => handleNavigateToRecipesPage(strIngredient1) }
-        />
+          type="button"
+        >
+          <IngredientCard
+            index={ index }
+            name={ strIngredient1 }
+            thumbnail={
+              `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png`
+            }
+          />
+        </button>
       )) }
       <Footer />
     </div>

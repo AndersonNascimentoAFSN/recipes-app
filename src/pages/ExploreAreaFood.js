@@ -13,21 +13,21 @@ export default function ExploreAreaFood() {
   const { appData: { showHide } } = useSearchBarShowHide();
   const maxObjRetrieve = 12;
   const [areaFilter, setArea] = useState('');
-  const [meals, setMeals] = useState();
+  const [foundRecipes, setMeals] = useState();
 
   useEffect(() => {
-    if(areaFilter === '') {
-      async function fetchAllFood() {
-        const { meals } = await getMeals('name');
-        setMeals(meals.slice(0, maxObjRetrieve));
-      }
-      fetchAllFood();
-      return;
+    async function fetchAllFood() {
+      const { meals } = await getMeals('name');
+      setMeals(meals.slice(0, maxObjRetrieve));
     }
     async function fetchMealByArea() {
       const url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${areaFilter}`;
       const { meals } = await ((await fetch(url)).json().then((data) => data));
       setMeals(meals.slice(0, maxObjRetrieve));
+    }
+    if (areaFilter === '') {
+      fetchAllFood();
+      return;
     }
     fetchMealByArea();
   }, [areaFilter]);
@@ -43,7 +43,7 @@ export default function ExploreAreaFood() {
         areaSetter={ setArea }
       />
       <div className="recipeCards__container">
-        {meals && meals.map((recipe, index) => (
+        {foundRecipes && foundRecipes.map((recipe, index) => (
           <Link
             to={ `/comidas/${recipe.idMeal}` }
             key={ index }

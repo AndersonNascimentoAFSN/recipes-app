@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { string, func } from 'prop-types';
 
 function DropdownFilter({ selectedArea, areaSetter }) {
-  const [ areaData, setAreaData ] = useState([]);
+  const [areaData, setAreaData] = useState([]);
 
   useEffect(() => {
     async function fetchAreaData() {
@@ -18,7 +19,7 @@ function DropdownFilter({ selectedArea, areaSetter }) {
       value={ selectedArea }
       onChange={ (e) => areaSetter(e.target.value) }
     >
-      { areaData && areaData.map(({strArea}, index) => (
+      { areaData && areaData.map(({ strArea }, index) => (
         <option
           key={ index }
           value={ strArea }
@@ -36,5 +37,10 @@ function DropdownFilter({ selectedArea, areaSetter }) {
     </select>
   );
 }
+
+DropdownFilter.propTypes = {
+  selectedArea: string.isRequired,
+  areaSetter: func.isRequired,
+};
 
 export default DropdownFilter;

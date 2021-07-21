@@ -98,11 +98,11 @@ export async function getIngredients(typeRecipes) {
   const mealsUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
   const drinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
   switch (typeRecipes) {
-    case 'meals':
-      return (await fetch(mealsUrl)).json();
-    case 'drinks':
-      return (await fetch(drinksUrl)).json();
-    default:
-      return '';
-    }
+  case 'meals':
+    return (await fetch(mealsUrl)).json();
+  case 'drinks':
+    return (await fetch(drinksUrl)).json();
+  default:
+    return '';
+  }
 }

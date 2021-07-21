@@ -40,7 +40,7 @@ function Routes() {
       <Route path="/explorar/comidas/area" component={ ExploreAreaFood } />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/" component={ Login } />
-      <Route path="/*" component={ NotFound }/>
+      <Route path="/*" component={ NotFound } />
     </Switch>
   );
 }

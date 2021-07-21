@@ -1,12 +1,12 @@
 import React from 'react';
+import { string, number } from 'prop-types';
 import './ingredientCard.css';
 
-function IngredientCard({ index, thumbnail, name, onClick }) {
+function IngredientCard({ index, thumbnail, name }) {
   return (
     <div
       data-testid={ `${index}-ingredient-card` }
       className="ingredientCard__container"
-      onClick={ onClick }
     >
       <img
         data-testid={ `${index}-card-img` }
@@ -25,5 +25,11 @@ function IngredientCard({ index, thumbnail, name, onClick }) {
     </div>
   );
 }
+
+IngredientCard.propTypes = {
+  index: number.isRequired,
+  thumbnail: string.isRequired,
+  name: string.isRequired,
+};
 
 export default IngredientCard;
