@@ -38,15 +38,19 @@ export default function ExploreIngredientsFood() {
         <div />
       </Header>
       { ingredients && ingredients.map(({ strIngredient }, index) => (
-        <IngredientCard
+        <button
           key={ index }
-          index={ index }
-          name={ strIngredient }
-          thumbnail={
-            `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`
-          }
           onClick={ () => handleNavigateToRecipesPage(strIngredient) }
-        />
+          type="button"
+        >
+          <IngredientCard
+            index={ index }
+            name={ strIngredient }
+            thumbnail={
+              `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`
+            }
+          />
+        </button>
       )) }
       <Footer />
     </div>
