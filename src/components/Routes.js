@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import DoneRecipes from '../pages/DoneRecipes';
 import Explore from '../pages/Explore';
-import ExploreAreaDrinks from '../pages/ExploreAreaDrinks';
 import ExploreAreaFood from '../pages/ExploreAreaFood';
 import ExploreDrinks from '../pages/ExploreDrinks';
 import ExploreFoods from '../pages/ExploreFoods';
