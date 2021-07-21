@@ -5,6 +5,7 @@ import RecipeContext from '../context/RecipesContext';
 import IngredientCard from '../components/IngredientCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import './exploreIngredients.css';
 
 export default function ExploreIngredientsFood() {
   const maxObjRetrieve = 12;
@@ -37,21 +38,25 @@ export default function ExploreIngredientsFood() {
       <Header title="Explorar Ingredientes">
         <div />
       </Header>
-      { ingredients && ingredients.map(({ strIngredient }, index) => (
-        <button
-          key={ index }
-          onClick={ () => handleNavigateToRecipesPage(strIngredient) }
-          type="button"
-        >
-          <IngredientCard
-            index={ index }
-            name={ strIngredient }
-            thumbnail={
-              `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`
-            }
-          />
-        </button>
-      )) }
+
+      <div className="exploreIngredientsCard__wrapper">
+        { ingredients && ingredients.map(({ strIngredient }, index) => (
+          <button
+            key={ index }
+            onClick={ () => handleNavigateToRecipesPage(strIngredient) }
+            type="button"
+            className="exploreIngredientsCard__wrapper_button"
+          >
+            <IngredientCard
+              index={ index }
+              name={ strIngredient }
+              thumbnail={
+                `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`
+              }
+            />
+          </button>
+        )) }
+      </div>
       <Footer />
     </div>
   );

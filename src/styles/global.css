@@ -11,6 +11,11 @@
   --complementary-light: #f6b24b;
 
   --white: white;
+
+  --font-primary: 'Roboto' , sans-serif;
+
+  --font-title: 'Montserrat' , sans-serif;
+
 }
 
 
@@ -55,6 +60,7 @@ aside, footer, header, menu, nav, section {
 
 body {
   background: var(--background);
+  font-family: var(--font-primary);
 
   /* background: #1b1612; */
   line-height: 1;

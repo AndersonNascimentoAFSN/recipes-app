@@ -5,6 +5,8 @@
   background: var(--background);
   color: var(--contrast);
   display: flex;
+  font-family: var(--font-title);
+  font-weight: 700;
   justify-content: space-between;
   margin: 0 auto;
   max-width: 360px;
