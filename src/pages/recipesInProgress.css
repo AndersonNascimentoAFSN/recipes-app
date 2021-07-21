@@ -1,7 +1,6 @@
 .recipes-in-progress-page {
   display: flex;
   flex-direction: column;
-  font-family: sans-serif;
 }
 
 .recipes-in-progress-page > img {
@@ -10,10 +9,11 @@
 
 .overflow-card {
   align-items: center;
-  background: white;
+  background: var(--background);
   border-radius: 50px;
   display: flex;
   flex-direction: row;
+  font-family: Dosis , sans-serif;
   height: 150px;
   justify-content: center;
   margin-top: -50px;
@@ -23,20 +23,21 @@
 
 .recipe__title {
   color: #eb9412;
-  font-size: 30px;
+  font-size: 36px;
   font-weight: 700;
-  width: 200px;
+  max-width: 190px;
+  min-width: 100px;
 }
 
 .recipe-category {
   color: var(--complementary-light);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   margin-top: 10px;
 }
 
 .interact__buttons {
-  background: #eb9412;
+  background: transparent;
   border: none;
   border-radius: 50%;
   height: 50px;
@@ -51,31 +52,36 @@
 }
 
 .recipes-in-progress-page > h3 {
+  font-family: Ubuntu , sans-serif;
   font-size: 20px;
-  font-weight: 700;
-  margin-left: 10px;
+  font-weight: 400;
+  margin-left: 15px;
   margin-top: 25px;
 }
 
 .ingredient-items-list {
-  display: grid;
+  background: var(--spotlight);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  grid-template-columns: repeat(2, 47%);
   margin: 20px 0;
-  max-width: 100%;
+  margin-left: 15px;
+  max-width: 90%;
+  padding: 10px 5px;
 }
 
 .ingredient-items-list label {
-  background: var(--spotlight);
-  border-radius: 5px;
   color: var(--white);
+  display: flex;
+  font-family: Dosis , sans-serif;
   font-weight: 700;
+  gap: 10px;
   padding: 5px;
   width: 100%;
 }
 
 .ingredient-items-list input {
-  margin-left: 5px;
   transform: rotate(0) scale(1.5);
   transition: all 0.4s;
 }
@@ -86,8 +92,11 @@
 }
 
 .recipe-instructions {
+  font-family: Ubuntu , sans-serif;
+  font-size: 14px;
+  margin-left: 15px;
   margin-top: 20px;
-  width: 95%;
+  width: 90%;
 }
 
 .finish-recipe__button {
@@ -96,10 +105,10 @@
   border: none;
   border-radius: 5px;
   color: white;
-  font-size: 24px;
+  font-family: Ubuntu , sans-serif;
   margin: 25px 0;
-  padding: 5px;
-  width: fit-content;
+  padding: 10px;
+  width: 50%;
 }
 
 .finish-recipe__button:disabled {
