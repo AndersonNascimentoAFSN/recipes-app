@@ -1,9 +1,11 @@
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_snackbar */
 .snackbar {
-  background-color: #333;
+  background-color: var(--spotlight);
   border-radius: 2px;
   color: white;
+  font-family: 'Dosis', sans-serif;
   font-size: 17px;
+  font-weight: 400;
   left: 50%;
   margin-left: -125px;
   min-width: 250px;
@@ -16,10 +18,20 @@
 }
 
 .snackbar.show {
+  transition: all .6s ease-in;
   animation: fadein 0.5s , fadeout 0.5s 2.5s;
   visibility: visible;
 }
 
+.snackbar.show .toast-progress-bar {
+  height: 5px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #ffffff;
+  animation: progress-animation 1.5s linear;
+}
+
 @keyframes fadein {
 
   from {
@@ -63,3 +75,11 @@
     opacity: 0;
     top: 0;}
 }
+
+@keyframes progress-animation{
+  0% { width: 100%; }
+  
+  100% { width: 0%}
+  
+}
+
