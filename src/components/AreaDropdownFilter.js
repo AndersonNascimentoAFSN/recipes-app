@@ -27,6 +27,12 @@ function DropdownFilter({ selectedArea, areaSetter }) {
           { strArea }
         </option>
       ))}
+      <option
+        value=""
+        data-testid="All-option"
+      >
+        All
+      </option>
     </select>
   );
 }

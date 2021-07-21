@@ -7,6 +7,7 @@ import useSearchBarShowHide from '../hooks/useSearchBarShowHide';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import DropdownFilter from '../components/AreaDropdownFilter';
+import { getMeals } from '../services/api';
 
 export default function ExploreAreaFood() {
   const { appData: { showHide } } = useSearchBarShowHide();
@@ -14,6 +15,14 @@ export default function ExploreAreaFood() {
   const [meals, setMeals] = useState();
 
   useEffect(() => {
+    if(areaFilter === '') {
+      async function fetchAllFood() {
+        const { meals } = await getMeals('name');
+        setMeals(meals);
+      }
+      fetchAllFood();
+      return;
+    }
     async function fetchMealByArea() {
       const url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${areaFilter}`;
       const { meals } = await ((await fetch(url)).json().then((data) => data));
