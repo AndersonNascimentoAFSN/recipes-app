@@ -1,0 +1,19 @@
+.exploreIngredients__container {
+  margin: 0 auto;
+  max-width: 360px;
+}
+
+.exploreIngredientsCard__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin: 20px auto;
+  max-height: calc(100vh - (50px + 60px + 20px));
+  max-width: 360px;
+  overflow-y: scroll;
+}
+
+.exploreIngredientsCard__wrapper_button {
+  border: none;
+}

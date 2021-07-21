@@ -8,9 +8,9 @@
   .c-header {
     background: var(--complementary);
     color: var(--contrast);
-    max-width: 100%;
     position: fixed;
     top: 0;
+    width: 100%;
   }
 
   .c-banner {
@@ -21,16 +21,21 @@
 
   .c-info {
     align-items: center;
+    border: 20px;
+    box-shadow: 1px 1px 4px 1px #e1e6e1;
     display: flex;
     justify-content: space-between;
     padding: 20px;
   }
 
   .c-info__title {
+    font-family: var(--font-title);
     font-size: 2rem;
+    font-weight: 600;
   }
 
   .c-info__category {
+    font-family: var(--font-title);
     font-size: 1.5rem;
   }
 
@@ -58,7 +63,9 @@
   }
 
   .c-ingredients__title, .c-instructions__title {
+    font-family: var(--font-title);
     font-size: 1.5em;
+    font-weight: 600;
     margin-bottom: 10px;
   }
 
