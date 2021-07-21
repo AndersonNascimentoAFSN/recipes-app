@@ -61,4 +61,9 @@
     text-align: center;
     width: 100%;
   }
+
+  .loginPage__button button:disabled {
+    background: rgb(223, 74, 20);
+    opacity: 0.8;
+  }
 }
