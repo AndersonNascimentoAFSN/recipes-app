@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import DoneRecipes from '../pages/DoneRecipes';
 import Explore from '../pages/Explore';
-import ExploreAreaDrinks from '../pages/ExploreAreaDrinks';
 import ExploreAreaFood from '../pages/ExploreAreaFood';
 import ExploreDrinks from '../pages/ExploreDrinks';
 import ExploreFoods from '../pages/ExploreFoods';
@@ -17,6 +16,7 @@ import RecipesDrinksInProgress from '../pages/RecipesDrinksInProgress';
 import RecipesFoods from '../pages/RecipesFoods';
 import RecipesFoodsDetails from '../pages/RecipesFoodsDetails';
 import RecipesFoodsInProgress from '../pages/RecipesFoodsInProgress';
+import NotFound from './NotFound';
 
 function Routes() {
   return (
@@ -38,9 +38,9 @@ function Routes() {
       />
       <Route path="/explorar/comidas/ingredientes" component={ ExploreIngredientsFood } />
       <Route path="/explorar/comidas/area" component={ ExploreAreaFood } />
-      <Route path="/explorar/bebidas/area" component={ ExploreAreaDrinks } />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/" component={ Login } />
+      <Route path="/*" component={ NotFound } />
     </Switch>
   );
 }

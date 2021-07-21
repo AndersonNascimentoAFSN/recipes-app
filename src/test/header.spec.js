@@ -12,7 +12,6 @@ import ExploreDrinks from '../pages/ExploreDrinks';
 import ExploreIngredientsFood from '../pages/ExploreIngredientsFood';
 import ExploreIngredientsDrinks from '../pages/ExploreIngredientsDrinks';
 import ExploreAreaFood from '../pages/ExploreAreaFood';
-import ExploreAreaDrinks from '../pages/ExploreAreaDrinks';
 import DoneRecipes from '../pages/DoneRecipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
 import RecipesFoodsDetails from '../pages/RecipesFoodsDetails';
@@ -143,10 +142,6 @@ describe('Testa o componente headers', () => {
 
   it('Header tela de explorar comidas por area', () => {
     hasHeader('explorar origem', <ExploreAreaFood />);
-  });
-
-  it('Header tela de explorar bebidas por area', () => {
-    hasHeader('explorar origem', <ExploreAreaDrinks />);
   });
 
   it('Header tela de receitas feitas', () => {

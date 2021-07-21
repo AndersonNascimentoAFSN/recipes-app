@@ -9,11 +9,9 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
   const [recipesCategories, setRecipesCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const {
-    setFilters, stateButtonsFilter,
+    setFilters, filters, stateButtonsFilter,
     setStateButtonsFilter,
   } = useRecipesContext();
-
-  // console.log(filters);
 
   useEffect(() => {
     getCategories(typeRecipes).then((data) => {
@@ -29,7 +27,7 @@ export default function RecipesCategoryFilters({ typeRecipes }) {
   useEffect(() => {
     const buttonsState = Object.values(stateButtonsFilter)
       .every((buttonState) => buttonState === false);
-    if (buttonsState) {
+    if (buttonsState && filters.parameter === 'category') {
       setFilters({ search: '', parameter: 'name' });
     }
   }, [stateButtonsFilter, setFilters]);
