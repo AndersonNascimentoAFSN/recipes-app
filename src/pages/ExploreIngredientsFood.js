@@ -42,7 +42,9 @@ export default function ExploreIngredientsFood() {
           key={ index }  
           index={ index }
           name={ strIngredient }
-          thumbnail={`https://www.themealdb.com/images/ingredients/${strIngredient}.png`}
+          thumbnail={
+            `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png`
+          }
           onClick={ () => handleNavigateToRecipesPage(strIngredient) }
         />
       )) }

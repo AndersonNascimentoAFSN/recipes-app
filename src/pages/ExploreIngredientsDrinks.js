@@ -42,7 +42,9 @@ export default function ExploreIngredientsDrinks() {
           key={ index }  
           index={ index }
           name={ strIngredient1 }
-          thumbnail={`https://www.thecocktaildb.com/images/ingredients/${strIngredient1}.png`}
+          thumbnail={
+            `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png`
+          }
           onClick={ () => handleNavigateToRecipesPage(strIngredient1) }
         />
       )) }
