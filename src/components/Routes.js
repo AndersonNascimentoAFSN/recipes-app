@@ -16,6 +16,7 @@ import RecipesDrinksInProgress from '../pages/RecipesDrinksInProgress';
 import RecipesFoods from '../pages/RecipesFoods';
 import RecipesFoodsDetails from '../pages/RecipesFoodsDetails';
 import RecipesFoodsInProgress from '../pages/RecipesFoodsInProgress';
+import NotFound from './NotFound';
 
 function Routes() {
   return (
@@ -39,6 +40,7 @@ function Routes() {
       <Route path="/explorar/comidas/area" component={ ExploreAreaFood } />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/" component={ Login } />
+      <Route path="/*" component={ NotFound }/>
     </Switch>
   );
 }
