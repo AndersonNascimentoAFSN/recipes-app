@@ -12,8 +12,8 @@
   background: var(--background);
   border-radius: 50px;
   display: flex;
-  font-family: 'Dosis', sans-serif;
   flex-direction: row;
+  font-family: Dosis , sans-serif;
   height: 150px;
   justify-content: center;
   margin-top: -50px;
@@ -52,7 +52,7 @@
 }
 
 .recipes-in-progress-page > h3 {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: Ubuntu , sans-serif;
   font-size: 20px;
   font-weight: 400;
   margin-left: 15px;
@@ -74,7 +74,7 @@
 .ingredient-items-list label {
   color: var(--white);
   display: flex;
-  font-family: 'Dosis', sans-serif;
+  font-family: Dosis , sans-serif;
   font-weight: 700;
   gap: 10px;
   padding: 5px;
@@ -92,7 +92,7 @@
 }
 
 .recipe-instructions {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: Ubuntu , sans-serif;
   font-size: 14px;
   margin-left: 15px;
   margin-top: 20px;
@@ -105,7 +105,7 @@
   border: none;
   border-radius: 5px;
   color: white;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: Ubuntu , sans-serif;
   margin: 25px 0;
   padding: 10px;
   width: 50%;

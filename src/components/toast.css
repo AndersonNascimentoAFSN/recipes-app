@@ -3,7 +3,7 @@
   background-color: var(--spotlight);
   border-radius: 2px;
   color: white;
-  font-family: 'Dosis', sans-serif;
+  font-family: Dosis , sans-serif;
   font-size: 17px;
   font-weight: 400;
   left: 50%;
@@ -18,29 +18,31 @@
 }
 
 .snackbar.show {
-  transition: all .6s ease-in;
   animation: fadein 0.5s , fadeout 0.5s 2.5s;
+  transition: all 0.6s ease-in;
   visibility: visible;
 }
 
 .snackbar.show .toast-progress-bar {
-  height: 5px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: #ffffff;
   animation: progress-animation 1.5s linear;
+  background-color: white;
+  bottom: 0;
+  height: 5px;
+  left: 0;
+  position: absolute;
 }
 
 @keyframes fadein {
 
   from {
     opacity: 0;
-    top: 0;}
+    top: 0;
+  }
 
   to {
     opacity: 1;
-    top: 30px;}
+    top: 30px;
+  }
 }
 
 @keyframes fadein {
@@ -73,13 +75,17 @@
 
   to {
     opacity: 0;
-    top: 0;}
+    top: 0;
+  }
 }
 
-@keyframes progress-animation{
-  0% { width: 100%; }
-  
-  100% { width: 0%}
-  
-}
+@keyframes progress-animation {
 
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0%;
+  }
+}
