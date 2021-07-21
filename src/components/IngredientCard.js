@@ -1,11 +1,12 @@
 import React from 'react';
 import './ingredientCard.css';
 
-function IngredientCard({ index, thumbnail, name }) {
+function IngredientCard({ index, thumbnail, name, onClick }) {
   return (
     <div
       data-testid={ `${index}-ingredient-card` }
       className="ingredientCard__container"
+      onClick={ onClick }
     >
       <img
         data-testid={ `${index}-card-img` }
