@@ -38,7 +38,6 @@ function Routes() {
       />
       <Route path="/explorar/comidas/ingredientes" component={ ExploreIngredientsFood } />
       <Route path="/explorar/comidas/area" component={ ExploreAreaFood } />
-      <Route path="/explorar/bebidas/area" component={ ExploreAreaDrinks } />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/" component={ Login } />
     </Switch>
