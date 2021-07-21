@@ -6,7 +6,7 @@ import { getMealById } from '../services/api';
 import verifyIngredientsInLocalStorage from '../utils/verifyIngredientsInLocalStorage';
 import prepareDoneRecipesObject from '../utils/prepareDoneRecipesObject';
 import checkIngredients from '../utils/checkIngredients';
-import { mapMealIngredients } from '../utils/mapIngredients';
+import mapIngredients from '../utils/mapIngredients';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -161,14 +161,13 @@ export default function RecipesFoodsInProgress() {
       </div>
       <h3> Ingredients </h3>
       <div className="ingredient-items-list">
-        { mapMealIngredients(meal).map((ingredient, index) => (
+        { mapIngredients(meal).map((ingredient, index) => (
           <label
             data-testid={ `${index}-ingredient-step` }
             id={ `${index}-ingredient-step` }
             key={ index }
             htmlFor={ `${ingredient}-check` }
           >
-            { ingredient }
             <input
               type="checkbox"
               checked={ verifyIngredientsInLocalStorage('meal', meal, ingredient, index) }
@@ -176,6 +175,7 @@ export default function RecipesFoodsInProgress() {
               className="ingredient-check"
               id={ `${ingredient}-check` }
             />
+            { ingredient }
           </label>
         ))}
       </div>
